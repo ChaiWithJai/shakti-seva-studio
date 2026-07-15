@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+dist/
+build/
+*.egg-info/
+.env
+.DS_Store
+.playwright-cli/
+output/
+traces/*.jsonl
+!traces/.gitkeep
+data/cache/

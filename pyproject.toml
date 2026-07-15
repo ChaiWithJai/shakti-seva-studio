@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "shaki-seva-studio"
+version = "0.1.0"
+description = "A governed Hermes experience for understanding NYC housing repair records"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.34,<1",
+  "websockets>=15,<16",
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx>=0.28,<1",
+  "pytest>=8.3,<9",
+]
+
+[project.scripts]
+shaki = "shaki_seva.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/shaki_seva"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

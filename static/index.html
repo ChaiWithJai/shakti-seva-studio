@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Understand NYC housing repair records with source-level governance.">
+  <title>Shaki Seva Studio</title>
+  <link rel="icon" href="/assets/shaki-seva-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to case workspace</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Shaki Seva Studio home">
+      <img src="/assets/shaki-seva-mark.svg" alt="" class="brand-mark">
+      <span><strong>Shaki Seva Studio</strong><small>Public records, treated with care.</small></span>
+    </a>
+    <div class="connection" id="connection" role="status" aria-live="polite">
+      <span class="connection-dot"></span><span id="connection-label">Connecting locally</span>
+    </div>
+  </header>
+
+  <main id="workspace" class="workspace">
+    <aside class="case-panel" aria-labelledby="case-start-title">
+      <p class="eyebrow">Repair Loop NYC</p>
+      <h1 id="case-start-title">See what the City record says.</h1>
+      <p class="lead">Build a sourced timeline from public HPD records, then ask Hermes for a plain-language explanation.</p>
+
+      <div class="outcomes" aria-label="What Shaki provides">
+        <div><strong>One building</strong><span>Confirmed before records join.</span></div>
+        <div><strong>One timeline</strong><span>Complaints and violations stay distinct.</span></div>
+        <div><strong>One next step</strong><span>Selected by code, not the model.</span></div>
+      </div>
+
+      <form id="case-form" class="case-form" novalidate>
+        <div class="field">
+          <label for="borough">Borough</label>
+          <select id="borough" name="borough" required>
+            <option value="">Choose a borough</option>
+            <option>BRONX</option><option>BROOKLYN</option><option>MANHATTAN</option><option>QUEENS</option><option>STATEN ISLAND</option>
+          </select>
+        </div>
+        <div class="address-row">
+          <div class="field"><label for="house-number">House number</label><input id="house-number" name="house_number" autocomplete="address-line1" maxlength="12" required></div>
+          <div class="field"><label for="street-name">Street name</label><input id="street-name" name="street_name" autocomplete="address-line1" maxlength="80" required></div>
+        </div>
+        <p class="field-help">Do not enter an apartment number, name, phone, or private message.</p>
+        <p id="form-error" class="field-error" role="alert"></p>
+        <button class="primary-button" type="submit">Build public record timeline</button>
+      </form>
+
+      <div class="fixture-box">
+        <div><strong>Start safely</strong><span>Use a synthetic Queens case with no resident data.</span></div>
+        <button id="fixture-button" class="secondary-button" type="button">Open governed fixture</button>
+      </div>
+
+      <details class="governance-note">
+        <summary>What is recorded?</summary>
+        <p>Dataset IDs, query hashes, row counts, transformations, routing, and model execution. Raw responses and resident free text are not retained.</p>
+      </details>
+    </aside>
+
+    <section class="studio" aria-labelledby="studio-title">
+      <header class="studio-heading">
+        <div><p class="eyebrow">Governed workspace</p><h2 id="studio-title">Case studio</h2></div>
+        <div class="runtime-pills">
+          <span class="pill" id="transport-pill">Socket checking</span>
+          <span class="pill" id="hermes-pill">Hermes checking</span>
+        </div>
+      </header>
+
+      <nav class="module-tabs" aria-label="Case workspace views" role="tablist">
+        <button id="tab-case" role="tab" aria-selected="true" aria-controls="panel-case" data-tab="case">Case</button>
+        <button id="tab-evidence" role="tab" aria-selected="false" aria-controls="panel-evidence" data-tab="evidence">Evidence</button>
+        <button id="tab-trace" role="tab" aria-selected="false" aria-controls="panel-trace" data-tab="trace">Trace <span id="trace-count">0</span></button>
+      </nav>
+
+      <div id="progress" class="progress" hidden role="status" aria-live="polite"><span class="spinner"></span><div><strong id="progress-title">Building the case</strong><p id="progress-detail">Treating source records before they enter the workspace.</p></div></div>
+      <div id="workspace-error" class="notice notice-error" hidden role="alert"></div>
+
+      <section id="panel-case" class="tab-panel" role="tabpanel" aria-labelledby="tab-case">
+        <div id="blank-state" class="blank-state">
+          <img src="/assets/shaki-seva-mark.svg" alt="">
+          <p class="eyebrow">No case loaded</p>
+          <h3>Begin with the governed fixture.</h3>
+          <p>It exercises the same normalization, routing, socket, and trace path without touching a resident record.</p>
+          <button class="text-button" type="button" data-open-fixture>Open the fixture →</button>
+        </div>
+
+        <div id="case-content" hidden>
+          <div class="case-identity">
+            <div><p class="eyebrow">Selected building</p><h3 id="building-address"></h3><p id="building-meta" class="muted"></p></div>
+            <div class="trace-identity"><span>Trace ID</span><code id="trace-id"></code></div>
+          </div>
+          <div class="stat-grid">
+            <article><strong id="complaint-count">0</strong><span>Complaint records shown</span></article>
+            <article><strong id="violation-count">0</strong><span>Open violations shown</span></article>
+            <article><strong id="open-count">0</strong><span>Open violations</span></article>
+            <article><strong id="aep-count">0</strong><span>AEP records</span></article>
+          </div>
+          <article class="next-step-card"><p class="eyebrow">Code-selected next step</p><h3 id="next-step-label"></h3><p id="next-step-reason"></p></article>
+          <section class="timeline-section"><div class="section-heading"><div><p class="eyebrow">Activity stream</p><h3>Repair record timeline</h3></div><span class="muted">Newest first</span></div><ol id="timeline" class="timeline"></ol></section>
+          <section class="hermes-card">
+            <div><p class="eyebrow">Optional language layer</p><h3>Ask Hermes to explain this packet</h3><p>Hermes receives curated public fields only. It cannot change the next step.</p></div>
+            <button id="hermes-button" class="primary-button" type="button" disabled>Hermes is off</button>
+          </section>
+          <article id="hermes-response" class="hermes-response" hidden><p class="eyebrow">Hermes explanation</p><div id="hermes-text"></div></article>
+        </div>
+      </section>
+
+      <section id="panel-evidence" class="tab-panel" role="tabpanel" aria-labelledby="tab-evidence" hidden>
+        <div class="section-heading"><div><p class="eyebrow">Provenance</p><h3>Evidence sources</h3></div><span class="muted">Official dataset identifiers</span></div>
+        <div id="source-list" class="source-list"><div class="blank-inline">Load a case to see its source receipts.</div></div>
+        <details class="field-contract"><summary>Fields allowed into Hermes</summary><p>Public identifiers, dates, category and status labels, violation class, public descriptions, building-level identifiers, and source freshness. Apartment numbers and resident details are removed.</p></details>
+      </section>
+
+      <section id="panel-trace" class="tab-panel" role="tabpanel" aria-labelledby="tab-trace" hidden>
+        <div class="section-heading"><div><p class="eyebrow">Accountability</p><h3>Hash-chained execution trace</h3></div><button id="copy-trace" class="secondary-button" type="button" disabled>Copy trace ID</button></div>
+        <ol id="trace-list" class="trace-list"><li class="blank-inline">Trace events appear here as the case moves through the data plane.</li></ol>
+      </section>
+    </section>
+  </main>
+
+  <footer>Prototype for public-interest technology research. Not legal advice. No complaint is filed from this interface.</footer>
+  <script src="/assets/app.js" defer></script>
+</body>
+</html>

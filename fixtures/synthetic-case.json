@@ -1,0 +1,47 @@
+{
+  "building": {
+    "buildingid": "9999999",
+    "boro": "QUEENS",
+    "housenumber": "10",
+    "streetname": "SAMPLE STREET",
+    "zip": "11101",
+    "bin": "4999999",
+    "block": "999",
+    "lot": "99"
+  },
+  "complaints": [
+    {
+      "received_date": "2026-01-12T09:30:00.000",
+      "complaint_id": "7000000",
+      "building_id": "9999999",
+      "major_category": "HEAT/HOT WATER",
+      "minor_category": "ENTIRE BUILDING",
+      "complaint_status": "CLOSE",
+      "problem_status": "CLOSE",
+      "problem_status_date": "2026-01-14T15:00:00.000",
+      "status_description": "The Department inspected the condition.",
+      "unique_key": "60000000",
+      "apartment": "4A"
+    }
+  ],
+  "violations": [
+    {
+      "violationid": "8000000",
+      "buildingid": "9999999",
+      "class": "C",
+      "inspectiondate": "2026-01-14T00:00:00.000",
+      "novdescription": "Provide adequate heat for the dwelling.",
+      "currentstatus": "VIOLATION OPEN",
+      "currentstatusdate": "2026-01-14T00:00:00.000",
+      "violationstatus": "Open",
+      "originalcorrectbydate": "2026-01-15T00:00:00.000",
+      "apartment": "4A"
+    }
+  ],
+  "aep": [],
+  "sources": [
+    {"name": "Synthetic HPD Buildings fixture", "dataset_id": "kj4p-ruqc", "fetched_at": "2026-07-14T00:00:00Z"},
+    {"name": "Synthetic HPD Complaints fixture", "dataset_id": "ygpa-z7cr", "fetched_at": "2026-07-14T00:00:00Z"},
+    {"name": "Synthetic HPD Violations fixture", "dataset_id": "wvxf-dwi5", "fetched_at": "2026-07-14T00:00:00Z"}
+  ]
+}
