@@ -1,4 +1,4 @@
-const state = { runtime: "unknown", socket: null, reconnectTimer: null, case: null, trace: [], traceId: null, hermes: null, pendingTraceId: null, selectedAddress: null, searchedAddress: null, suggestions: [], suggestionInput: "", suggestionStatus: "idle", suggestionTimer: null, suggestionController: null };
+const state = { runtime: "unknown", socket: null, reconnectTimer: null, case: null, trace: [], traceId: null, hermes: null, pendingTraceId: null, selectedAddress: null, searchedAddress: null, suggestions: [], activeSuggestion: -1, suggestionInput: "", suggestionStatus: "idle", suggestionTimer: null, suggestionController: null };
 let runtimeReady;
 const $ = (selector) => document.querySelector(selector);
 
@@ -159,7 +159,7 @@ function previewAddress() {
     } else if (state.suggestionStatus === "unavailable") {
       scope.innerHTML = `<strong>You can still search</strong> We will check this exact address across ${escapeHtml(parsed.scope)}.`;
     } else {
-      scope.innerHTML = `<strong>Next</strong> Choose a City suggestion when one appears, or search the exact address.`;
+      scope.innerHTML = `<strong>Next</strong> Choose the City suggestion that matches your building.`;
     }
     treatment.append(scope);
     if (parsed.unit) {
@@ -181,7 +181,23 @@ function closeSuggestions() {
   const list = $("#address-suggestions");
   list.hidden = true;
   list.replaceChildren();
+  state.activeSuggestion = -1;
   $("#address").setAttribute("aria-expanded", "false");
+  $("#address").removeAttribute("aria-activedescendant");
+}
+
+function setActiveSuggestion(index, focus = false) {
+  const options = [...$("#address-suggestions").querySelectorAll("button[role='option']")];
+  if (!options.length) return;
+  const next = (index + options.length) % options.length;
+  state.activeSuggestion = next;
+  for (const [optionIndex, option] of options.entries()) {
+    const active = optionIndex === next;
+    option.setAttribute("aria-selected", String(active));
+    option.classList.toggle("active", active);
+  }
+  $("#address").setAttribute("aria-activedescendant", options[next].id);
+  if (focus) options[next].focus();
 }
 
 function selectSuggestion(suggestion) {
@@ -217,20 +233,39 @@ function renderSuggestions(suggestions, inputValue) {
   }
   state.suggestions = suggestions;
   state.suggestionInput = inputValue;
-  for (const suggestion of suggestions) {
+  for (const [index, suggestion] of suggestions.entries()) {
     const button = element("button", "address-suggestion");
     button.type = "button";
+    button.id = `address-suggestion-${index}`;
     button.setAttribute("role", "option");
+    button.setAttribute("aria-selected", "false");
     button.append(
       element("strong", null, suggestion.label),
-      element("span", null, [suggestion.borough, suggestion.zip].filter(Boolean).join(" · ")),
+      element("span", null, [suggestion.borough, suggestion.zip, suggestion.bin ? `BIN ${suggestion.bin}` : ""].filter(Boolean).join(" · ")),
     );
     button.addEventListener("click", () => selectSuggestion(suggestion));
+    button.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        setActiveSuggestion(index + (event.key === "ArrowDown" ? 1 : -1), true);
+      }
+      if (event.key === "Enter") {
+        event.preventDefault();
+        selectSuggestion(suggestion);
+        $("#case-form").requestSubmit();
+      }
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeSuggestions();
+        $("#address").focus();
+      }
+    });
     list.append(button);
   }
-  list.append(element("div", "suggestion-credit", "Address suggestions from NYC GeoSearch"));
+  list.append(element("div", "suggestion-credit", "Official address suggestions from NYC GeoSearch. Choose one to lock the building match."));
   list.hidden = false;
   $("#address").setAttribute("aria-expanded", "true");
+  setActiveSuggestion(0);
 }
 
 async function requestSuggestions(value) {
@@ -350,7 +385,7 @@ function renderCandidates(candidates, message) {
     panel.hidden = true;
     $("#result").hidden = true;
     const error = $("#form-error");
-    error.textContent = "No NYC HPD building matched that exact address. Add the borough or ZIP, then choose a City suggestion if one appears.";
+    error.textContent = "We could not match that address to one HPD building. Add the borough or ZIP, then choose a City suggestion.";
     $("#address").setAttribute("aria-invalid", "true");
     $("#address").focus({ preventScroll: true });
     $("#case-form").scrollIntoView({ behavior: "smooth", block: "center" });
@@ -377,12 +412,15 @@ function renderCase() {
   const item = state.case;
   const building = item.building || {};
   const buildingAddress = `${building.housenumber || ""} ${titleCase(building.streetname || "")}, ${titleCase(building.boro || "")}`.trim();
-  $("#building-address").textContent = buildingAddress;
-  $("#building-meta").textContent = `HPD Building ${building.buildingid || "not available"} · ZIP ${building.zip || "not available"}`;
+  const searched = state.searchedAddress;
+  const addressesDiffer = Boolean(searched?.label && searched.label.toUpperCase() !== buildingAddress.toUpperCase());
+  $("#building-address").textContent = addressesDiffer ? searched.label : buildingAddress;
+  $("#building-meta").textContent = addressesDiffer
+    ? `City records filed under ${buildingAddress} · HPD Building ${building.buildingid || "not available"}`
+    : `HPD Building ${building.buildingid || "not available"} · ZIP ${building.zip || "not available"}`;
   const matchNote = $("#address-match-note");
   const primer = $("#address-primer");
-  const searched = state.searchedAddress;
-  if (searched?.label && searched.label.toUpperCase() !== buildingAddress.toUpperCase()) {
+  if (addressesDiffer) {
     const bin = building.bin || searched.bin || "not available";
     matchNote.textContent = `Address match: ${searched.label} and ${buildingAddress} share NYC BIN ${bin}.`;
     matchNote.hidden = true;
@@ -518,11 +556,14 @@ $("#address").addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeSuggestions();
   if (event.key === "Enter") {
     event.preventDefault();
+    if (!$("#address-suggestions").hidden && state.suggestions[state.activeSuggestion]) {
+      selectSuggestion(state.suggestions[state.activeSuggestion]);
+    }
     $("#case-form").requestSubmit();
   }
   if (event.key === "ArrowDown" && !$("#address-suggestions").hidden) {
-    const options = $("#address-suggestions").querySelectorAll("button");
-    if (options.length) { event.preventDefault(); options[0].focus(); }
+    event.preventDefault();
+    setActiveSuggestion(state.activeSuggestion < 0 ? 0 : state.activeSuggestion + 1, true);
   }
 });
 $("#case-form").addEventListener("submit", async (event) => {
@@ -542,8 +583,11 @@ $("#case-form").addEventListener("submit", async (event) => {
       let suggestions = state.suggestionInput === value ? state.suggestions : [];
       if (!suggestions.length) suggestions = await requestSuggestions(value);
       if (suggestions.length) {
-        selectSuggestion(suggestions[0]);
-        parsed = state.selectedAddress;
+        renderSuggestions(suggestions, value);
+        const error = $("#form-error");
+        error.textContent = "Choose the City address that matches your building. This keeps us from searching the wrong property.";
+        setActiveSuggestion(0, true);
+        return;
       } else {
         parsed = parseAddress(value);
       }
@@ -558,7 +602,10 @@ $("#case-form").addEventListener("submit", async (event) => {
     $("#address").focus();
   } finally {
     button.disabled = false;
-    button.textContent = "Search records";
+    const label = element("span", null, "Search City records");
+    const arrow = element("span", null, "→");
+    arrow.setAttribute("aria-hidden", "true");
+    button.replaceChildren(label, arrow);
   }
 });
 $("#edit-address").addEventListener("click", resetSearch);
