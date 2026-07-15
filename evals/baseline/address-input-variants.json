@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "kind": "live_geosearch_address_form_acceptance",
+  "observed_at": "2026-07-15",
+  "provider": "NYC GeoSearch",
+  "expected_bin": "1004529",
+  "passed": true,
+  "variants": [
+    {"form": "abbreviated", "entered": "700 E 9th St", "passed": true, "matched_rank": 1, "label": "700 EAST 9 STREET, New York, NY", "bin": "1004529", "borough": "Manhattan", "zip": "10009"},
+    {"form": "full_city_state_zip", "entered": "700 East 9th Street, New York, NY 10009", "passed": true, "matched_rank": 1, "label": "700 EAST 9 STREET, New York, NY", "bin": "1004529", "borough": "Manhattan", "zip": "10009"},
+    {"form": "punctuated_with_borough", "entered": "700 E. 9th St., Manhattan", "passed": true, "matched_rank": 1, "label": "700 EAST 9 STREET, New York, NY", "bin": "1004529", "borough": "Manhattan", "zip": "10009"},
+    {"form": "city_record_style", "entered": "700 EAST 9 STREET", "passed": true, "matched_rank": 1, "label": "700 EAST 9 STREET, New York, NY", "bin": "1004529", "borough": "Manhattan", "zip": "10009"}
+  ],
+  "limits": [
+    "This is a dated observation of a changing City service.",
+    "It verifies four forms of one address, not all New York City addresses.",
+    "Apartment suffix treatment is covered by private automated tests and is not published as lived-address evidence."
+  ]
+}

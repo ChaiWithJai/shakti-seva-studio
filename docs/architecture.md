@@ -2,7 +2,7 @@
 
 ## Decision
 
-Shaki Seva Studio uses a deterministic data plane and an optional generative
+Shakti Seva Studio uses a deterministic data plane and an optional generative
 explanation plane. The same case packet feeds the CLI, Hermes TUI workflow, and
 local web interface.
 
@@ -11,6 +11,7 @@ local web interface.
 ```text
 CLI or browser
   -> local FastAPI server
+     -> NYC GeoSearch autocomplete (browser flow only)
   -> WebSocket event channel
   -> case service
      -> Socrata client
@@ -48,9 +49,15 @@ network listener by default. The server rejects non-loopback bind requests,
 and the socket rejects browser handshakes whose `Origin` does not match the
 requested local host.
 
+The browser address picker calls the local `/api/address-suggestions` proxy
+after three characters. The proxy removes apartment identifiers, requests up to
+six NYC GeoSearch candidates, and returns five treated suggestions. Selecting a
+suggestion supplies its NYC BIN to the case service, avoiding a second fuzzy
+address interpretation. Autocomplete queries are not persisted or traced.
+
 ## Context policy
 
-The expected model window is 32K tokens. Shaki targets a much smaller case
+The expected model window is 32K tokens. Shakti targets a much smaller case
 packet so the interface remains useful under pressure:
 
 - instructions and tool schemas: up to 4K;
@@ -68,5 +75,6 @@ context.
 - Module Tabs for Case, Evidence, and Trace.
 - Activity Stream for the chronological repair record.
 - Progressive Disclosure for raw identifiers and governance details.
-- Input Feedback for address and connection state.
-- Blank Slate for a safe first-run fixture.
+- Forgiving Format for complete pasted addresses.
+- Autocomplete and Input Feedback for ranked, canonical NYC addresses.
+- Blank Slate behavior for an unresolved live address.

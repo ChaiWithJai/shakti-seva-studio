@@ -1,6 +1,6 @@
 import json
 
-from shaki_seva.cli import main
+from shakti_seva.cli import main
 
 
 def test_fixture_cli_writes_case_and_trace(capsys) -> None:

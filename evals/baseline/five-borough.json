@@ -1,0 +1,2486 @@
+{
+  "schema_version": "1.0",
+  "suite": "five_borough_live_smoke",
+  "generated_at": "2026-07-15T14:05:37.534393+00:00",
+  "claim": "A deterministic smoke sample, not a representative sample or usability study.",
+  "sources": {
+    "buildings": "kj4p-ruqc",
+    "address_points": "uf93-f8nk",
+    "building_points_fallback": "u9wf-3gbt",
+    "borough_boundaries": "gthc-hcne"
+  },
+  "sampling": {
+    "method": "Six active HPD buildings from each of five evenly spaced Building ID windows in each borough.",
+    "per_borough": 30,
+    "receipts": {
+      "BRONX": {
+        "eligible_buildings": 46307,
+        "offsets": [
+          0,
+          11575,
+          23150,
+          34726,
+          46301
+        ],
+        "window_response_hashes": [
+          "065a4761131624d66bfa70bf400b1854e4bfcc1cbf2dcc13ff4bd3750d41ab87",
+          "42c1514e19a485b6b8fd1bc2239bd854d0eab061dcf2417ce70501b5b8fc2772",
+          "d74f8240656158175c60b38dc53f1eaf63b51ef75b809c302e9276e288b87804",
+          "d3b7f1607f1c3bbf93760d9b3511a6fd0a9974673ec8b0ad15df54b7470710c9",
+          "12b69f166fec21f9336bfaaba2c06a0d77fd4703d419b514b06552bf20e58b3b"
+        ]
+      },
+      "BROOKLYN": {
+        "eligible_buildings": 139186,
+        "offsets": [
+          0,
+          34795,
+          69590,
+          104385,
+          139180
+        ],
+        "window_response_hashes": [
+          "540288eb247f4f23cb3019b09c4492018d47fd6bf8e1d4803673373463506f22",
+          "a81a6fcbcc42e9867b467ea9adeed6e7ee3c3960c6d1149c2e5d6bcedf488970",
+          "3d8f0463df3f9401994aabcfd12d2188cac69981f02a54ca06a70d7193e4073e",
+          "ed53482aa4fbcf301b81bc41cee2095bcc9d201a7c672a4e746b003e2fab6011",
+          "1f5bd6b9124fb13fd771b7d54802ae7afb6bac1b24dc1f86fa0acbf247464d65"
+        ]
+      },
+      "MANHATTAN": {
+        "eligible_buildings": 36210,
+        "offsets": [
+          0,
+          9051,
+          18102,
+          27153,
+          36204
+        ],
+        "window_response_hashes": [
+          "4ca3e5b385b2fe934a491cfdaeaffe2ab7776398f13ba5b16fa91d60496955b3",
+          "c7917af4110b6050419c05bff2794ec072579e1117691e045d029095df5f0ca1",
+          "0cfe60d1793f09ca16741bef80a15909df3ae97fec7819101f2dd4a2e85ffb1f",
+          "999257bebf8a512a07584afd478569e376d10b918e83e20e089cf94b0bc11ded",
+          "721f053e7156e7ab543575e4804711b6ec30d5ba9ccb94f838f8733e42d5a183"
+        ]
+      },
+      "QUEENS": {
+        "eligible_buildings": 110240,
+        "offsets": [
+          0,
+          27558,
+          55117,
+          82676,
+          110234
+        ],
+        "window_response_hashes": [
+          "5b84cb89eb74ada0dc1d4bdd5c8590898908e866a0f0a827f0575707cb0ac05c",
+          "c17b95ecf9d4b91736d2cda7f3d669e9eeebb2c76368895da3853c3d6bd4fde7",
+          "9eea3e223cdbb387a404c0a72accf7a1fc1debbce2cdada959baa0378773fec0",
+          "9731a3929b915a095895353c5905ee0c24db8430c361f8855212c493a28e7408",
+          "652b6f5b875631f5b416a7dee112520eacf0c21179af90d0562085ed056494c2"
+        ]
+      },
+      "STATEN ISLAND": {
+        "eligible_buildings": 20726,
+        "offsets": [
+          0,
+          5180,
+          10360,
+          15540,
+          20720
+        ],
+        "window_response_hashes": [
+          "d3efc65349d71ba52f203f5753d9484cc93849499456a0bed320ad7051e2f3b5",
+          "1e2b37f8e341210c087bc47672080d8387aed5746e531316206864ffa01860b5",
+          "1e5a979b0ce3766ae62bbc9618cc21092a8dd99779bbf31203347d9b7622bb67",
+          "714ae7dae9ea3f94c60337fbc68e18d87080072aff45c30aa8dbdfc61b761c2d",
+          "ff5ecba2e015c055f06d40345e3e248796a9a17d0342dd66c791ce53d01f97c1"
+        ]
+      }
+    }
+  },
+  "summary": {
+    "sampled": 150,
+    "passed": 150,
+    "failed": 0,
+    "traces_verified": 150,
+    "privacy_scans_passed": 150,
+    "cases_with_redaction": 79,
+    "map_points": 138,
+    "truncated_cases": 27,
+    "route_counts": {
+      "hpd_follow_up": 36,
+      "start_311": 35,
+      "track_complaint": 49,
+      "urgent_hpd_follow_up": 30
+    },
+    "borough_counts": {
+      "BRONX": 30,
+      "BROOKLYN": 30,
+      "MANHATTAN": 30,
+      "QUEENS": 30,
+      "STATEN ISLAND": 30
+    },
+    "packet_chars": {
+      "minimum": 1838,
+      "maximum": 30657,
+      "mean": 7697.0
+    }
+  },
+  "samples": [
+    {
+      "sample_id": "018f6afcc95c",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "6a1242325fb228b31efd93bf725959a8a9b6297e268765f3af00ab9a11c216ca"
+    },
+    {
+      "sample_id": "08cf3835e251",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.9,
+        40.818
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "499cef118280635ec74800ab241c82e5c6c35bbaca0150dd72a1d18c56443d02"
+    },
+    {
+      "sample_id": "0e92c77bb234",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.889,
+        40.852
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "04d5f1c21fd50e198453d2f7a9e5bdfe3c3459f3bb86c3f96d9ef606b9d1e30c"
+    },
+    {
+      "sample_id": "192abf5c13b2",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "84a3ae9b44df1d49e9ff3f1f36c68cd91d2bf9ad178d85977cb2a76451a80c78"
+    },
+    {
+      "sample_id": "2c60a0aac046",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.886,
+        40.867
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "a7bec7ea75e499182207b3f3da64bbe8307cfbd7d0209d741e066abdf8c1ab08"
+    },
+    {
+      "sample_id": "31c3651b6475",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.886,
+        40.867
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "67ca159d70fb2fc3a67c6de550d80493daddb39131a1ebe3bc4639031631c4a5"
+    },
+    {
+      "sample_id": "3627d294a1da",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.9,
+        40.819
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "7a6cc71b2260d94fd204bdfa5743076167a4e2e227444e22208448603ae7a056"
+    },
+    {
+      "sample_id": "37e4b2a8dcbe",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.889,
+        40.852
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "d164c7f408f86ea88fd5aa8c5b8e88c5d0ed8e2fe65a424e70d53adfbb4ec86d"
+    },
+    {
+      "sample_id": "49dc7c9cf9c1",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.786,
+        40.846
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "ae1a5c62965ca7062e6203129823eb0f4459781f56d3502a66feb0c545034275"
+    },
+    {
+      "sample_id": "55830720dd59",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.852,
+        40.84
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "52877062e4ad24c0dd3c3aec5fbce55e5006c33c917f9b308fa67ce938da8387"
+    },
+    {
+      "sample_id": "569efc3779e0",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.88,
+        40.845
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "d4f608fe2b79883e6ea4e39602929769030599bbfbe38b5d28d22027dd239d6e"
+    },
+    {
+      "sample_id": "6685669c8090",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.887,
+        40.867
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "bf2b552d0d058486108624ec9bbbb6dc738a259af4aff441ccff164a962ec1f2"
+    },
+    {
+      "sample_id": "6a3a4d4b97eb",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.889,
+        40.852
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "a990c881062e235fb7adb80f143d77f68cea1c3953ad3f108a90cd7bba199254"
+    },
+    {
+      "sample_id": "6fd8f3525e1f",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.887,
+        40.867
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "e3b18deeac5998db5d563b363341ea16e38e3c3d5400bac5bc4e90431a14f630"
+    },
+    {
+      "sample_id": "723a9f1778d8",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.901,
+        40.873
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "0970c030fb5266825c86c63156b4d2f921eff92f7703163ee6aa9b4188559512"
+    },
+    {
+      "sample_id": "7f0fe87abcea",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.848,
+        40.885
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "c959490d13a90656db488c8bf2affb0d55a1f774c88c05501ac96eff0078a444"
+    },
+    {
+      "sample_id": "8dca2ac6756a",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.9,
+        40.818
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "1b55e6c77583c4a022192e5543c54ef19494c512d86aff897536e967440c24fc"
+    },
+    {
+      "sample_id": "8e45b06b0fd8",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.883,
+        40.852
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "6f5a94681947d70b1fec7e72d1634ae82729ac2fe5d00acf5ab5ec146f69d3cf"
+    },
+    {
+      "sample_id": "902c86039840",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.9,
+        40.818
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "51ca109a40e6820f635f91030e68d38665d665aa1304e3a2ab67274ca31b855a"
+    },
+    {
+      "sample_id": "92437252ad0a",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.9,
+        40.818
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "149b42e975d19c1208580c60a74d689eb5f3fba07a0a71e6f1fa2b2692083b7a"
+    },
+    {
+      "sample_id": "928de50e56f2",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.88,
+        40.844
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "c604d1aadb810ebd6721016a8d854321925ae05461a6fec5b5fe185ebeaa04a7"
+    },
+    {
+      "sample_id": "9ef580044009",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.88,
+        40.845
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "98ccec88addfedc95f69720e2d3d36d28f27b1c3d6c9be3c9f2908b0a105dc4d"
+    },
+    {
+      "sample_id": "ab829e24ae4c",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.889,
+        40.852
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "99fcc13c80ed0d2aabab15c07a68e94016d0dc9dbe3f00546673ae26483dc197"
+    },
+    {
+      "sample_id": "ae79f134a86c",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.887,
+        40.867
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "5af51eff41056a155d45a54675bf1c7afcb390319396adeb2cede84df4962f93"
+    },
+    {
+      "sample_id": "c3eb0f7f93b1",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.88,
+        40.844
+      ],
+      "route": "hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "06cceebaf77ed3813e09e9f5a099e0cb51deaa970b12a49098e4edd77b4b7480"
+    },
+    {
+      "sample_id": "e15c396819a9",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.887,
+        40.867
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "47c27814db80d9dea7144824b647d983f8176b633e7e139bde98ba0928958c91"
+    },
+    {
+      "sample_id": "e3ed014c699b",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.854,
+        40.908
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "45c3f33517d155fe1fec608c3a3719893e7feff18d68ddb544629bdf0c8d4223"
+    },
+    {
+      "sample_id": "e62ea758bdb5",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.88,
+        40.844
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "fa418cc7ab875aa5ff094e27e9e3f3e7023e987b731c6f48b9eefe4d236c0bc6"
+    },
+    {
+      "sample_id": "f359132fe0cf",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.9,
+        40.819
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "e90f275af640e4f707157fbd1c890057ed8813802eb12326889b1697b60a33dc"
+    },
+    {
+      "sample_id": "f3e5a2adcbcb",
+      "borough": "BRONX",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.88,
+        40.845
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "4fac3e79db61624ce64e914ba6e704396d5c97483f69eadbc8b2fcda367da76d"
+    },
+    {
+      "sample_id": "130c792730c9",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.892,
+        40.678
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "3a0cc058f5d7a4043d2730d00ad858c5cd829d497096a95496e444f8478f981d"
+    },
+    {
+      "sample_id": "1935d6018cdd",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.019,
+        40.65
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "2e979a74fe59bbcdd6ea910cf5ae1c008e286227bdf5fdd0b2285f0b33927090"
+    },
+    {
+      "sample_id": "1ac60a01322d",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.034,
+        40.623
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "84e8d6f5bb400a6293564ef048546106827c7fe680245831b5b88ea25b9a6c44"
+    },
+    {
+      "sample_id": "2dfa9b1ad6e2",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.879,
+        40.673
+      ],
+      "route": "hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "65b831d5e16bfdc793b927587c53bb5a6d4710da49aab6a831f2c66dcfb711a2"
+    },
+    {
+      "sample_id": "324a82d58cd5",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.931,
+        40.653
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "531607d6c64bfcab13f711e5ea8627cd24fb9ab88a5e22cc86d13cf78182f53e"
+    },
+    {
+      "sample_id": "345529b672dc",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "d3a1c159c52c97d378b5755782405068e4b62f9a83fca92f553f18a92e372d6a"
+    },
+    {
+      "sample_id": "48b1068713a5",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.955,
+        40.681
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "fce30c96222210996235666eb76d9467e659754b4279f24947c3d8d605e11acf"
+    },
+    {
+      "sample_id": "4b233b77d478",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.016,
+        40.654
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "25b53d81fd2303ca219dd3ab6a4edc555b2609cc61fe5dc584ed145490e41eb3"
+    },
+    {
+      "sample_id": "534b6fe3caa0",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.955,
+        40.681
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "3318211ba731eb71294c2df32487e62ad5cc9de45899eca61f263a854d451777"
+    },
+    {
+      "sample_id": "5bc4d6fd75f2",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.955,
+        40.681
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "6f26a4ef1659b26b9d1e893dd3ef2cd52d0ef74a46f9da000ed776dea28dc9fc"
+    },
+    {
+      "sample_id": "617243fa0e59",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.035,
+        40.623
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "2b685ea7ceeb6e6a0dc0bfe6f84431e12ad794b542422ef9a9ee32f267e5bba5"
+    },
+    {
+      "sample_id": "693f15573491",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.88,
+        40.674
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "e41f67673d3189ed541f15e8e195c2554efc9ef5c517e7871e2b136a1b97a37b"
+    },
+    {
+      "sample_id": "6fe06cdd08d6",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.014,
+        40.654
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "b55677059c55d828ffb2babfa740d9635386f2283945b1057ed454dc8de790b7"
+    },
+    {
+      "sample_id": "729c8ee7f52a",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.88,
+        40.673
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "b5cb0a3bf6dac7ffe85f7e5c0a023daea927389d7112c77da2617f8e51482e2b"
+    },
+    {
+      "sample_id": "75580290d86f",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.017,
+        40.652
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "6ec24b044a7bb6e0ee557644bfcd01d4bad5b090e7c13d4e32d6b5f1741bd9dd"
+    },
+    {
+      "sample_id": "764ef1fdb37d",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.879,
+        40.673
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "70700443e98d4c39e79769edd3f727234543dfd36c89b71e14d806cec369ad88"
+    },
+    {
+      "sample_id": "778eb421ab33",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.88,
+        40.673
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "b3fdd535e6196b299f327c52292841286165cf390244266063486deb35e1c995"
+    },
+    {
+      "sample_id": "7b1017a76996",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.034,
+        40.623
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "bf874b3263f02b99d9680aaeee52d4065f09b10a5913b88721d02224c17c3271"
+    },
+    {
+      "sample_id": "8d036903977e",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.955,
+        40.681
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "90fbed2425d8d8655e14c53dc304fedc0a05ae6320c70597bea5645b7d1a4e5c"
+    },
+    {
+      "sample_id": "8d7e78dd95ce",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.98,
+        40.665
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "fe52cb63623d172efeea75b5bac6ea47bdd74e1b53faefb790c59121fabf4f4b"
+    },
+    {
+      "sample_id": "9a9fc4f672cf",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.955,
+        40.681
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "c440f70cdcc1c8b7202b37c472b39ba063a15efe654b2c2c8c06eb166212d82c"
+    },
+    {
+      "sample_id": "9cd0fc4b6707",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.982,
+        40.695
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "70b97f389e6c30d747644326620d7972d76ec6cfc335a4272142a953deb1a642"
+    },
+    {
+      "sample_id": "a4b160e2fe70",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.034,
+        40.622
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "5ccbbbc80704c891ed41c67bb9ee6c8a3e24e0090df94b21ac877c9cbc928b67"
+    },
+    {
+      "sample_id": "cce87483bce9",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.034,
+        40.622
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "ce5d942bb994c35d91d67b9c959db77bb1e5e483d8867275910ca0985166ebe2"
+    },
+    {
+      "sample_id": "d622ebae7682",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.017,
+        40.652
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "6ec4cbd915dc4a9fd38a3e07f0be8eb7fe87e0b2980b73baa32c782871ea057c"
+    },
+    {
+      "sample_id": "df8d4af62c4e",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "38bc987d8bad9b4a4e1a799816513ee8627e6f43da6f09317d29c96d0b1b9507"
+    },
+    {
+      "sample_id": "e075e0a6afdc",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.88,
+        40.673
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "2e755f4da34255ef4c01e0a85aeaa89463da414a3369b1a667074f6ff3bf34d2"
+    },
+    {
+      "sample_id": "e10c3540d8de",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "ae9166117c1d6ee2a679562f800f35d345c4a98ef24e6aa7cfdb286fca318d7f"
+    },
+    {
+      "sample_id": "f8b010dd821b",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.035,
+        40.621
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "874577646405be2b995039e4060edd045a0b4076afd3479e480a88b38acdeda0"
+    },
+    {
+      "sample_id": "fccaf62b58b9",
+      "borough": "BROOKLYN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.955,
+        40.681
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "243ce0a562667970b8895b48bb00306000d38ec3eb5f92bd4a5d51c0d88144d7"
+    },
+    {
+      "sample_id": "08f696b09798",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.986,
+        40.726
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "4b2dc88e70afdb4a05b17ee4ac56826b5513201d49795776dd66d2c15aed6b16"
+    },
+    {
+      "sample_id": "1b241e3e2853",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "6765b61800fe79ceea310f0253036969bc29caf19a6aca021a34bfb5e7767cc3"
+    },
+    {
+      "sample_id": "2513612e7836",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.963,
+        40.757
+      ],
+      "route": "hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "c432c99536a61a9790533aea22c4c17d2c2f89f23abe34b19d985f78d9258ef6"
+    },
+    {
+      "sample_id": "26601c7ae253",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.969,
+        40.764
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "f8b5aef2b51f227febb330e621dce97a8886d2c2b7e072c9d92ac9177f61a14e"
+    },
+    {
+      "sample_id": "2fd9d24623bf",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.968,
+        40.794
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "dc4b14c2812f75f3f41b2ac598fcfa03326bff3b014bad86d83cfa89ed512f51"
+    },
+    {
+      "sample_id": "3346fd8b41d7",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.98,
+        40.742
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "58beafe990c0b9b0a9f48cc75b4af525e5e53a92a8a68ec63bee319fa0f53ed7"
+    },
+    {
+      "sample_id": "36eace2f570e",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.969,
+        40.764
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "9dd2b3b93937d4b24777d5ee96490b97b76bd786c7b46e655e5bb7460b84548e"
+    },
+    {
+      "sample_id": "379ba8d6e4eb",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.947,
+        40.804
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "17aeff963fa25276b215529860d57d039ed894046931aa0166be5ae2f31fd829"
+    },
+    {
+      "sample_id": "46fdce6dfbfb",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.947,
+        40.803
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "07f988c28286b7bdc0712606ecc993efa24a7d17bf1530343dec89abd1607dc2"
+    },
+    {
+      "sample_id": "48a7a13ffbc6",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.97,
+        40.764
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "543837682edec2d255a6ecc169459742e2fc02dfd84563a4c27f43723d75fafe"
+    },
+    {
+      "sample_id": "50daadde6909",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.947,
+        40.803
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "903edb36ae15be81f6e49d1cd062931edc649e5898ba5ad0959a12cb8c612741"
+    },
+    {
+      "sample_id": "5428d414975a",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.991,
+        40.733
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "096fedd7bb3697b0f5908fa58f040b01da1ad3cebf37754e031d0c034d50d347"
+    },
+    {
+      "sample_id": "6f64c383f671",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "2829ff5134bcf26b96b441943b89ea00aa8233cff9eebb60f0d5b59d25df33ca"
+    },
+    {
+      "sample_id": "8841975cc122",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.979,
+        40.742
+      ],
+      "route": "hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "56b2d7ee57a4001cfd06a5c10d286c47c95d1d4b24858b39ef1619b40c88f9ae"
+    },
+    {
+      "sample_id": "a866f3002f31",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.969,
+        40.764
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "4c8b265b259fca2f83e656ac1245aa30e9a1a481f4b5308241f613d694c670a2"
+    },
+    {
+      "sample_id": "ad6e6b8a93f7",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.969,
+        40.763
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "39bc0326d64eb571b804493c21a2967335102e08960802bee71607d6206a63ee"
+    },
+    {
+      "sample_id": "b0199b2fe9e6",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.986,
+        40.726
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "40f5972b8906c1a4df5da3a128b74cf9e30eba942633b3b9e3693d575e69249f"
+    },
+    {
+      "sample_id": "b438c9d5d195",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.98,
+        40.742
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "160d55a8899ab125e999608bed38490670f30415612b0659d697efeaeb20317a"
+    },
+    {
+      "sample_id": "b9e7e2273948",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.979,
+        40.742
+      ],
+      "route": "track_complaint",
+      "truncated": true,
+      "trace_final_hash": "c04d32b2760c9b686115e672e7dbc93157cf2af13d22e3a4f3b8e19b7e94a807"
+    },
+    {
+      "sample_id": "bd468d195332",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.947,
+        40.803
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "e7cf266bebae6fc1ec721b8eb8ec07cefee9088fd9e446f931928f723815dbfa"
+    },
+    {
+      "sample_id": "c6143b085f9c",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.964,
+        40.757
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "260b2afb86df9fadadad33d6110e7461f1ad380147b6eea016ee2526dfa78848"
+    },
+    {
+      "sample_id": "c6bcfcd5768a",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.947,
+        40.804
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "d6030238cfdaa54b180a131b93713489f376a62d97df101a93968997a181920a"
+    },
+    {
+      "sample_id": "cf2d5082affe",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.98,
+        40.742
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "b237a81fc1f5f78a6d06d428e67497c95ac075e1c0038e25a9f6f9d51b20cf16"
+    },
+    {
+      "sample_id": "d7667c352f26",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.986,
+        40.727
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "9963deda90ce1232cda962ea96e298fcda7063d54cbc522dbb8ca9c85add2eb1"
+    },
+    {
+      "sample_id": "d8690e70d4ee",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.98,
+        40.742
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "d6db5f7cda7df1639795ea65ae475adaf5dcbf24492ad2c3f6560c4b3a207f6f"
+    },
+    {
+      "sample_id": "eb79076bc623",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "78be0262c5b7d75341dd75e2b09146817ec3b80fa28012b0546946c5fbc97661"
+    },
+    {
+      "sample_id": "f24ca33a8436",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.947,
+        40.804
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "e307ad098065a342e293e078025959623dc9df1196220bf603fcad16699e4b3c"
+    },
+    {
+      "sample_id": "f67a2f1e8f20",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.98,
+        40.749
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "9d304afcc97eceaf914ed2b138eaa5203613b23f93330ba89a31bd927939bba0"
+    },
+    {
+      "sample_id": "fc3c3812b96d",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.963,
+        40.758
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "053c2e5703ab29d19dd85348f66ee5193ed2c464af123d89f71d56fc1cb8267b"
+    },
+    {
+      "sample_id": "fdd3e2f81de1",
+      "borough": "MANHATTAN",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "a2f6c3e870bd094f7d7bb927f19f7c63249857cef44051aae756bce9e57bffab"
+    },
+    {
+      "sample_id": "01925ec0482c",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.802,
+        40.587
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "a9533cec33623caa963f6831f085047a27c760fc26bdb2ac0d818276fdd75d7b"
+    },
+    {
+      "sample_id": "0cc51f6e57f8",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.924,
+        40.754
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "8881d4e2521fbbd0b3b1698bd1d78cd46a59fa42bcd9a94ee2369e9b58465f8a"
+    },
+    {
+      "sample_id": "24c7e5979f43",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.829,
+        40.656
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "32dc0093e194b5f681f968efa389b4cb896e84677e429ae8225b3725e4e4b6a9"
+    },
+    {
+      "sample_id": "270af98ff1be",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.772,
+        40.718
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "c88711fc2cc7606eaf525c205f9daead9024bc01fed7b14013cf2aee69d5625b"
+    },
+    {
+      "sample_id": "2b3ec1911803",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.79,
+        40.698
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "9d46811b1f0c4d1eee713170b82af8d57a9b344ae6ded22c0218e26772a7177d"
+    },
+    {
+      "sample_id": "3971d1bf0d40",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.713,
+        40.735
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "c6484b83ba226521a289b672c51183622ce7d122d3eb3fb205ae8f03be108399"
+    },
+    {
+      "sample_id": "397457c40147",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.79,
+        40.698
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "fd18664f9c5a20b60a52c8168e561a089fab7175cc8698e2cf73b189cda8b9d9"
+    },
+    {
+      "sample_id": "4b0c005e7fae",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.777,
+        40.77
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "98fbf97d98c0ecd1e754c07b2ce8e3858e857e415f22f13689cf0c3bb6192eb8"
+    },
+    {
+      "sample_id": "4b5085265c7d",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.79,
+        40.698
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "fd33bf2c732c21c4f7cd8e7a350e977c9a98f81b1ea7378bf54a38d60437b8dd"
+    },
+    {
+      "sample_id": "56258d03e368",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.742,
+        40.635
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "0f17a563daf3b33ce8bd79665264c594671f5209c3b80150fafb565ef230db80"
+    },
+    {
+      "sample_id": "6fd52cbf15a1",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.865,
+        40.706
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "908bfebd130be856270456e396d9d7909fc0a85ba54fe581d547e45035aace5d"
+    },
+    {
+      "sample_id": "7ba932c19178",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.865,
+        40.705
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "57b5613e0aa9f369ffe32098586b2e95f8428814a7577c6b009048d3c1d2d9ba"
+    },
+    {
+      "sample_id": "7e4926d6a394",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.713,
+        40.734
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "b1ee6ee0e57d26501cefd43800e40049bef43ad3c88c813830c6f1ba7959ccaf"
+    },
+    {
+      "sample_id": "83b2b2de9be1",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.721,
+        40.755
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "244b98e37d07f084d0ce228538e5cf06363fc56f39a35aa37fc539b89270bba2"
+    },
+    {
+      "sample_id": "88b1babb0bee",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.713,
+        40.734
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "614622cf4ea464e1ce94d6b9478b901eb3d3a9863a39dccd41dc0a678dfcd6d1"
+    },
+    {
+      "sample_id": "98faec90335f",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.869,
+        40.721
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "4ad2ec534d51debc72b8f4382349426929d94e93449dc6e642ae0c2e36bffaed"
+    },
+    {
+      "sample_id": "9f977d484408",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.79,
+        40.698
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "a47ca1d74819e10e725fbc5b5084e46c7ce977cf4958552615d100093c909af1"
+    },
+    {
+      "sample_id": "b272e7c146a5",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.79,
+        40.698
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "10899830b938120274286ec94596d0528e33803cf59f841bee04ada707861ad7"
+    },
+    {
+      "sample_id": "bf8d1d0eec44",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.713,
+        40.735
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "8061c817dfe7ccc5e7b904af127fc913ac998bcbd58d144df1ffb66f3b1e2665"
+    },
+    {
+      "sample_id": "c3f55d04e691",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.791,
+        40.709
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "a5ef0b683279e32bd39ced4e5e22a69de498a549749dcca927aebd468b196135"
+    },
+    {
+      "sample_id": "c88222e60374",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.713,
+        40.734
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "19d39c4ad05c16471c7eae6c0295a446e57727fe106a7ed77d4f1bf11d9df3c5"
+    },
+    {
+      "sample_id": "ca6f24ee0987",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.83,
+        40.655
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "6d08edaf498bdb8fa8f51b383e32b26cf3915200b9c0843391385429c0cb88e9"
+    },
+    {
+      "sample_id": "cfef6d409152",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.936,
+        40.775
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "e1114fa55d530b3d46b255f9d259ffbf6ff44bcf02f4715b83e911376a4c5f81"
+    },
+    {
+      "sample_id": "d1ee51b2fe32",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.865,
+        40.705
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "511402726b39111af8f6d5d5b2f112a435bb971677ec83aa4dc90c88cf546464"
+    },
+    {
+      "sample_id": "dd2eeba2ac8f",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.869,
+        40.721
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "90a523bb506a85dbe05084926047129eb32a4f198688125d711ad6e3ba9bacd6"
+    },
+    {
+      "sample_id": "e0e6dadddd42",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.742,
+        40.635
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "e79de8ade6b29f2a2ae756d305d79ef95671f5aabb452b4422b305abd761a285"
+    },
+    {
+      "sample_id": "e22a18c87a37",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.713,
+        40.734
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "315ca8c7dca29af200922eb1dd2d995152623e4b0e438206434a6129bf78f21c"
+    },
+    {
+      "sample_id": "e399a91df0f8",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -73.865,
+        40.706
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "ca9d454f36485f65823e74b4363311e7de167a3c597931f53fb51af7108c5622"
+    },
+    {
+      "sample_id": "eca9b051d66d",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -73.742,
+        40.636
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "4806319e867cf74327149a2c51c68c9fae279080e4fedc9f13fd9eb3c1c2bd2e"
+    },
+    {
+      "sample_id": "ef2c480e78ed",
+      "borough": "QUEENS",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "fa1e193a80ad52d7f93d7d1af7d5f3af71394ee8ffeedae9cf9595aec8ecbe4e"
+    },
+    {
+      "sample_id": "0b540389b0a3",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.144,
+        40.565
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "6c442eab9e07cdd3e5b68972195c810ce0ad688b97a01f15688c9f53fca179b4"
+    },
+    {
+      "sample_id": "12a52a08dc6b",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.161,
+        40.561
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "e1216444227f111df6f4594ab0d04db82daba70942117c27ea2977de1951c2dd"
+    },
+    {
+      "sample_id": "1431af7d13ab",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.154,
+        40.586
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "be6a0d88e7d75eaa860d9141eda56b286d877a34d4d63aa6c92aa5879ead2dda"
+    },
+    {
+      "sample_id": "17c5301320cc",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.16,
+        40.593
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "8ad4f81bd30c2504b0420f38e19d5502f70131571a63d102ade9a553264ec851"
+    },
+    {
+      "sample_id": "1bb4adad46fd",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "30f273398b15224193e11a0e6dfa451c056be17830a37ce6156a3bd19b62a729"
+    },
+    {
+      "sample_id": "1e723a31d6fa",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.135,
+        40.64
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "0f77d11b4dc5e1497faf2898d34af825f1ba789bb6ee1c1fc5f6917056684be9"
+    },
+    {
+      "sample_id": "1f6997805eb7",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.101,
+        40.612
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "076efa05ea0eb0d8193d751e9527d5fa8bda29a2f485f0fef82c19d6cd3c827f"
+    },
+    {
+      "sample_id": "222e3facdeaa",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.144,
+        40.565
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "282a935f689b55b00cc04451121147839905a99abe89609cfef3b823ce65541b"
+    },
+    {
+      "sample_id": "31ac0a8d655c",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.087,
+        40.636
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "1e82f0d375c68d3d4a8e7d7cd880b722083db49fe42f9bfb9eb12a3d340c02de"
+    },
+    {
+      "sample_id": "3c9c0cfaf879",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.144,
+        40.564
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "b14c0f4cf50abc8259234cbb3490d9e17912020f2e5adfa5eb75afc9e8b9c86f"
+    },
+    {
+      "sample_id": "4112af82ad9c",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.144,
+        40.564
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "1d12f8767905e852cf8afcee00eb21c6d2ce54899c3557e6d3f0b9a966704ed5"
+    },
+    {
+      "sample_id": "44540665afe9",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.144,
+        40.564
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "f12c1802b543db11c4e71aee94232dfaab4e204c467afe732cb93dd7fb0ebcad"
+    },
+    {
+      "sample_id": "4b5ff4c355da",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.064,
+        40.614
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "3b966a35743c5b924560eadef3b581eb878136aeb4d21c383d2f70327b8accde"
+    },
+    {
+      "sample_id": "567ff7b9c71b",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.088,
+        40.636
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "72ec07d0b9b52a1a3aeb052fe30f25cf6c9d09b821e11433d9605bde58bcaebb"
+    },
+    {
+      "sample_id": "6b8fb0530d09",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.066,
+        40.615
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "48f83794093a7b5ccececf3a63e1f7ca64ba198a2f63fab5de894597f9d84e8e"
+    },
+    {
+      "sample_id": "74e54ce2cf47",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.087,
+        40.636
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "fd3eb54b8847adc37ef56c2d038d5d2483d6df33c1afdd61a82b4b0095273494"
+    },
+    {
+      "sample_id": "95855c6807f6",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.063,
+        40.614
+      ],
+      "route": "urgent_hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "726691b93eecde9bee2802cf011ce47b8f96df305b472424cafd651ec3058c88"
+    },
+    {
+      "sample_id": "97d7e6581455",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "b8e2b5335b7f7c6d1a3b271eb47587f2f8275bb209f8ac41ac7c40a7afbff499"
+    },
+    {
+      "sample_id": "98b2ab37dc3c",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.157,
+        40.554
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "c40840edf6c8340f1639b3d079c1d15b2617bf427cdd07d04b3c1540ed81f6bc"
+    },
+    {
+      "sample_id": "9d0e9a43983f",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.157,
+        40.634
+      ],
+      "route": "start_311",
+      "truncated": false,
+      "trace_final_hash": "4c1c40b76f69d0416b3e14c5138436eacc76199e3495615579e40cda3d37bd14"
+    },
+    {
+      "sample_id": "a3ff53fc3c77",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.064,
+        40.614
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "e04c2a497f80445c4f6abb17fe03fb03e019d5e39ee9c734f65734646c6d6fbb"
+    },
+    {
+      "sample_id": "ada9d07c124b",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.087,
+        40.636
+      ],
+      "route": "hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "c703b440cd1183672b6677610108a8d0f88ef7c4e29813be880cc784350a356d"
+    },
+    {
+      "sample_id": "b9c3d6d4cc94",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.16,
+        40.594
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "5ca46742ba6fc9d8ccadf60f8cc4859d165e55505286782e764c9e2d32cde7b2"
+    },
+    {
+      "sample_id": "df9a64670230",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": true,
+      "trace_events": 10,
+      "point": [
+        -74.088,
+        40.636
+      ],
+      "route": "hpd_follow_up",
+      "truncated": true,
+      "trace_final_hash": "fd2195d547a08ccb43cfe8b23430f0c9733ddc412321598dd8f68757cae51fbd"
+    },
+    {
+      "sample_id": "e01f6fdae48e",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.177,
+        40.563
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "3c37ea55f28ae24a42e8bf11fb716b138512b9e75bdb8359444738011f8e93c2"
+    },
+    {
+      "sample_id": "e5dd42fa018a",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.156,
+        40.55
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "7e81d233cd0e40636cdca81001d80d6161aa74f970d71dd96092428d566fecd6"
+    },
+    {
+      "sample_id": "ebc6b37aa0f2",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.16,
+        40.594
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "e8b348580d9e93fe8826233581e5e4856dca90543abe9b5305f8d13f312852b8"
+    },
+    {
+      "sample_id": "f1a8067afd64",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.177,
+        40.562
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "59e9ec670022f6658c01c191664fc8f214845cb0af84cbcb6189ef712c9a4d64"
+    },
+    {
+      "sample_id": "f1b608bdadb8",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.144,
+        40.564
+      ],
+      "route": "hpd_follow_up",
+      "truncated": false,
+      "trace_final_hash": "35b70bfbd0bb9c4fefac73ef137dbc96464f39ad6633bdec93c58b13aa238a6f"
+    },
+    {
+      "sample_id": "fabaa49a3d3a",
+      "borough": "STATEN ISLAND",
+      "status": "pass",
+      "trace_verified": true,
+      "privacy_scan_passed": true,
+      "redaction_applied": false,
+      "trace_events": 10,
+      "point": [
+        -74.088,
+        40.636
+      ],
+      "route": "track_complaint",
+      "truncated": false,
+      "trace_final_hash": "ae80ed26393110e3788c87b0774b5583c2e05414723386e102779cc5507d90e4"
+    }
+  ],
+  "local_report_hash": "2e85d8b93ceb38169719b384a2561b83ed4f5489e6b7ef51a2094644310444ea"
+}

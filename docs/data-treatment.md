@@ -43,6 +43,12 @@ Common street suffixes are expanded through a small reviewed table before the
 exact lookup. For example, `BLVD` becomes `BOULEVARD`. The model does not
 normalize or guess addresses.
 
+In the browser, NYC GeoSearch may suggest a canonical address and NYC BIN while
+the person types. Apartment identifiers are removed before that request. When a
+person chooses a suggestion, the HPD building lookup uses the selected BIN. If
+they do not choose one, the bounded deterministic parser and building-candidate
+confirmation remain available. The model does not participate in either path.
+
 ## Freshness and ambiguity
 
 Every visible source includes a retrieval time. Multiple building candidates

@@ -1,4 +1,4 @@
-"""Run the reproducible Shaki Seva Day 0 acceptance checks."""
+"""Run the reproducible Shakti Seva Day 0 acceptance checks."""
 
 from __future__ import annotations
 
@@ -25,11 +25,18 @@ from websockets.sync.client import connect
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL_PYTHON = ROOT / ".venv" / "bin" / "python"
 PYTHON = str(LOCAL_PYTHON if LOCAL_PYTHON.exists() else Path(sys.executable))
-LOCAL_SHAKI = ROOT / ".venv" / "bin" / "shaki"
-SHAKI = str(LOCAL_SHAKI if LOCAL_SHAKI.exists() else shutil.which("shaki") or "shaki")
+LOCAL_SHAKTI = ROOT / ".venv" / "bin" / "shakti"
+GLOBAL_SHAKTI = shutil.which("shakti")
+SHAKTI = (
+    (str(LOCAL_SHAKTI),)
+    if LOCAL_SHAKTI.exists()
+    else (GLOBAL_SHAKTI,)
+    if GLOBAL_SHAKTI
+    else (PYTHON, "-m", "shakti_seva.cli")
+)
 UNIT_PATTERNS = (
     re.compile(r"\bAPT\.?\s*[A-Z0-9-]+\b", re.IGNORECASE),
-    re.compile(r"\bUNIT\s*[#.]?\s*[A-Z0-9-]+\b", re.IGNORECASE),
+    re.compile(r"\bUNIT\s*[#.]?\s*(?!REDACTED\b)[A-Z0-9-]+\b", re.IGNORECASE),
     re.compile(r"LOCATED\s+AT\s+(?:APT|APARTMENT|UNIT)\b", re.IGNORECASE),
 )
 
@@ -52,21 +59,21 @@ def free_port() -> int:
         return int(server.getsockname()[1])
 
 
-def wait_for_health(port: int, timeout: float = 10) -> dict:
+def wait_for_endpoint(port: int, path: str, timeout: float = 10) -> dict:
     deadline = time.monotonic() + timeout
-    url = f"http://127.0.0.1:{port}/api/health"
+    url = f"http://127.0.0.1:{port}{path}"
     while time.monotonic() < deadline:
         try:
             with urllib.request.urlopen(url, timeout=1) as response:
                 return json.load(response)
         except Exception:
             time.sleep(0.1)
-    raise RuntimeError("loopback health endpoint did not become ready")
+    raise RuntimeError(f"loopback endpoint {path} did not become ready")
 
 
 def check_installed_command() -> str:
-    result = command(PYTHON, "-c", "import shaki_seva; print(shaki_seva.__file__)")
-    if result.returncode != 0 or "src/shaki_seva" not in result.stdout:
+    result = command(PYTHON, "-c", "import shakti_seva; print(shakti_seva.__file__)")
+    if result.returncode != 0 or "src/shakti_seva" not in result.stdout:
         raise RuntimeError(result.stderr.strip() or "editable package import failed")
     return result.stdout.strip()
 
@@ -79,7 +86,7 @@ def check_tests() -> str:
 
 
 def check_doctor() -> str:
-    result = command(SHAKI, "doctor")
+    result = command(*SHAKTI, "doctor")
     if result.returncode != 0:
         raise RuntimeError(result.stdout + result.stderr)
     report = json.loads(result.stdout)
@@ -89,7 +96,7 @@ def check_doctor() -> str:
 
 
 def check_interface(interface: str) -> str:
-    result = command(SHAKI, "hermes", f"--{interface}", "--print-command")
+    result = command(*SHAKTI, "hermes", f"--{interface}", "--print-command")
     if result.returncode != 0:
         raise RuntimeError(result.stderr)
     contract = json.loads(result.stdout)
@@ -103,7 +110,7 @@ def check_interface(interface: str) -> str:
 
 
 def check_fixture_and_trace() -> str:
-    result = command(SHAKI, "case", "--fixture")
+    result = command(*SHAKTI, "case", "--fixture")
     if result.returncode != 0:
         raise RuntimeError(result.stderr)
     report = json.loads(result.stdout)
@@ -114,7 +121,7 @@ def check_fixture_and_trace() -> str:
     if any(pattern.search(text) for pattern in UNIT_PATTERNS):
         raise RuntimeError("fixture packet contains a unit identifier")
     trace_path = Path(report["trace_path"])
-    verified = command(SHAKI, "trace", "verify", str(trace_path))
+    verified = command(*SHAKTI, "trace", "verify", str(trace_path))
     trace_path.unlink(missing_ok=True)
     if verified.returncode != 0:
         raise RuntimeError(verified.stdout + verified.stderr)
@@ -122,7 +129,7 @@ def check_fixture_and_trace() -> str:
 
 
 def check_public_bind_refused() -> str:
-    result = command(SHAKI, "serve", "--host", "0.0.0.0")
+    result = command(*SHAKTI, "serve", "--host", "0.0.0.0")
     if result.returncode == 0 or "loopback only" not in result.stderr:
         raise RuntimeError("public bind was not refused")
     return result.stderr.strip()
@@ -131,26 +138,26 @@ def check_public_bind_refused() -> str:
 def check_server_and_socket() -> str:
     port = free_port()
     process = subprocess.Popen(
-        [SHAKI, "serve", "--port", str(port)],
+        [*SHAKTI, "serve", "--port", str(port)],
         cwd=ROOT,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
     )
     try:
-        health = wait_for_health(port)
-        if health.get("status") != "ok" or not health.get("loopback_only"):
-            raise RuntimeError("health response did not preserve the loopback contract")
+        live = wait_for_endpoint(port, "/api/live")
+        if live != {"status": "ok", "check": "liveness", "loopback_only": True}:
+            raise RuntimeError("liveness response did not preserve the cheap loopback contract")
+        health = wait_for_endpoint(port, "/api/health")
+        if health.get("check") != "readiness" or not health.get("hermes", {}).get("ready"):
+            raise RuntimeError("readiness response did not confirm Hermes")
         with connect(f"ws://127.0.0.1:{port}/ws", origin=f"http://127.0.0.1:{port}") as websocket:
             ready = json.loads(websocket.recv(timeout=5))
-            websocket.send(json.dumps({"type": "fixture"}))
-            progress = json.loads(websocket.recv(timeout=5))
-            case = json.loads(websocket.recv(timeout=5))
-        if ready.get("type") != "connection" or progress.get("stage") != "curating":
-            raise RuntimeError("socket progress contract failed")
-        if case.get("type") != "case" or len(case.get("trace", [])) != 4:
-            raise RuntimeError("socket fixture or trace contract failed")
-        return "health ok; same-origin socket ready; fixture returned 4 trace events"
+            websocket.send(json.dumps({"type": "ping"}))
+            pong = json.loads(websocket.recv(timeout=5))
+        if ready.get("type") != "connection" or pong.get("type") != "pong":
+            raise RuntimeError("socket readiness contract failed")
+        return "cheap liveness ok; Hermes readiness ok; same-origin socket ready; public browser exposes no fixture path"
     finally:
         process.terminate()
         try:
@@ -163,10 +170,10 @@ def check_published_evidence() -> str:
     screenshots = ROOT / "docs" / "assets" / "screenshots"
     images = [
         screenshots / "hermes-tui.png",
-        screenshots / "web-case.png",
-        screenshots / "web-evidence.png",
-        screenshots / "web-trace.png",
-        ROOT / "docs" / "assets" / "shaki-seva-day0-poster.png",
+        screenshots / "web-live-start.png",
+        screenshots / "web-live-suggestion.png",
+        screenshots / "web-live-result.png",
+        screenshots / "web-live-sources-trace.png",
     ]
     dimensions: list[str] = []
     for path in images:
@@ -175,15 +182,79 @@ def check_published_evidence() -> str:
             raise RuntimeError(f"{path.name} is not a PNG")
         width, height = struct.unpack(">II", header[16:24])
         if width < 1000 or height < 700:
-            raise RuntimeError(f"{path.name} is too small for review")
+            if not path.name.startswith("web-live-") or width < 500 or height < 900:
+                raise RuntimeError(f"{path.name} is too small for review")
         dimensions.append(f"{path.name}={width}x{height}")
-    video = ROOT / "docs" / "assets" / "shaki-seva-day0.mp4"
-    if video.stat().st_size < 1_000_000 or video.read_bytes()[:12][4:8] != b"ftyp":
-        raise RuntimeError("the published demo is missing or malformed")
-    narration = ROOT / "demo" / "public" / "narration.wav"
-    if narration.stat().st_size < 1_000_000 or narration.read_bytes()[:4] != b"RIFF":
-        raise RuntimeError("the Liquid narration is missing or malformed")
-    return "; ".join(dimensions) + "; MP4 and WAV signatures valid"
+    gif = (ROOT / "docs" / "assets" / "web-live-flow.gif").read_bytes()
+    if gif[:6] not in {b"GIF87a", b"GIF89a"}:
+        raise RuntimeError("web-live-flow.gif is not a GIF")
+    gif_width, gif_height = struct.unpack("<HH", gif[6:10])
+    if (gif_width, gif_height) != (520, 969):
+        raise RuntimeError("web live flow GIF has unexpected dimensions")
+    map_text = (ROOT / "docs" / "assets" / "five-borough-eval-map.svg").read_text(encoding="utf-8")
+    if "<svg" not in map_text or "150 building level cases" not in map_text or ">138<" not in map_text:
+        raise RuntimeError("five borough map is missing the reviewed sample evidence")
+    live_report = json.loads((ROOT / "evals" / "baseline" / "five-borough.json").read_text(encoding="utf-8"))
+    summary = live_report["summary"]
+    expected = {
+        "sampled": 150,
+        "passed": 150,
+        "traces_verified": 150,
+        "privacy_scans_passed": 150,
+        "cases_with_redaction": 79,
+        "map_points": 138,
+    }
+    if any(summary.get(key) != value for key, value in expected.items()):
+        raise RuntimeError("five borough baseline does not match the reviewed public claims")
+    address_report = json.loads(
+        (ROOT / "evals" / "baseline" / "live-address.json").read_text(encoding="utf-8")
+    )
+    if address_report.get("typed_address") != "700 E 9th Street, Manhattan":
+        raise RuntimeError("live address baseline is missing the reviewed browser input")
+    if address_report.get("geosearch_match", {}).get("bin") != "1004529":
+        raise RuntimeError("live address baseline is missing the reviewed NYC BIN")
+    if address_report.get("hpd_match", {}).get("building_id") != "6533":
+        raise RuntimeError("live address baseline is missing the reviewed HPD join")
+    if address_report.get("displayed_records") != {
+        "complaints": 25,
+        "open_violations": 6,
+        "aep_records": 0,
+        "complaints_truncated": True,
+    }:
+        raise RuntimeError("live address baseline does not match the reviewed result totals")
+    source_ids = {source.get("id") for source in address_report.get("sources", [])}
+    if source_ids != {"kj4p-ruqc", "ygpa-z7cr", "wvxf-dwi5", "hcir-3275"}:
+        raise RuntimeError("live address baseline does not name all four reviewed City sources")
+    trace = address_report.get("trace", {})
+    if trace.get("events") != 13 or trace.get("verified") is not True:
+        raise RuntimeError("live address baseline is missing the verified trace result")
+    variants = json.loads(
+        (ROOT / "evals" / "baseline" / "address-input-variants.json").read_text(encoding="utf-8")
+    )
+    variant_rows = variants.get("variants", [])
+    if (
+        not variants.get("passed")
+        or len(variant_rows) != 4
+        or any(item.get("bin") != "1004529" or item.get("matched_rank") != 1 for item in variant_rows)
+    ):
+        raise RuntimeError("address input variants are missing four first-rank live matches")
+    profile = json.loads(
+        (ROOT / "evals" / "baseline" / "deployment-profile.json").read_text(encoding="utf-8")
+    )
+    if profile.get("web_process", {}).get("resident_memory_kb") != 47760:
+        raise RuntimeError("deployment profile is missing the reviewed web process memory")
+    if profile.get("verified_address_queries", {}).get("query_total_ms") != 1856.78:
+        raise RuntimeError("deployment profile is missing the reviewed live query timing")
+    if profile.get("case_pipeline_reference", {}).get("sampled") != 150:
+        raise RuntimeError("deployment profile is missing the reviewed pipeline sample count")
+    liveness = profile.get("liveness_route", {})
+    if liveness.get("samples") != 20 or liveness.get("duration_ms", {}).get("mean") != 0.631:
+        raise RuntimeError("deployment profile is missing the reviewed cheap liveness timing")
+    return (
+        "; ".join(dimensions)
+        + "; web-live-flow.gif=520x969; live address baseline valid; four address forms valid; deployment profile valid; five borough baseline valid; "
+        + "prerecorded videos excluded from evidence"
+    )
 
 
 def run_check(name: str, action: Callable[[], str]) -> Check:
@@ -199,7 +270,7 @@ def run_check(name: str, action: Callable[[], str]) -> Check:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run the Shaki Seva Day 0 evaluation")
+    parser = argparse.ArgumentParser(description="Run the Shakti Seva Day 0 evaluation")
     parser.add_argument("--output", type=Path, default=ROOT / "output" / "evals" / "day0.json")
     return parser.parse_args()
 

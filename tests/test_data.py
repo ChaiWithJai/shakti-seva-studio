@@ -1,18 +1,20 @@
 from pathlib import Path
+from urllib.error import HTTPError
 
 import pytest
 
-from shaki_seva.data import (
+from shakti_seva.data import (
     DATASETS,
     CaseService,
     DataError,
     QueryReceipt,
+    SocrataClient,
     deterministic_route,
     normalize_street_name,
     normalize_text,
     treat_public_description,
 )
-from shaki_seva.trace import TraceLedger, sha256_json
+from shakti_seva.trace import TraceLedger, sha256_json
 
 
 class FakeClient:
@@ -52,6 +54,15 @@ class FakeClient:
         return rows, receipt
 
 
+class RecordingFakeClient(FakeClient):
+    def __init__(self) -> None:
+        self.calls = []
+
+    def query(self, dataset_id, fields, predicate, *, order=None, limit=25):
+        self.calls.append((dataset_id, fields, predicate))
+        return super().query(dataset_id, fields, predicate, order=order, limit=limit)
+
+
 def test_case_service_drops_apartment_and_routes_class_c(tmp_path: Path) -> None:
     ledger = TraceLedger(tmp_path)
     service = CaseService(FakeClient(), ledger)
@@ -67,6 +78,7 @@ def test_case_service_drops_apartment_and_routes_class_c(tmp_path: Path) -> None
     assert {source["dataset_id"] for source in case["sources"]} == {
         DATASETS["complaints"], DATASETS["violations"], DATASETS["aep"]
     }
+    assert all(source["url"].startswith("https://data.cityofnewyork.us/d/") for source in case["sources"])
     assert [event["kind"] for event in ledger.events].count("query.completed") == 3
 
 
@@ -84,8 +96,55 @@ def test_address_normalization_is_bounded() -> None:
         normalize_text("street; DROP TABLE", field="street")
 
 
+def test_building_search_can_span_all_boroughs(tmp_path: Path) -> None:
+    client = RecordingFakeClient()
+    service = CaseService(client, TraceLedger(tmp_path))
+    service.resolve_building("", "900", "East 9th Street")
+    predicate = client.calls[0][2]
+    assert "upper(housenumber)='900'" in predicate
+    assert "upper(streetname)='EAST 9TH STREET'" in predicate
+    assert "upper(boro)" not in predicate
+
+
+def test_building_search_can_use_geosearch_bin(tmp_path: Path) -> None:
+    client = RecordingFakeClient()
+    service = CaseService(client, TraceLedger(tmp_path))
+    service.resolve_building_by_bin("1001026")
+    assert client.calls[0][2] == "bin='1001026'"
+
+
 def test_embedded_unit_identifiers_are_treated() -> None:
     assert treat_public_description("Repair sink AT APT. 6S") == "Repair sink AT [UNIT REDACTED]"
     assert treat_public_description("Repair sink located at apartment 12-B, second floor") == (
         "Repair sink [PRIVATE LOCATION REDACTED]"
     )
+
+
+def test_socrata_retries_a_temporary_server_error(monkeypatch) -> None:
+    calls = 0
+
+    class Response:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *unused):
+            return False
+
+        def read(self):
+            return b"[]"
+
+    def urlopen(request, timeout):
+        nonlocal calls
+        calls += 1
+        if calls == 1:
+            raise HTTPError(request.full_url, 500, "Server Error", {}, None)
+        return Response()
+
+    monkeypatch.setattr("shakti_seva.data.urllib.request.urlopen", urlopen)
+    monkeypatch.setattr("shakti_seva.data.time.sleep", lambda unused: None)
+
+    rows, receipt = SocrataClient().query(DATASETS["buildings"], ("buildingid",), "buildingid=1", limit=1)
+
+    assert rows == []
+    assert receipt.row_count == 0
+    assert calls == 2

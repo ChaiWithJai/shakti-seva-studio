@@ -12,7 +12,7 @@ Observed runtime:
 - local JSON-RPC/WebSocket endpoint at `/api/ws`
 - session source tags, session IDs, checkpoints, logs, and bounded turns
 
-`shaki doctor` repeats the executable and feature checks on the current
+`shakti doctor` repeats the executable and feature checks on the current
 machine. It also verifies that the trace directory is writable.
 
 The automated suite also runs the complete adapter against a controlled fake

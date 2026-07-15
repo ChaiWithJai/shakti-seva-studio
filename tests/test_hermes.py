@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from shaki_seva.hermes import HermesRuntime
-from shaki_seva.trace import TraceLedger
+from shakti_seva.hermes import HermesRuntime
+from shakti_seva.trace import TraceLedger
 
 
 FAKE_HERMES = '''#!/bin/sh
@@ -26,6 +26,7 @@ def test_hermes_runtime_validates_required_interfaces(tmp_path: Path, monkeypatc
     executable.write_text(FAKE_HERMES)
     executable.chmod(0o755)
     monkeypatch.setenv("PATH", f"{tmp_path}")
+    monkeypatch.delenv("SHAKTI_HERMES_ENABLED", raising=False)
     monkeypatch.delenv("SHAKI_HERMES_ENABLED", raising=False)
 
     runtime = HermesRuntime()
@@ -45,7 +46,7 @@ def test_hermes_adapter_runs_curated_packet_and_traces_it(tmp_path: Path, monkey
     executable.write_text(FAKE_HERMES)
     executable.chmod(0o755)
     monkeypatch.setenv("PATH", str(tmp_path))
-    monkeypatch.setenv("SHAKI_HERMES_ENABLED", "1")
+    monkeypatch.setenv("SHAKTI_HERMES_ENABLED", "1")
 
     ledger = TraceLedger(tmp_path / "traces")
     answer = HermesRuntime().run_case(

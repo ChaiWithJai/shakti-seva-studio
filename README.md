@@ -1,112 +1,216 @@
-# Shaki Seva Studio
+# Shakti Seva Studio
 
-Shaki Seva Studio helps a New Yorker understand what public City records say
-about a housing repair complaint. It joins a bounded set of NYC Open Data
-records, preserves their provenance, applies deterministic routing rules, and
-then lets Hermes explain the resulting case packet in plain language.
+Shakti helps a person check what New York City housing records say about one
+building. A person types an address in the form they already know. The app finds
+the City building record, loads selected public records, shows when each source
+was fetched, and keeps complaints separate from violations.
 
-This is an early public-interest technology prototype. It does not file a 311
-request, make an enforcement decision, score a landlord, or give legal advice.
+This repository documents the product decisions, interface design, engineering
+work, and evidence behind that flow. It is written for people who want to use
+technology for public work and want to show what their software actually does.
 
-## Why this architecture
+Shakti is a research prototype. It is not a City service. It does not file a
+complaint, give legal advice, score a landlord, or predict an agency action.
 
-The data plane and language plane are separate.
+## What works today
+
+A person can type a New York City address and press Enter. The browser requests
+ranked address suggestions from [NYC GeoSearch](https://geosearch.planninglabs.nyc/docs/).
+If there is a match, Shakti uses the selected NYC Building Identification Number
+to find the property in HPD data. This avoids a second guess about street names.
+
+The app then loads selected fields from these NYC Open Data sources:
+
+| Source | Dataset | Use |
+| --- | --- | --- |
+| [HPD Buildings](https://data.cityofnewyork.us/d/kj4p-ruqc) | `kj4p-ruqc` | Resolve the HPD Building ID and canonical property address |
+| [HPD Complaints and Problems](https://data.cityofnewyork.us/d/ygpa-z7cr) | `ygpa-z7cr` | Show complaint dates, categories, and public status text |
+| [Housing Maintenance Code Violations](https://data.cityofnewyork.us/d/wvxf-dwi5) | `wvxf-dwi5` | Show violation class, status, inspection date, and correction date |
+| [Alternative Enforcement Program Buildings](https://data.cityofnewyork.us/d/hcir-3275) | `hcir-3275` | Show whether the building appears in the selected enforcement dataset |
+
+Each result shows the dataset, fetch date, number of rows returned, public record
+identifiers, and a processing trace. The app removes apartment identifiers from
+the address before autocomplete. It also removes unit locations that appear in
+public description text before a case reaches the optional model.
+
+## One verified address
+
+On July 15, 2026, we typed this address and pressed Enter:
 
 ```text
-resident input
-  -> validated address or fixture
-  -> deterministic NYC Open Data queries
-  -> allowlisted fields and normalized records
-  -> deterministic next-step rule
-  -> hash-chained trace and curated case packet
-  -> optional Hermes explanation
-  -> CLI, Hermes TUI, or local web UI
+700 E 9th Street, Manhattan
 ```
 
-Hermes never receives raw dataset dumps. It receives a compact packet with
-source identifiers, freshness, observed statuses, and the next step selected
-by code.
+NYC GeoSearch returned `700 EAST 9 STREET, New York, NY` with NYC BIN
+`1004529`. HPD uses the corner address `140 Avenue C, Manhattan` for the same
+BIN. Shakti displayed that difference and loaded HPD Building `6533`.
 
-## Quick start
+The live result showed 25 complaints and 6 open violations. At least one open
+violation was Class C. The code therefore selected this next step: follow up
+with HPD about the open Class C violation. The model did not select that step.
+
+This check proves that natural address entry, City address matching, the HPD
+join, data treatment, routing, and source receipts worked for this address at
+that time. It does not prove that every City address will resolve. It does not
+prove that an advocate will make fewer errors or finish work faster.
+
+The safe fields from this run are preserved in the machine-checked
+[live address baseline](evals/baseline/live-address.json). Raw City rows and the
+full trace remain local.
+
+## Try the live flow
+
+You need Python 3.13 and `uv`.
 
 ```bash
 python3 scripts/bootstrap.py
-.venv/bin/shaki doctor
-.venv/bin/shaki case --fixture
-.venv/bin/shaki serve
+.venv/bin/shakti doctor
+.venv/bin/shakti serve
 ```
 
-Open `http://127.0.0.1:8765`. The browser connects to the local server through
-a WebSocket and shows the same case packet and trace as the CLI.
+Open [http://127.0.0.1:8765](http://127.0.0.1:8765). Type a New York City
+address and press Enter. The server accepts connections from this computer only.
 
-To launch the installed Hermes interfaces inside this governed workspace:
+Check the result before you trust it:
+
+1. Confirm that the address shown by HPD is the building you intended.
+2. Open the source section and check each dataset and fetch date.
+3. Keep complaints and violations separate when you explain the record.
+4. Use the official [NYC Tenant Protection resources](https://www.nyc.gov/content/tenantprotection/pages/)
+   if the person needs City support.
+
+## Product contract
+
+The first product promise is simple. A person should type an address as they
+would in a common map product and get a clear result or a clear reason why the
+address could not be resolved.
+
+The current contract is:
+
+- A borough and ZIP code are optional.
+- Pressing Enter uses the best live NYC address match when one is available.
+- A person may choose a different ranked suggestion before searching.
+- Shakti shows address aliases when GeoSearch and HPD name the same property
+  differently.
+- Shakti does not join repair records until it has one HPD building record.
+- Missing records remain missing. The app does not call them repaired.
+- The model cannot choose the next step or add facts to the case packet.
+
+## Design decisions
+
+The address field uses a forgiving format and ranked suggestions. The interface
+shows the address it will search before it loads repair records. If HPD uses a
+different property address, the result teaches the match as a three-part visual:
+the address a person knows, the NYC BIN that identifies the building, and HPD's
+filing address. The explanation links to the City's definition of a BIN and only
+claims a match when both records share that identifier.
+
+The web interface uses live public data. Test fixtures do not appear in the
+public demo.
+
+The result begins with the selected next step, followed by record totals and a
+dated timeline. Source receipts and processing events remain available in the
+same page. This order gives a community advocate a short answer while keeping
+the evidence close enough to inspect.
+
+The interface ends with official City support. Shakti does not replace 311,
+HPD, a tenant organization, or legal counsel.
+
+## Engineering decisions
+
+The application separates deterministic data work from optional model work.
+
+```text
+typed address
+  -> apartment identifier removed
+  -> NYC GeoSearch suggestions
+  -> person choice or top ranked match on Enter
+  -> NYC BIN
+  -> HPD Building ID
+  -> selected complaints, violations, and enforcement records
+  -> field treatment and record limits
+  -> next step selected by code
+  -> hash chained processing trace
+  -> optional local model explanation
+```
+
+The browser sends autocomplete text to the local server. The local server
+removes apartment identifiers and calls NYC GeoSearch. Shakti does not save or
+trace autocomplete queries. After a person chooses an address, the case service
+uses the NYC BIN to query the HPD Buildings dataset.
+
+The case service selects a fixed list of fields and limits the number of rows.
+It hashes each query predicate and response. It removes fields that are outside
+the case contract. It then chooses the next step with ordinary code.
+
+Hermes receives the treated case packet. It does not receive raw dataset
+responses or the autocomplete query. The evaluated local runtime uses a 32K
+context expectation and a small case packet. Model use is off by default.
 
 ```bash
-.venv/bin/shaki hermes --tui
-.venv/bin/shaki hermes --cli
+export SHAKTI_HERMES_ENABLED=1
+.venv/bin/shakti hermes --tui
 ```
 
-The wrapper starts Hermes with a 32K context expectation. This is the evaluated
-operating target for the local fork, not a claim that every model or prompt is
-safe at 32K.
+Read [architecture](docs/architecture.md), [data treatment](docs/data-treatment.md),
+and [Hermes validation](docs/hermes-validation.md) before changing these
+boundaries.
 
-Live Hermes explanations are disabled by default. Enable them only after the
-runtime and model have been evaluated:
+## Evidence
+
+The local acceptance suite currently has 18 automated tests and 9 Day 0 checks.
+It covers field treatment, address search across boroughs, BIN lookup, same
+origin browser transport, source receipts, deterministic routing, trace
+verification, and the governed Hermes command.
 
 ```bash
-export SHAKI_HERMES_ENABLED=1
+PYTHONPATH=src .venv/bin/pytest -q
+PYTHONPATH=src .venv/bin/python evals/run.py
 ```
 
-## Governance gates
+The dated [five borough evaluation](docs/five-borough-eval.md) used 30 fixed HPD
+building records in each borough. All 150 case pipelines, privacy scans, and
+trace chains passed. The run found records that required unit location
+redaction, cases that reached display limits, and buildings without a map point.
 
-- Every query and transformation produces a hash-chained JSON Lines event.
-- Only allowlisted public fields enter a case packet.
-- Apartment numbers and resident free text are excluded.
-- Dataset IDs, fetch time, row counts, and response hashes are retained.
-- The next step comes from code, not the model.
-- Hermes execution is explicit, bounded, and off by default.
-- A trace verifier detects changed or reordered events.
+![Five borough evaluation map](docs/assets/five-borough-eval-map.svg)
 
-See [architecture](docs/architecture.md), [data treatment](docs/data-treatment.md),
-[tracing](docs/tracing.md), [Hermes validation](docs/hermes-validation.md), and
-the dated [validation report](docs/validation-report.md).
+The [validation report](docs/validation-report.md) records the commands, dated
+results, browser checks, media checks, and known gaps. Raw traces from live
+addresses remain on the local computer and are ignored by Git.
 
-## Day 0 proof
+## What has not been proved
 
-The [Day 0 guide](docs/day-0.md) is the shortest path from a new checkout to a
-verified local run. The [evaluation guide](docs/evaluation.md) explains each
-automated check and what it does not prove.
+Shakti has not completed a measured pilot with housing advocates or HPD. We do
+not know whether it reduces preparation time or errors. The five borough sample
+does not represent every building. A successful address match does not prove
+that the underlying City record is complete or current.
 
-```bash
-.venv/bin/python evals/run.py
-```
+NYC GeoSearch and NYC Open Data require a network connection. Their availability
+and data quality are outside this repository. The app needs clearer behavior for
+temporary service failures and for an address that has several valid building
+records.
 
-| Hermes TUI | Local web UI |
-| --- | --- |
-| ![Hermes TUI ready at the governed 32K target](docs/assets/screenshots/hermes-tui.png) | ![Synthetic case in the local web UI](docs/assets/screenshots/web-case.png) |
+The local model boundary has startup and packet checks. It has not been proved
+safe for every model at a full 32K context. The model remains optional because
+the public record workflow works without it.
 
-[![Watch the Day 0 demo](docs/assets/shaki-seva-day0-poster.png)](docs/assets/shaki-seva-day0.mp4)
+## How to contribute
 
-The [Remotion demo](docs/assets/shaki-seva-day0.mp4) uses these captured screens.
-Its narration was generated locally on the CPU with Liquid LFM2.5 Audio. The
-production source and the local Bonsai review record are in [`demo/`](demo/).
+Start with a problem that one person can test. State the public task, source,
+join key, fields, privacy rules, code selected action, and expected result. Add a
+synthetic fixture and tests before you use a live address.
 
-## Public datasets
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for the review path. Good first changes
+include improving an unresolved address state, adding a privacy treatment test,
+or documenting one live failure with enough detail to reproduce it.
 
-- HPD Buildings: `kj4p-ruqc`
-- HPD Complaints and Problems: `ygpa-z7cr`
-- Housing Maintenance Code Violations: `wvxf-dwi5`
-- Alternative Enforcement Program Buildings: `hcir-3275`
+## Reference material
 
-The fixture is synthetic. No resident record is committed to this repository.
+Use the tests, dated reports, source receipts, and live reproduction commands as
+evidence. The earlier fixture based videos were removed.
 
-## Project status
-
-The deterministic fixture, trace chain, CLI, WebSocket server, and web
-interface are the first acceptance target. A live model run is a separate gate
-and must not be inferred from those checks.
-
-## Security and contributions
-
-Read [SECURITY.md](SECURITY.md) before using live addresses or enabling Hermes.
-Dataset and field changes must follow [CONTRIBUTING.md](CONTRIBUTING.md).
+- [How we built this](docs/how-we-built-this.md)
+- [Engineering notes](docs/engineering-talk.md)
+- [Public reference guide](docs/public-reference.md)
+- [Citation file](CITATION.cff)
