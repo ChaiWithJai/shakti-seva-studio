@@ -34,6 +34,10 @@ def test_hermes_runtime_validates_required_interfaces(tmp_path: Path, monkeypatc
     assert status.enabled is False
     assert "--tui" in status.features
     assert runtime.interface_command("tui")[-2:] == ["--max-turns", "6"]
+    assert runtime.interface_environment() == {
+        "HERMES_STARTUP_MINIMUM_CONTEXT_LENGTH": "32000",
+        "HERMES_ALLOW_LOW_CONTEXT_COMPRESSION_THRESHOLD": "1",
+    }
 
 
 def test_hermes_adapter_runs_curated_packet_and_traces_it(tmp_path: Path, monkeypatch) -> None:

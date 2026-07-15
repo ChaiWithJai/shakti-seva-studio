@@ -13,15 +13,19 @@ same way later.
 - A controlled fake Hermes process completed the full adapter boundary and
   produced `hermes.inspected`, `hermes.started`, and `hermes.completed` events.
 - `shaki serve --host 0.0.0.0` was refused.
+- The Day 0 acceptance runner passed all nine installed-command, fixture,
+  trace, launch-contract, bind, server, and socket checks.
 
 ## Installed Hermes interfaces
 
 `shaki doctor` found Hermes Agent `0.18.2` (`2026.7.7.2`) and verified the
 required CLI, TUI, checkpoint, source, session ID, bounded-turn, serve, session,
 and log interfaces. Both governed launch commands were composed successfully.
+The modern TUI then reached its ready state through the Shaki wrapper at the
+governed 32K startup target.
 
 No local model was loaded during this validation. Model quality, tool selection,
-32K context behavior, compaction, and memory safety remain separate acceptance
+32K inference pressure, compaction, and memory safety remain separate acceptance
 gates.
 
 ## Live NYC Open Data packet

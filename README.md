@@ -30,8 +30,7 @@ by code.
 ## Quick start
 
 ```bash
-uv venv --python 3.13 .venv
-uv pip install --python .venv/bin/python -e '.[dev]'
+python3 scripts/bootstrap.py
 .venv/bin/shaki doctor
 .venv/bin/shaki case --fixture
 .venv/bin/shaki serve
@@ -46,6 +45,10 @@ To launch the installed Hermes interfaces inside this governed workspace:
 .venv/bin/shaki hermes --tui
 .venv/bin/shaki hermes --cli
 ```
+
+The wrapper starts Hermes with a 32K context expectation. This is the evaluated
+operating target for the local fork, not a claim that every model or prompt is
+safe at 32K.
 
 Live Hermes explanations are disabled by default. Enable them only after the
 runtime and model have been evaluated:
@@ -67,6 +70,26 @@ export SHAKI_HERMES_ENABLED=1
 See [architecture](docs/architecture.md), [data treatment](docs/data-treatment.md),
 [tracing](docs/tracing.md), [Hermes validation](docs/hermes-validation.md), and
 the dated [validation report](docs/validation-report.md).
+
+## Day 0 proof
+
+The [Day 0 guide](docs/day-0.md) is the shortest path from a new checkout to a
+verified local run. The [evaluation guide](docs/evaluation.md) explains each
+automated check and what it does not prove.
+
+```bash
+.venv/bin/python evals/run.py
+```
+
+| Hermes TUI | Local web UI |
+| --- | --- |
+| ![Hermes TUI ready at the governed 32K target](docs/assets/screenshots/hermes-tui.png) | ![Synthetic case in the local web UI](docs/assets/screenshots/web-case.png) |
+
+[![Watch the Day 0 demo](docs/assets/shaki-seva-day0-poster.png)](docs/assets/shaki-seva-day0.mp4)
+
+The [Remotion demo](docs/assets/shaki-seva-day0.mp4) uses these captured screens.
+Its narration was generated locally on the CPU with Liquid LFM2.5 Audio. The
+production source and the local Bonsai review record are in [`demo/`](demo/).
 
 ## Public datasets
 

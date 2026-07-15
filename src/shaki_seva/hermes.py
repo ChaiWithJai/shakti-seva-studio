@@ -15,6 +15,7 @@ from .trace import TraceLedger, sha256_json
 
 REQUIRED_HELP_MARKERS = ("--tui", "--cli", "--pass-session-id", "sessions", "serve", "logs")
 REQUIRED_CHAT_MARKERS = ("--max-turns", "--checkpoints", "--source")
+GOVERNED_CONTEXT_WINDOW = 32_000
 
 
 class HermesError(RuntimeError):
@@ -90,6 +91,13 @@ class HermesRuntime:
             "--max-turns",
             "6",
         ]
+
+    def interface_environment(self) -> dict[str, str]:
+        """Return the low-context controls supported by the evaluated Hermes fork."""
+        return {
+            "HERMES_STARTUP_MINIMUM_CONTEXT_LENGTH": str(GOVERNED_CONTEXT_WINDOW),
+            "HERMES_ALLOW_LOW_CONTEXT_COMPRESSION_THRESHOLD": "1",
+        }
 
     def run_case(self, case: dict[str, Any], trace: TraceLedger, cwd: Path) -> str:
         status = self.inspect()

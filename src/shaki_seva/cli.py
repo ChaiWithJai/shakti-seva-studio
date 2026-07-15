@@ -92,8 +92,9 @@ def main(argv: list[str] | None = None) -> int:
         runtime = HermesRuntime()
         command = runtime.interface_command("tui" if args.tui else "cli")
         if args.print_command:
-            print(json.dumps(command))
+            print(json.dumps({"environment": runtime.interface_environment(), "command": command}, indent=2))
             return 0
+        os.environ.update(runtime.interface_environment())
         os.chdir(ROOT)
         os.execv(command[0], command)
     if args.command == "serve":

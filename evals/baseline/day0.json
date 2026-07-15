@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "suite": "day0",
+  "generated_at": "2026-07-15T04:22:01.403968+00:00",
+  "python": "3.13.5",
+  "platform": "darwin",
+  "passed": true,
+  "checks": [
+    {
+      "name": "installed_command",
+      "status": "pass",
+      "detail": "./src/shaki_seva/__init__.py",
+      "duration_ms": 21.92
+    },
+    {
+      "name": "tests",
+      "status": "pass",
+      "detail": "11 passed, 1 warning in 0.52s",
+      "duration_ms": 785.58
+    },
+    {
+      "name": "doctor",
+      "status": "pass",
+      "detail": "Hermes Agent v0.18.2 (2026.7.7.2) \u00b7 upstream 6997dc81 \u00b7 local 7e84d2b5 (+1 carried commit)",
+      "duration_ms": 795.25
+    },
+    {
+      "name": "hermes_tui_contract",
+      "status": "pass",
+      "detail": "{\"command\": [\"~/.local/bin/hermes\", \"chat\", \"--tui\", \"--checkpoints\", \"--pass-session-id\", \"--source\", \"shaki-seva\", \"--max-turns\", \"6\"], \"environment\": {\"HERMES_ALLOW_LOW_CONTEXT_COMPRESSION_THRESHOLD\": \"1\", \"HERMES_STARTUP_MINIMUM_CONTEXT_LENGTH\": \"32000\"}}",
+      "duration_ms": 178.08
+    },
+    {
+      "name": "hermes_cli_contract",
+      "status": "pass",
+      "detail": "{\"command\": [\"~/.local/bin/hermes\", \"chat\", \"--cli\", \"--checkpoints\", \"--pass-session-id\", \"--source\", \"shaki-seva\", \"--max-turns\", \"6\"], \"environment\": {\"HERMES_ALLOW_LOW_CONTEXT_COMPRESSION_THRESHOLD\": \"1\", \"HERMES_STARTUP_MINIMUM_CONTEXT_LENGTH\": \"32000\"}}",
+      "duration_ms": 176.58
+    },
+    {
+      "name": "fixture_and_trace",
+      "status": "pass",
+      "detail": "verified 4 events; route=urgent_hpd_follow_up",
+      "duration_ms": 358.49
+    },
+    {
+      "name": "public_bind_refused",
+      "status": "pass",
+      "detail": "Shaki binds to loopback only",
+      "duration_ms": 176.02
+    },
+    {
+      "name": "server_and_socket",
+      "status": "pass",
+      "detail": "health ok; same-origin socket ready; fixture returned 4 trace events",
+      "duration_ms": 924.23
+    },
+    {
+      "name": "published_evidence",
+      "status": "pass",
+      "detail": "hermes-tui.png=1440x1000; web-case.png=1440x1000; web-evidence.png=1440x1000; web-trace.png=1440x1000; shaki-seva-day0-poster.png=1920x1080; MP4 and WAV signatures valid",
+      "duration_ms": 3.76
+    }
+  ]
+}

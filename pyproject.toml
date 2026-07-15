@@ -18,6 +18,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
   "httpx>=0.28,<1",
+  "pyte>=0.8,<1",
   "pytest>=8.3,<9",
 ]
 

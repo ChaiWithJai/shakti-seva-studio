@@ -1,0 +1,11 @@
+Shaki Seva Studio began with one narrow question. How can a New Yorker read public housing repair records without asking a model to decide what the records mean?
+
+The answer was to separate the work. Code confirms one building, selects approved fields, treats unit locations, limits record counts, and chooses the next step. Hermes only receives the smaller case packet.
+
+The Hermes TUI now starts in a governed thirty two thousand token mode. The web app runs on the local machine and uses a same origin WebSocket. The Case view keeps complaints and violations separate. Evidence shows the City dataset IDs. Trace shows each hashed step.
+
+The Day Zero suite tests the installed command, fixture, trace, server, socket, and Hermes launch contract. It also refuses a public network bind.
+
+Local Bonsai reviewed the demo plan. We kept the useful structure and rejected unsupported claims about encryption and City routing. Liquid LFM two point five Audio generated this narration on the CPU.
+
+The result is a public prototype with visible limits and repeatable proof.

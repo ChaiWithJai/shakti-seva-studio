@@ -10,6 +10,9 @@ build/
 .DS_Store
 .playwright-cli/
 output/
+demo/node_modules/
+demo/.venv-audio/
+demo/out/
 traces/*.jsonl
 !traces/.gitkeep
 data/cache/
