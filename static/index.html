@@ -6,7 +6,7 @@
   <meta name="description" content="Read public NYC housing repair records for one building.">
   <title>Shakti Seva Studio</title>
   <link rel="icon" href="/assets/shakti-seva-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/styles.css?v=6">
+  <link rel="stylesheet" href="/assets/styles.css?v=8">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to the address search</a>
@@ -15,39 +15,59 @@
       <img src="/assets/shakti-seva-mark.svg" alt="" class="brand-mark">
       <span><strong>Shakti Seva Studio</strong><small>Public records, treated with care.</small></span>
     </a>
-    <div class="connection" id="connection" role="status" aria-live="polite">
-      <span class="connection-dot"></span><span id="connection-label">Checking how this site runs</span>
+    <div class="header-actions">
+      <a class="header-link" href="#how-it-works">How it works</a>
+      <div class="connection" id="connection" role="status" aria-live="polite">
+        <span class="connection-dot"></span><span id="connection-label">Checking how this site runs</span>
+      </div>
     </div>
   </header>
 
   <main id="main">
     <section class="start" aria-labelledby="start-title">
-      <p class="eyebrow">Repair Loop NYC</p>
-      <h1 id="start-title">What does the City know about your building?</h1>
-      <p class="lead">Enter one building address. We will gather its public complaints and violations, then show what the records say.</p>
+      <div class="hero-copy">
+        <p class="eyebrow">Repair Loop NYC</p>
+        <h1 id="start-title">Read the City record for one building.</h1>
+        <p class="lead">Start with the address you know. Shakti matches it to a City building, then gathers the public complaints and violations filed for that building.</p>
+        <ul class="trust-list" aria-label="What this lookup does">
+          <li><span aria-hidden="true">01</span> Live NYC public data</li>
+          <li><span aria-hidden="true">02</span> One building at a time</li>
+          <li><span aria-hidden="true">03</span> No complaint is filed</li>
+        </ul>
+      </div>
 
-      <form id="case-form" class="address-picker" novalidate>
-        <label for="address">Building address</label>
-        <div class="address-control">
-          <input id="address" name="address" autocomplete="off" inputmode="text" maxlength="140" placeholder="Start typing a NYC address" role="combobox" aria-autocomplete="list" aria-controls="address-suggestions" aria-expanded="false" aria-describedby="address-help address-treatment form-error" required>
-          <button class="primary-button" type="submit">Search records</button>
-        </div>
-        <div id="address-suggestions" class="address-suggestions" role="listbox" aria-label="NYC address suggestions" hidden></div>
-        <p id="address-help" class="field-help">Type the address the way you know it. A borough or ZIP helps when street names repeat. Apartment information is removed before search.</p>
-        <div id="address-treatment" class="address-treatment" hidden role="status" aria-live="polite"></div>
-        <p id="form-error" class="field-error" role="alert"></p>
-      </form>
+      <div class="search-column">
+        <form id="case-form" class="address-picker" novalidate>
+          <div class="picker-heading">
+            <label for="address">What is the building address?</label>
+            <span>NYC only</span>
+          </div>
+          <div class="address-control">
+            <span class="location-mark" aria-hidden="true"></span>
+            <input id="address" name="address" autocomplete="street-address" inputmode="text" maxlength="140" placeholder="For example, 700 E 9th St" role="combobox" aria-autocomplete="list" aria-controls="address-suggestions" aria-expanded="false" aria-describedby="address-help address-treatment form-error" required>
+            <button class="primary-button" type="submit"><span>Search City records</span><span aria-hidden="true">→</span></button>
+          </div>
+          <div id="address-suggestions" class="address-suggestions" role="listbox" aria-label="NYC address suggestions" hidden></div>
+          <p id="address-help" class="field-help">Include a borough or ZIP when you can. If you paste an apartment number, we remove it before the search.</p>
+          <div id="address-treatment" class="address-treatment" hidden role="status" aria-live="polite"></div>
+          <p id="form-error" class="field-error" role="alert"></p>
+        </form>
+        <p class="privacy-note"><span aria-hidden="true">◉</span> Your name and contact details are not needed. This page only reads public records.</p>
+      </div>
+    </section>
 
-      <aside class="runtime-proof" aria-labelledby="runtime-proof-title">
-        <span class="proof-mark" aria-hidden="true">✓</span>
-        <div>
-          <strong id="runtime-proof-title">This public-record lookup does not use AI.</strong>
-          <p>Deterministic code matches the City building, joins bounded public datasets, treats private unit locations, and selects the next step. Optional local AI can explain the completed packet, but it cannot change these results.</p>
-          <a href="https://github.com/ChaiWithJai/shakti-seva-studio/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Inspect the system boundary</a>
-        </div>
-      </aside>
-
-      <p class="privacy-note">We do not need your name, phone number, or private message. No complaint is filed from this page.</p>
+    <section id="how-it-works" class="system-boundary" aria-labelledby="runtime-proof-title">
+      <div class="boundary-copy">
+        <p class="eyebrow">A clear boundary</p>
+        <h2 id="runtime-proof-title">The public lookup uses code, not AI.</h2>
+        <p>It matches an address, joins four bounded City datasets, removes unit locations, and applies a published next-step rule. The optional local AI can explain the finished packet. It cannot change the match, counts, or next step.</p>
+        <a href="https://github.com/ChaiWithJai/shakti-seva-studio/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Inspect the architecture on GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+      <ol class="boundary-flow" aria-label="Public lookup steps">
+        <li><span>1</span><strong>Your address</strong><small>Sent only when you search</small></li>
+        <li><span>2</span><strong>City building ID</strong><small>Matched through NYC GeoSearch</small></li>
+        <li><span>3</span><strong>Public records</strong><small>Returned with source receipts</small></li>
+      </ol>
     </section>
 
     <section id="progress" class="progress" hidden role="status" aria-live="polite">
@@ -68,7 +88,7 @@
     <section id="result" class="result" hidden aria-labelledby="result-title">
       <header class="result-header">
         <div>
-          <p class="eyebrow">Public building record</p>
+          <p class="eyebrow">Your building match</p>
           <h2 id="result-title"><span id="building-address"></span></h2>
           <p id="building-meta" class="muted"></p>
           <p id="address-match-note" class="address-match-note" hidden></p>
@@ -79,38 +99,38 @@
       <section id="address-primer" class="address-primer" hidden aria-labelledby="address-primer-title">
         <header>
           <div>
-            <p class="eyebrow">How the match works</p>
-            <h3 id="address-primer-title">One building can answer to two addresses</h3>
+            <p class="eyebrow">Why the address changed</p>
+            <h3 id="address-primer-title">Three name tags. One building.</h3>
           </div>
-          <span class="identity-stamp" aria-hidden="true">Same building ✓</span>
+          <span class="identity-stamp"><span aria-hidden="true">✓</span> Matched by City ID</span>
         </header>
-        <p class="primer-intro">A map may use the entrance you know while HPD files the property under another street face. Think of the BIN as the building’s City ID card: the address label can change, but the seven-digit BIN stays with the building.</p>
+        <p class="primer-intro">A corner building can face more than one street. A map may name the entrance you use while HPD files the property under the other side. The Building Identification Number, or BIN, is the stable link between them.</p>
         <ol class="identity-chain" aria-label="How Shakti matched the address to the HPD record">
           <li>
-            <span class="primer-icon" aria-hidden="true">●</span>
-            <span class="step-number">1 · Map-style address</span>
+            <span class="primer-icon map-pin" aria-hidden="true"></span>
+            <span class="step-number">The address you know</span>
             <strong id="primer-searched-address"></strong>
-            <small>NYC GeoSearch found the address you entered.</small>
+            <small>NYC GeoSearch recognizes this map-style address.</small>
             <span class="chain-arrow" aria-hidden="true"></span>
           </li>
           <li class="identity-key">
             <span class="primer-icon" aria-hidden="true">#</span>
-            <span class="step-number">2 · City ID card</span>
-            <strong>NYC BIN <code id="primer-bin"></code></strong>
-            <small>This number identifies the building.</small>
+            <span class="step-number">The shared City ID</span>
+            <strong>BIN <code id="primer-bin"></code></strong>
+            <small>The same seven-digit number appears in both City records.</small>
             <span class="chain-arrow" aria-hidden="true"></span>
           </li>
           <li>
             <span class="primer-icon" aria-hidden="true">▤</span>
-            <span class="step-number">3 · HPD record name</span>
+            <span class="step-number">The HPD filing address</span>
             <strong id="primer-hpd-address"></strong>
-            <small>HPD files the public housing records here.</small>
+            <small>HPD stores complaints and violations under this address label.</small>
           </li>
         </ol>
         <div class="primer-proof">
-          <strong>Why Shakti treats this as one building</strong>
-          <p>Both City records use the same BIN. NYC explains that a BIN uniquely identifies a building and that one BIN can have more than one street address.</p>
-          <a href="https://www.nyc.gov/site/specialenforcement/registration-law/registration-and-listing-data.page" target="_blank" rel="noreferrer">Read NYC’s BIN explanation</a>
+          <div><span class="proof-mark" aria-hidden="true">✓</span><strong>Why this match is trustworthy</strong></div>
+          <p>Shakti does not guess that these addresses are the same. It follows the BIN supplied by the City. NYC says one BIN can have more than one street address.</p>
+          <a href="https://www.nyc.gov/site/specialenforcement/registration-law/registration-and-listing-data.page" target="_blank" rel="noreferrer">Read the City’s BIN explanation <span aria-hidden="true">↗</span></a>
         </div>
       </section>
 
@@ -155,6 +175,6 @@
   </main>
 
   <footer>Public-interest technology prototype. The record lookup is deterministic and does not use AI. Not legal advice.</footer>
-  <script src="/assets/app.js?v=7" defer></script>
+  <script src="/assets/app.js?v=8" defer></script>
 </body>
 </html>
