@@ -40,6 +40,8 @@ a { color: var(--rose-dark); }
 .connection.ready .connection-dot { background: var(--green); box-shadow: 0 0 0 4px var(--green-soft); }
 .connection.error { color: var(--danger); }
 .connection.error .connection-dot { background: var(--danger); box-shadow: 0 0 0 4px var(--danger-soft); }
+.connection.public { color: var(--green); }
+.connection.public .connection-dot { background: var(--green); box-shadow: 0 0 0 4px var(--green-soft); }
 
 main { width: min(100%, 1040px); margin: 0 auto; padding: 0 clamp(18px, 4vw, 44px) 72px; }
 .start { padding: clamp(70px, 10vw, 118px) 0 76px; text-align: center; }
@@ -78,6 +80,12 @@ h3 { margin-bottom: 6px; font-size: 1.15rem; line-height: 1.35; }
 .address-treatment strong { margin-right: 5px; color: var(--green); }
 .address-treatment.pending { background: #f6f0ec; color: var(--muted); }
 .address-treatment.pending strong { color: var(--ink); }
+.runtime-proof { display: flex; max-width: 700px; align-items: flex-start; gap: 12px; margin: 18px auto 0; padding: 15px 17px; border: 1px solid #cfe4d8; border-radius: 14px; background: var(--green-soft); color: #385c49; text-align: left; }
+.runtime-proof .proof-mark { display: grid; width: 28px; height: 28px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: var(--green); color: white; font-weight: 900; }
+.runtime-proof strong { display: block; color: #245b40; }
+.runtime-proof p { margin: 3px 0 5px; font-size: .78rem; line-height: 1.55; }
+.runtime-proof a { font-size: .75rem; font-weight: 800; }
+.local-ai-link { text-decoration: none; white-space: nowrap; }
 .address-control input[aria-invalid="true"] { box-shadow: inset 0 0 0 2px var(--danger); }
 .address-match-note { max-width: 720px; margin: 12px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--green-soft); color: #365b49; font-size: .8rem; }
 .address-primer { margin-top: 24px; padding: clamp(20px, 4vw, 32px); overflow: hidden; border: 1px solid #c9ddd2; border-radius: 22px; background: linear-gradient(145deg, #fffdf8 0%, #edf7f1 100%); box-shadow: var(--shadow); }

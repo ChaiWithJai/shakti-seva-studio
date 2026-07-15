@@ -2,24 +2,26 @@
 
 ## Decision
 
-Shakti Seva Studio uses a deterministic data plane and an optional generative
-explanation plane. The same case packet feeds the CLI, Hermes TUI workflow, and
-local web interface.
+Shakti Seva Studio uses a deterministic data plane and an optional local
+generative explanation plane. The public deployment contains no AI runtime.
+The local edition can pass the same treated case contract to Hermes after code
+has finished the address match, joins, treatment, counts, and next step.
 
 ## Components
 
-```text
-CLI or browser
-  -> local FastAPI server
-     -> NYC GeoSearch autocomplete (browser flow only)
-  -> WebSocket event channel
-  -> case service
-     -> Socrata client
-     -> field allowlist
-     -> record normalizer
-     -> routing policy
-     -> trace ledger
-  -> optional Hermes subprocess
+```mermaid
+flowchart LR
+    Person["Person enters one address"] --> Browser["Shared browser UI"]
+    Browser -->|"Hosted HTTPS POST"| Functions["Netlify Functions\nNo AI"]
+    Browser -->|"Local WebSocket"| FastAPI["Loopback FastAPI"]
+    Functions --> Geo["NYC GeoSearch"]
+    Functions --> OpenData["NYC Open Data"]
+    FastAPI --> Geo
+    FastAPI --> OpenData
+    Functions --> PublicPacket["Treated case + ephemeral trace"]
+    FastAPI --> LocalPacket["Treated case + local trace"]
+    LocalPacket -->|"Explicitly enabled"| Hermes["Hermes local agent"]
+    LocalPacket -->|"Manual bounded review"| Bonsai["Bonsai local model"]
 ```
 
 ### Case service
@@ -30,9 +32,9 @@ contract. It does not generate prose.
 
 ### Trace ledger
 
-Every event contains the previous event hash. Query values are represented by
-hashes in the ledger. Curated public results can appear in the final packet,
-but resident free text and apartment-level fields cannot.
+Every event contains the previous event hash. The ledger stores hashes for
+query values. Curated public results can appear in the final packet, but
+apartment fields and resident free text cannot.
 
 ### Hermes adapter
 
@@ -54,6 +56,29 @@ after three characters. The proxy removes apartment identifiers, requests up to
 six NYC GeoSearch candidates, and returns five treated suggestions. Selecting a
 suggestion supplies its NYC BIN to the case service, avoiding a second fuzzy
 address interpretation. Autocomplete queries are not persisted or traced.
+
+### Public serverless runtime
+
+Netlify serves an allowlisted static build and three modern JavaScript
+Functions:
+
+- `/api/health` declares `ai.enabled: false` and the HTTPS runtime;
+- `/api/address-suggestions` accepts a POST body that is not cached, removes any
+  apartment suffix, and calls NYC GeoSearch; and
+- `/api/case` resolves one City building, queries the four allowlisted datasets,
+  applies field treatment and record caps, selects the next step with code, and
+  returns a hash chained trace.
+
+The function trace lives only in the response. The serverless implementation
+does not create a database, invoke a model, retain a session, or accept a Hermes
+request. Netlify processes normal hosting and function metadata; Shakti does
+not intentionally log request bodies.
+
+The Python and JavaScript services intentionally share the same public case
+schema and governance constants. Tests across both runtimes cover the dataset IDs,
+field treatment, record caps, deterministic route, and trace chain. They are
+two implementations, so parity tests are a release requirement when either
+data plane changes.
 
 ## Context policy
 

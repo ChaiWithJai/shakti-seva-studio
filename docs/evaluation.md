@@ -1,7 +1,8 @@
 # Evaluation guide
 
 The Day 0 suite is an acceptance test for the product boundary. It combines
-unit tests with installed-command and running-server checks.
+Python and Node unit tests with installed-command, running-server, and hosted
+function checks.
 
 ## Automated checks
 
@@ -15,11 +16,15 @@ unit tests with installed-command and running-server checks.
 | Public bind refusal | The web server will not listen on `0.0.0.0` |
 | Server and socket | Cheap liveness does not inspect Hermes; readiness does; a same-origin socket connects; no browser fixture path exists |
 | Published evidence | Screenshots have reviewable dimensions and the demo media has valid file signatures |
+| Netlify unit and integration | Deterministic JavaScript treatment, routing, HTTP boundaries, and private POST autocomplete pass without a model |
+| Hosted acceptance | A headed draft deployment shows the no-AI boundary and completes the lived-address journey against live City services |
 
 Run the suite with:
 
 ```bash
 .venv/bin/python evals/run.py --output output/evals/day0.json
+node --test netlify/tests/*.test.mjs
+netlify build --offline
 ```
 
 The process exits nonzero if any required check fails. Reports record timings

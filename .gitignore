@@ -16,3 +16,6 @@ demo/out/
 traces/*.jsonl
 !traces/.gitkeep
 data/cache/
+
+# Local Netlify folder
+.netlify

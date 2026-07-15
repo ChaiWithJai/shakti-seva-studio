@@ -1,4 +1,5 @@
-const state = { socket: null, reconnectTimer: null, case: null, trace: [], traceId: null, hermes: null, pendingTraceId: null, selectedAddress: null, searchedAddress: null, suggestions: [], suggestionInput: "", suggestionStatus: "idle", suggestionTimer: null, suggestionController: null };
+const state = { runtime: "unknown", socket: null, reconnectTimer: null, case: null, trace: [], traceId: null, hermes: null, pendingTraceId: null, selectedAddress: null, searchedAddress: null, suggestions: [], suggestionInput: "", suggestionStatus: "idle", suggestionTimer: null, suggestionController: null };
+let runtimeReady;
 const $ = (selector) => document.querySelector(selector);
 
 function setConnection(status, label) {
@@ -21,19 +22,47 @@ function connect() {
   socket.addEventListener("message", (event) => handleMessage(JSON.parse(event.data)));
 }
 
-async function loadHealth() {
+async function loadRuntime() {
   try {
     const response = await fetch("/api/health");
+    if (!response.ok) throw new Error("runtime check failed");
     const health = await response.json();
-    state.hermes = health.hermes;
+    state.runtime = health.transport === "https" ? "serverless" : "local";
+    state.hermes = health.hermes || null;
+    if (state.runtime === "serverless") {
+      setConnection("public", "Live City data · no AI");
+    } else {
+      connect();
+    }
     updateHermesButton();
   } catch {
+    state.runtime = "unavailable";
     state.hermes = null;
+    setConnection("error", "Data service unavailable");
+  }
+}
+
+async function sendHttp(message) {
+  try {
+    const response = await fetch("/api/case", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(message),
+    });
+    const result = await response.json();
+    handleMessage(result);
+  } catch {
+    hideProgress();
+    showError("The public data service could not complete this search. Try again shortly.");
   }
 }
 
 function send(message) {
   hideError();
+  if (state.runtime === "serverless") {
+    void sendHttp(message);
+    return true;
+  }
   if (!state.socket || state.socket.readyState !== WebSocket.OPEN) {
     showError("The local connection is not ready yet. Please try again.");
     return false;
@@ -205,6 +234,8 @@ function renderSuggestions(suggestions, inputValue) {
 }
 
 async function requestSuggestions(value) {
+  if (state.runtime === "unknown" && runtimeReady) await runtimeReady;
+  if (state.runtime === "unavailable") return [];
   state.suggestionController?.abort();
   const query = value.replace(/(?:,|\s)\s*(?:APT(?:ARTMENT)?|UNIT)\.?\s*#?\s*[A-Z0-9-]+\b/gi, "").trim();
   if (query.length < 3) {
@@ -218,7 +249,14 @@ async function requestSuggestions(value) {
   state.suggestionStatus = "searching";
   previewAddress();
   try {
-    const response = await fetch(`/api/address-suggestions?q=${encodeURIComponent(query)}`, { signal: controller.signal });
+    const response = state.runtime === "serverless"
+      ? await fetch("/api/address-suggestions", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ q: query }),
+        signal: controller.signal,
+      })
+      : await fetch(`/api/address-suggestions?q=${encodeURIComponent(query)}`, { signal: controller.signal });
     if (!response.ok) {
       state.suggestionStatus = "unavailable";
       previewAddress();
@@ -451,6 +489,18 @@ function renderTrace() {
 
 function updateHermesButton() {
   const button = $("#hermes-button");
+  const link = $("#local-ai-link");
+  if (state.runtime === "serverless") {
+    button.hidden = true;
+    link.hidden = false;
+    $("#ai-card-title").textContent = "Bring the treated packet to local AI";
+    $("#ai-card-copy").textContent = "Download the repository to run Hermes or Bonsai on your own computer and instrument each tool call. The hosted lookup stays deterministic and AI-free.";
+    return;
+  }
+  button.hidden = false;
+  link.hidden = true;
+  $("#ai-card-title").textContent = "Read this in plain language";
+  $("#ai-card-copy").textContent = "Hermes receives the treated building packet. It cannot change the next step.";
   const enabled = Boolean(state.case && state.hermes?.ready && state.hermes?.enabled);
   button.disabled = !enabled;
   button.textContent = enabled ? "Explain this record" : state.hermes?.ready ? "Hermes is off" : "Hermes unavailable";
@@ -521,5 +571,4 @@ $("#copy-trace").addEventListener("click", async () => {
   setTimeout(() => { $("#copy-trace").textContent = "Copy trace ID"; }, 1200);
 });
 
-connect();
-loadHealth();
+runtimeReady = loadRuntime();

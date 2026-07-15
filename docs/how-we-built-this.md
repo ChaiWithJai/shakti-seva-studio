@@ -273,29 +273,30 @@ web process. Start with a short prompt and a small output. Increase one limit at
 a time while you record memory pressure, prefill tokens, generated tokens, and
 stop reason. Do not begin with the full advertised context window.
 
-## Deployment option 2. Put the web app on a server
+## Deployment option 2. Run the AI-free web edition on Netlify
 
-The current server refuses connections from other computers. A team must make
-and review several changes before hosting it.
+This path is now supported at
+[shakti-seva-studio.netlify.app](https://shakti-seva-studio.netlify.app). It
+does not put FastAPI or Hermes on a public server. Netlify serves four
+allowlisted static files and three dependency-free JavaScript Functions for
+runtime health, address suggestions, and case construction.
 
-Required server work includes:
+The public health response declares `ai.enabled: false`. Address matching,
+four City queries, field treatment, record caps, routing, and the hash-chained
+processing record run as deterministic JavaScript. The function trace is
+returned to the browser and is not stored by Shakti.
 
-1. Add an explicit hosted mode instead of removing the loopback check.
-2. Put FastAPI behind an HTTPS gateway that handles encryption and incoming connections.
-3. Configure allowed browser origins and keep the WebSocket on the same origin.
-4. Add rate limits and bounded request concurrency.
-5. Use `/api/live` for frequent liveness probes and `/api/health` for Hermes readiness.
-6. Decide whether to cache City responses and document the freshness policy.
-7. Keep raw address text out of logs and metrics.
-8. Set retention rules for traces.
-9. Test temporary City failures and WebSocket reconnects under load.
-10. Run an advocate pilot before calling the service ready for public use.
+Address suggestions and case searches use non-cacheable POST bodies. This keeps
+address text out of the URL and avoids application caching. Shakti does not
+intentionally log the body. Netlify still processes standard infrastructure
+metadata, and the City services receive the treated query needed to answer.
 
-The static files are small. The City requests and WebSocket sessions determine
-the server workload. The existing 150 case run gives a starting latency range,
-but it does not answer how many people one process can serve. Run a concurrent
-load test against a controlled substitute for the City API before testing live
-public services. This avoids creating unnecessary traffic against NYC Open Data.
+The hosted and Python case services are two implementations of one contract.
+That creates a parity risk. Node integration and unit tests now check source
+IDs, treatment, routing, limits, and trace integrity. A headed draft-deploy run
+checks the actual browser-to-function journey. The [Netlify deployment
+guide](netlify-deployment.md) records the endpoints, test matrix, build, privacy
+choices, and remaining load and usability risks.
 
 ## Deployment option 3. Run Hermes on another machine
 
@@ -319,14 +320,15 @@ the explanation as optional content.
 
 ## A practical deployment sequence
 
-The next useful deployment is a supervised web pilot with Hermes turned off.
-That pilot can measure address resolution, source accuracy, completion time,
-and points of confusion. It can run on a controlled laptop or a reviewed
-internal server.
+The AI-free public deployment is the recruitment and supervised-pilot surface.
+The next useful evidence is not another architecture claim. It is a measured
+advocate pilot covering address resolution, source accuracy, completion time,
+and points of confusion.
 
 After that pilot, test one selected local model with the fixed case packet. Log
 prompt tokens, prefill time, generation time, peak memory, and output checks.
-Only then decide whether a remote model service is useful.
+Only then decide whether a remote model service is useful. The hosted demo
+should remain useful when no model is present.
 
 Do not combine public hosting, a new model, remote inference, and a broad
 context window in one release. Each change has a different failure mode and

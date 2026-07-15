@@ -12,6 +12,19 @@ technology for public work and want to show what their software actually does.
 Shakti is a research prototype. It is not a City service. It does not file a
 complaint, give legal advice, score a landlord, or predict an agency action.
 
+## Choose the public or local edition
+
+| Edition | What runs | AI | Best for |
+| --- | --- | --- | --- |
+| [Public web demo](https://shakti-seva-studio.netlify.app) | Static browser files and three Netlify Functions that call live City services | None | Trying the address and source workflow without installing anything |
+| Local research edition | Python, FastAPI, WebSocket, local traces, and optional Hermes | Off by default; explicitly enabled locally | Extending the case packet, studying agent behavior, and instrumenting local tool use |
+
+The public demo is deterministic civic software. Address matching, City joins,
+privacy treatment, record limits, counts, and the recommended next step are
+ordinary code. Its `/api/health` response reports `ai.enabled: false`, and its
+result page says the same thing on screen. Downloading the repository adds the
+local research tools; it does not make AI necessary for the public workflow.
+
 ## What works today
 
 A person can type a New York City address and press Enter. The browser requests
@@ -54,11 +67,24 @@ join, data treatment, routing, and source receipts worked for this address at
 that time. It does not prove that every City address will resolve. It does not
 prove that an advocate will make fewer errors or finish work faster.
 
-The safe fields from this run are preserved in the machine-checked
+The safe fields from this run are preserved in the checked
 [live address baseline](evals/baseline/live-address.json). Raw City rows and the
 full trace remain local.
 
-## Try the live flow
+## Try the public web demo
+
+Open [shakti-seva-studio.netlify.app](https://shakti-seva-studio.netlify.app)
+and type a New York City address. The hosted version uses HTTPS functions for
+NYC GeoSearch and Open Data. It does not include Python, WebSockets, Hermes, or
+Bonsai. Address suggestions and case requests use POST bodies that are not cached.
+The functions do not intentionally log those bodies or persist the returned
+trace. Netlify still processes normal infrastructure metadata as the hosting
+provider.
+
+Read the [Netlify deployment guide](docs/netlify-deployment.md) for the exact
+runtime boundary, endpoints, build, tests, risks, and custom domain path.
+
+## Run the local research edition
 
 You need Python 3.13 and `uv`.
 
@@ -100,7 +126,7 @@ The current contract is:
 
 The address field uses a forgiving format and ranked suggestions. The interface
 shows the address it will search before it loads repair records. If HPD uses a
-different property address, the result teaches the match as a three-part visual:
+different property address, the result teaches the match as a three part visual:
 the address a person knows, the NYC BIN that identifies the building, and HPD's
 filing address. The explanation links to the City's definition of a BIN and only
 claims a match when both records share that identifier.
@@ -134,10 +160,12 @@ typed address
   -> optional local model explanation
 ```
 
-The browser sends autocomplete text to the local server. The local server
-removes apartment identifiers and calls NYC GeoSearch. Shakti does not save or
-trace autocomplete queries. After a person chooses an address, the case service
-uses the NYC BIN to query the HPD Buildings dataset.
+In the local edition, the browser sends autocomplete text to the loopback
+server. In the hosted edition, it sends a POST body that is not cached to a Netlify
+Function. Both runtimes remove apartment identifiers and call NYC GeoSearch.
+Neither Shakti implementation saves or traces autocomplete text. After a person
+chooses an address, the deterministic case service uses the NYC BIN to query
+the HPD Buildings dataset.
 
 The case service selects a fixed list of fields and limits the number of rows.
 It hashes each query predicate and response. It removes fields that are outside
@@ -153,18 +181,18 @@ export SHAKTI_HERMES_ENABLED=1
 ```
 
 Read [architecture](docs/architecture.md), [data treatment](docs/data-treatment.md),
-and [Hermes validation](docs/hermes-validation.md) before changing these
-boundaries.
+the [local AI extension guide](docs/local-ai-extension.md), and
+[Hermes validation](docs/hermes-validation.md) before changing these boundaries.
 
 ## Evidence
 
-The local acceptance suite currently has 18 automated tests and 9 Day 0 checks.
+The acceptance suite currently has 18 Python tests, 6 Node tests, and 9 Day 0 checks.
 It covers field treatment, address search across boroughs, BIN lookup, same
-origin browser transport, source receipts, deterministic routing, trace
-verification, and the governed Hermes command.
 
 ```bash
 PYTHONPATH=src .venv/bin/pytest -q
+node --test netlify/tests/*.test.mjs
+netlify build --offline
 PYTHONPATH=src .venv/bin/python evals/run.py
 ```
 
@@ -211,6 +239,8 @@ Use the tests, dated reports, source receipts, and live reproduction commands as
 evidence. The earlier fixture based videos were removed.
 
 - [How we built this](docs/how-we-built-this.md)
+- [Netlify deployment](docs/netlify-deployment.md)
+- [Local AI and tool use](docs/local-ai-extension.md)
 - [Engineering notes](docs/engineering-talk.md)
 - [Public reference guide](docs/public-reference.md)
 - [Citation file](CITATION.cff)

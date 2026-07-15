@@ -191,6 +191,18 @@ def check_published_evidence() -> str:
     gif_width, gif_height = struct.unpack("<HH", gif[6:10])
     if (gif_width, gif_height) != (520, 969):
         raise RuntimeError("web live flow GIF has unexpected dimensions")
+    netlify_images = [
+        (screenshots / "netlify-no-ai-proof.png", 480, 150),
+        (screenshots / "netlify-live-result.png", 480, 700),
+    ]
+    for path, minimum_width, minimum_height in netlify_images:
+        header = path.read_bytes()[:24]
+        if header[:8] != b"\x89PNG\r\n\x1a\n":
+            raise RuntimeError(f"{path.name} is not a PNG")
+        width, height = struct.unpack(">II", header[16:24])
+        if width < minimum_width or height < minimum_height:
+            raise RuntimeError(f"{path.name} is too small for review")
+        dimensions.append(f"{path.name}={width}x{height}")
     map_text = (ROOT / "docs" / "assets" / "five-borough-eval-map.svg").read_text(encoding="utf-8")
     if "<svg" not in map_text or "150 building level cases" not in map_text or ">138<" not in map_text:
         raise RuntimeError("five borough map is missing the reviewed sample evidence")

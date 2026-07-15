@@ -105,3 +105,22 @@ above.
 All prerecorded videos and their production sources were removed because they
 contained fixture based scenes. The README, live application, source receipts,
 tests, and dated reports are the authoritative public artifacts.
+
+## Netlify serverless acceptance
+
+A reviewed Netlify draft served the public browser without Python, WebSockets,
+Hermes, or Bonsai. Its health response returned `ai.enabled: false` and
+`hermes: null`. The page showed `Live City data · no AI` and explained the same
+boundary in plain language.
+
+The headed browser typed `700 E 9th St`. It used a POST body for NYC GeoSearch
+and received BIN `1004529` as the first suggestion. A second POST built HPD
+Building `6533` from the four live City sources. The function returned 25
+complaints, 6 open violations, the code selected Class C follow up, and a valid
+13 event trace. The trace named `netlify-functions` as the runtime and contained
+no model event. The browser console had no errors or warnings.
+
+The automated hosted check also confirmed that both responses used `no-store`,
+the function refused query string autocomplete, and the treated packet passed
+the unit location scan. This was one address journey. It was not a load test or
+an advocate pilot.

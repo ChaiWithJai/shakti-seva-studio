@@ -15,7 +15,13 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
       - run: python -m pip install -e '.[dev]'
+      - run: node --test netlify/tests/*.test.mjs
+      - run: node --check evals/netlify_acceptance.mjs
+      - run: node scripts/build_netlify.mjs
       - run: install -m 755 evals/fake_hermes.sh /tmp/hermes
       - run: echo /tmp >> "$GITHUB_PATH"
       - run: python evals/run.py --output /tmp/day0-eval.json
