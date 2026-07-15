@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "kind": "headed_browser_live_address_acceptance",
+  "observed_at": "2026-07-15",
+  "typed_address": "700 E 9th Street, Manhattan",
+  "geosearch_match": {
+    "label": "700 EAST 9 STREET, New York, NY",
+    "bin": "1004529"
+  },
+  "hpd_match": {
+    "canonical_address": "140 Avenue C, Manhattan",
+    "building_id": "6533",
+    "zip": "10009"
+  },
+  "displayed_records": {
+    "complaints": 25,
+    "open_violations": 6,
+    "aep_records": 0,
+    "complaints_truncated": true
+  },
+  "route": {
+    "code": "urgent_hpd_follow_up",
+    "label": "Follow up with HPD about the open Class C violation"
+  },
+  "sources": [
+    {"dataset": "HPD Buildings", "id": "kj4p-ruqc", "url": "https://data.cityofnewyork.us/d/kj4p-ruqc", "rows_returned": 1},
+    {"dataset": "HPD Complaints and Problems", "id": "ygpa-z7cr", "url": "https://data.cityofnewyork.us/d/ygpa-z7cr", "rows_returned": 26},
+    {"dataset": "Housing Maintenance Code Violations", "id": "wvxf-dwi5", "url": "https://data.cityofnewyork.us/d/wvxf-dwi5", "rows_returned": 6},
+    {"dataset": "Alternative Enforcement Program Buildings", "id": "hcir-3275", "url": "https://data.cityofnewyork.us/d/hcir-3275", "rows_returned": 0}
+  ],
+  "trace": {
+    "events": 13,
+    "verified": true,
+    "final_case_sha256": "03632f88eb274bc7b59d825dc25b904f0c65434843e2b553e62f4a90de5a492d"
+  },
+  "browser_console_errors_or_warnings": 0,
+  "limits": [
+    "This is a dated observation of changing public data.",
+    "It verifies one address, not all New York City addresses.",
+    "Raw records and the live trace remain local and are not published."
+  ]
+}

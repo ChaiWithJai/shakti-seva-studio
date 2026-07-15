@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from shaki_seva.trace import TraceLedger
+from shakti_seva.trace import TraceLedger
 
 
 def test_trace_chain_verifies_and_detects_tampering(tmp_path: Path) -> None:

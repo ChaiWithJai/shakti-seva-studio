@@ -19,5 +19,5 @@ jobs:
       - run: install -m 755 evals/fake_hermes.sh /tmp/hermes
       - run: echo /tmp >> "$GITHUB_PATH"
       - run: python evals/run.py --output /tmp/day0-eval.json
-      - run: shaki case --fixture > /tmp/case.json
+      - run: shakti case --fixture > /tmp/case.json
       - run: python -c 'import json; d=json.load(open("/tmp/case.json")); assert d["case"]["next_step"]["code"] == "urgent_hpd_follow_up"'

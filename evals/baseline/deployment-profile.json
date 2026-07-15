@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "kind": "local_deployment_observations",
+  "observed_at": "2026-07-15",
+  "machine_scope": "one local macOS development machine",
+  "web_process": {
+    "state": "FastAPI server after a completed live address result",
+    "resident_memory_kb": 47760,
+    "method": "ps RSS for the running Python service"
+  },
+  "verified_address_queries": {
+    "trace_events": 13,
+    "query_duration_ms": [1297.26, 198.3, 183.29, 177.93],
+    "query_total_ms": 1856.78,
+    "method": "query.completed duration_ms values from the verified live trace"
+  },
+  "readiness_route": {
+    "elapsed_seconds": 0.62,
+    "samples": 1,
+    "method": "/usr/bin/time curl http://127.0.0.1:8765/api/health",
+    "interpretation": "One observation, not a latency benchmark. The route inspects Hermes with three command processes."
+  },
+  "liveness_route": {
+    "samples": 20,
+    "duration_ms": {
+      "minimum": 0.484,
+      "mean": 0.631,
+      "maximum": 1.395
+    },
+    "method": "20 sequential curl requests to http://127.0.0.1:8765/api/live",
+    "interpretation": "Local process liveness only. The route does not inspect Hermes. This is not a concurrent latency benchmark."
+  },
+  "case_pipeline_reference": {
+    "baseline": "five-borough.json",
+    "sampled": 150,
+    "duration_ms": {
+      "minimum": 522.1,
+      "mean": 734.305,
+      "maximum": 2600.61
+    },
+    "packet_chars": {
+      "minimum": 1838,
+      "mean": 7697.0,
+      "maximum": 30657
+    }
+  },
+  "limits": [
+    "This is not a concurrent load test.",
+    "The City services and local machine state can change the results.",
+    "No Hermes model inference was profiled in this observation."
+  ]
+}

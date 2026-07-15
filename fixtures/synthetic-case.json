@@ -21,7 +21,7 @@
       "problem_status_date": "2026-01-14T15:00:00.000",
       "status_description": "The Department inspected the condition.",
       "unique_key": "60000000",
-      "apartment": "4A"
+      "apartment": "1A"
     }
   ],
   "violations": [
@@ -35,7 +35,7 @@
       "currentstatusdate": "2026-01-14T00:00:00.000",
       "violationstatus": "Open",
       "originalcorrectbydate": "2026-01-15T00:00:00.000",
-      "apartment": "4A"
+      "apartment": "1A"
     }
   ],
   "aep": [],

@@ -3,125 +3,148 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Understand NYC housing repair records with source-level governance.">
-  <title>Shaki Seva Studio</title>
-  <link rel="icon" href="/assets/shaki-seva-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/styles.css">
+  <meta name="description" content="Read public NYC housing repair records for one building.">
+  <title>Shakti Seva Studio</title>
+  <link rel="icon" href="/assets/shakti-seva-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css?v=5">
 </head>
 <body>
-  <a class="skip-link" href="#workspace">Skip to case workspace</a>
+  <a class="skip-link" href="#main">Skip to the address search</a>
   <header class="site-header">
-    <a class="brand" href="/" aria-label="Shaki Seva Studio home">
-      <img src="/assets/shaki-seva-mark.svg" alt="" class="brand-mark">
-      <span><strong>Shaki Seva Studio</strong><small>Public records, treated with care.</small></span>
+    <a class="brand" href="/" aria-label="Shakti Seva Studio home">
+      <img src="/assets/shakti-seva-mark.svg" alt="" class="brand-mark">
+      <span><strong>Shakti Seva Studio</strong><small>Public records, treated with care.</small></span>
     </a>
     <div class="connection" id="connection" role="status" aria-live="polite">
-      <span class="connection-dot"></span><span id="connection-label">Connecting locally</span>
+      <span class="connection-dot"></span><span id="connection-label">Connecting on this computer</span>
     </div>
   </header>
 
-  <main id="workspace" class="workspace">
-    <aside class="case-panel" aria-labelledby="case-start-title">
+  <main id="main">
+    <section class="start" aria-labelledby="start-title">
       <p class="eyebrow">Repair Loop NYC</p>
-      <h1 id="case-start-title">See what the City record says.</h1>
-      <p class="lead">Build a sourced timeline from public HPD records, then ask Hermes for a plain-language explanation.</p>
+      <h1 id="start-title">What does the City know about your building?</h1>
+      <p class="lead">Enter one building address. We will gather its public complaints and violations, then show what the records say.</p>
 
-      <div class="outcomes" aria-label="What Shaki provides">
-        <div><strong>One building</strong><span>Confirmed before records join.</span></div>
-        <div><strong>One timeline</strong><span>Complaints and violations stay distinct.</span></div>
-        <div><strong>One next step</strong><span>Selected by code, not the model.</span></div>
-      </div>
-
-      <form id="case-form" class="case-form" novalidate>
-        <div class="field">
-          <label for="borough">Borough</label>
-          <select id="borough" name="borough" required>
-            <option value="">Choose a borough</option>
-            <option>BRONX</option><option>BROOKLYN</option><option>MANHATTAN</option><option>QUEENS</option><option>STATEN ISLAND</option>
-          </select>
+      <form id="case-form" class="address-picker" novalidate>
+        <label for="address">Building address</label>
+        <div class="address-control">
+          <input id="address" name="address" autocomplete="off" inputmode="text" maxlength="140" placeholder="Start typing a NYC address" role="combobox" aria-autocomplete="list" aria-controls="address-suggestions" aria-expanded="false" aria-describedby="address-help address-treatment form-error" required>
+          <button class="primary-button" type="submit">Search records</button>
         </div>
-        <div class="address-row">
-          <div class="field"><label for="house-number">House number</label><input id="house-number" name="house_number" autocomplete="address-line1" maxlength="12" required></div>
-          <div class="field"><label for="street-name">Street name</label><input id="street-name" name="street_name" autocomplete="address-line1" maxlength="80" required></div>
-        </div>
-        <p class="field-help">Do not enter an apartment number, name, phone, or private message.</p>
+        <div id="address-suggestions" class="address-suggestions" role="listbox" aria-label="NYC address suggestions" hidden></div>
+        <p id="address-help" class="field-help">Type the address the way you know it. A borough or ZIP helps when street names repeat. Apartment information is removed before search.</p>
+        <div id="address-treatment" class="address-treatment" hidden role="status" aria-live="polite"></div>
         <p id="form-error" class="field-error" role="alert"></p>
-        <button class="primary-button" type="submit">Build public record timeline</button>
       </form>
 
-      <div class="fixture-box">
-        <div><strong>Start safely</strong><span>Use a synthetic Queens case with no resident data.</span></div>
-        <button id="fixture-button" class="secondary-button" type="button">Open governed fixture</button>
-      </div>
+      <p class="privacy-note">We do not need your name, phone number, or private message. No complaint is filed from this page.</p>
+    </section>
 
-      <details class="governance-note">
-        <summary>What is recorded?</summary>
-        <p>Dataset IDs, query hashes, row counts, transformations, routing, and model execution. Raw responses and resident free text are not retained.</p>
-      </details>
-    </aside>
+    <section id="progress" class="progress" hidden role="status" aria-live="polite">
+      <span class="spinner"></span>
+      <div><strong id="progress-title">Checking the address</strong><p id="progress-detail">Confirming one building before records are joined.</p></div>
+    </section>
 
-    <section class="studio" aria-labelledby="studio-title">
-      <header class="studio-heading">
-        <div><p class="eyebrow">Governed workspace</p><h2 id="studio-title">Case studio</h2></div>
-        <div class="runtime-pills">
-          <span class="pill" id="transport-pill">Socket checking</span>
-          <span class="pill" id="hermes-pill">Hermes checking</span>
+    <section id="workspace-error" class="notice notice-error" hidden role="alert"></section>
+
+    <section id="candidate-panel" class="candidate-panel" hidden aria-labelledby="candidate-title">
+      <p class="eyebrow">Confirm the building</p>
+      <h2 id="candidate-title">Which building did you mean?</h2>
+      <p>We will not join repair records until you choose one building.</p>
+      <div id="candidate-list" class="candidate-list"></div>
+      <button id="edit-address" class="text-button" type="button">Edit the address</button>
+    </section>
+
+    <section id="result" class="result" hidden aria-labelledby="result-title">
+      <header class="result-header">
+        <div>
+          <p class="eyebrow">Public building record</p>
+          <h2 id="result-title"><span id="building-address"></span></h2>
+          <p id="building-meta" class="muted"></p>
+          <p id="address-match-note" class="address-match-note" hidden></p>
         </div>
+        <button id="new-search" class="secondary-button" type="button">Check another building</button>
       </header>
 
-      <nav class="module-tabs" aria-label="Case workspace views" role="tablist">
-        <button id="tab-case" role="tab" aria-selected="true" aria-controls="panel-case" data-tab="case">Case</button>
-        <button id="tab-evidence" role="tab" aria-selected="false" aria-controls="panel-evidence" data-tab="evidence">Evidence</button>
-        <button id="tab-trace" role="tab" aria-selected="false" aria-controls="panel-trace" data-tab="trace">Trace <span id="trace-count">0</span></button>
-      </nav>
-
-      <div id="progress" class="progress" hidden role="status" aria-live="polite"><span class="spinner"></span><div><strong id="progress-title">Building the case</strong><p id="progress-detail">Treating source records before they enter the workspace.</p></div></div>
-      <div id="workspace-error" class="notice notice-error" hidden role="alert"></div>
-
-      <section id="panel-case" class="tab-panel" role="tabpanel" aria-labelledby="tab-case">
-        <div id="blank-state" class="blank-state">
-          <img src="/assets/shaki-seva-mark.svg" alt="">
-          <p class="eyebrow">No case loaded</p>
-          <h3>Begin with the governed fixture.</h3>
-          <p>It exercises the same normalization, routing, socket, and trace path without touching a resident record.</p>
-          <button class="text-button" type="button" data-open-fixture>Open the fixture →</button>
-        </div>
-
-        <div id="case-content" hidden>
-          <div class="case-identity">
-            <div><p class="eyebrow">Selected building</p><h3 id="building-address"></h3><p id="building-meta" class="muted"></p></div>
-            <div class="trace-identity"><span>Trace ID</span><code id="trace-id"></code></div>
+      <section id="address-primer" class="address-primer" hidden aria-labelledby="address-primer-title">
+        <header>
+          <div>
+            <p class="eyebrow">How the match works</p>
+            <h3 id="address-primer-title">One building can answer to two addresses</h3>
           </div>
-          <div class="stat-grid">
-            <article><strong id="complaint-count">0</strong><span>Complaint records shown</span></article>
-            <article><strong id="violation-count">0</strong><span>Open violations shown</span></article>
-            <article><strong id="open-count">0</strong><span>Open violations</span></article>
-            <article><strong id="aep-count">0</strong><span>AEP records</span></article>
-          </div>
-          <article class="next-step-card"><p class="eyebrow">Code-selected next step</p><h3 id="next-step-label"></h3><p id="next-step-reason"></p></article>
-          <section class="timeline-section"><div class="section-heading"><div><p class="eyebrow">Activity stream</p><h3>Repair record timeline</h3></div><span class="muted">Newest first</span></div><ol id="timeline" class="timeline"></ol></section>
-          <section class="hermes-card">
-            <div><p class="eyebrow">Optional language layer</p><h3>Ask Hermes to explain this packet</h3><p>Hermes receives curated public fields only. It cannot change the next step.</p></div>
-            <button id="hermes-button" class="primary-button" type="button" disabled>Hermes is off</button>
-          </section>
-          <article id="hermes-response" class="hermes-response" hidden><p class="eyebrow">Hermes explanation</p><div id="hermes-text"></div></article>
+          <span class="identity-stamp" aria-hidden="true">Same building ✓</span>
+        </header>
+        <p class="primer-intro">A map may use the entrance you know while HPD files the property under another street face. Think of the BIN as the building’s City ID card: the address label can change, but the seven-digit BIN stays with the building.</p>
+        <ol class="identity-chain" aria-label="How Shakti matched the address to the HPD record">
+          <li>
+            <span class="primer-icon" aria-hidden="true">●</span>
+            <span class="step-number">1 · Map-style address</span>
+            <strong id="primer-searched-address"></strong>
+            <small>NYC GeoSearch found the address you entered.</small>
+            <span class="chain-arrow" aria-hidden="true"></span>
+          </li>
+          <li class="identity-key">
+            <span class="primer-icon" aria-hidden="true">#</span>
+            <span class="step-number">2 · City ID card</span>
+            <strong>NYC BIN <code id="primer-bin"></code></strong>
+            <small>This number identifies the building.</small>
+            <span class="chain-arrow" aria-hidden="true"></span>
+          </li>
+          <li>
+            <span class="primer-icon" aria-hidden="true">▤</span>
+            <span class="step-number">3 · HPD record name</span>
+            <strong id="primer-hpd-address"></strong>
+            <small>HPD files the public housing records here.</small>
+          </li>
+        </ol>
+        <div class="primer-proof">
+          <strong>Why Shakti treats this as one building</strong>
+          <p>Both City records use the same BIN. NYC explains that a BIN uniquely identifies a building and that one BIN can have more than one street address.</p>
+          <a href="https://www.nyc.gov/site/specialenforcement/registration-law/registration-and-listing-data.page" target="_blank" rel="noreferrer">Read NYC’s BIN explanation</a>
         </div>
       </section>
 
-      <section id="panel-evidence" class="tab-panel" role="tabpanel" aria-labelledby="tab-evidence" hidden>
-        <div class="section-heading"><div><p class="eyebrow">Provenance</p><h3>Evidence sources</h3></div><span class="muted">Official dataset identifiers</span></div>
-        <div id="source-list" class="source-list"><div class="blank-inline">Load a case to see its source receipts.</div></div>
-        <details class="field-contract"><summary>Fields allowed into Hermes</summary><p>Public identifiers, dates, category and status labels, violation class, public descriptions, building-level identifiers, and source freshness. Apartment numbers and resident details are removed.</p></details>
+      <article class="short-version">
+        <p class="eyebrow">The short version</p>
+        <h3 id="next-step-label"></h3>
+        <p id="next-step-reason"></p>
+      </article>
+
+      <div class="stat-grid" aria-label="Record totals">
+        <article><strong id="complaint-count">0</strong><span>Complaints shown</span></article>
+        <article><strong id="open-count">0</strong><span>Open violations</span></article>
+        <article><strong id="aep-count">0</strong><span>Enforcement records</span></article>
+      </div>
+      <p id="record-limit-note" class="record-limit-note" hidden></p>
+
+      <section class="timeline-section">
+        <div class="section-heading"><h3>What happened, newest first</h3><span class="muted">Complaints and violations stay separate</span></div>
+        <ol id="timeline" class="timeline"></ol>
       </section>
 
-      <section id="panel-trace" class="tab-panel" role="tabpanel" aria-labelledby="tab-trace" hidden>
-        <div class="section-heading"><div><p class="eyebrow">Accountability</p><h3>Hash-chained execution trace</h3></div><button id="copy-trace" class="secondary-button" type="button" disabled>Copy trace ID</button></div>
-        <ol id="trace-list" class="trace-list"><li class="blank-inline">Trace events appear here as the case moves through the data plane.</li></ol>
+      <section class="hermes-card">
+        <div><p class="eyebrow">Optional explanation</p><h3>Read this in plain language</h3><p>Hermes receives the treated building packet. It cannot change the next step.</p></div>
+        <button id="hermes-button" class="primary-button" type="button" disabled>Hermes is off</button>
       </section>
+      <article id="hermes-response" class="hermes-response" hidden><p class="eyebrow">Hermes explanation</p><div id="hermes-text"></div></article>
+
+      <details class="receipts">
+        <summary>Sources and processing record</summary>
+        <p>Use these details to check where the records came from and what the app did.</p>
+        <div id="source-list" class="source-list"></div>
+        <div class="trace-heading"><strong>Processing record</strong><button id="copy-trace" class="secondary-button" type="button" disabled>Copy trace ID</button></div>
+        <ol id="trace-list" class="trace-list"></ol>
+      </details>
+
+      <aside class="city-support" aria-labelledby="support-title">
+        <div><p class="eyebrow">Get help from the City</p><h3 id="support-title">Official tenant support</h3><p>Read City guidance, find tenant resources, or contact 311. Shakti does not replace these services or provide legal advice.</p></div>
+        <a class="city-link" href="https://www.nyc.gov/content/tenantprotection/pages/" target="_blank" rel="noreferrer">Open NYC Tenant Protection resources</a>
+      </aside>
     </section>
   </main>
 
-  <footer>Prototype for public-interest technology research. Not legal advice. No complaint is filed from this interface.</footer>
-  <script src="/assets/app.js" defer></script>
+  <footer>Research prototype. Not legal advice. No complaint is filed from this interface.</footer>
+  <script src="/assets/app.js?v=6" defer></script>
 </body>
 </html>

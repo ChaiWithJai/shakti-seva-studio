@@ -11,9 +11,9 @@ unit tests with installed-command and running-server checks.
 | Test suite | Field treatment, routing, tracing, CLI, adapter, and socket tests pass |
 | Doctor | Required local directories and Hermes interfaces are present |
 | Hermes launch contracts | TUI and CLI receive the governed 32K environment |
-| Fixture and trace | A synthetic case completes and its hash chain verifies |
+| CLI fixture and trace | An internal test case completes and its hash chain verifies |
 | Public bind refusal | The web server will not listen on `0.0.0.0` |
-| Server and socket | A loopback server handles the same-origin fixture request |
+| Server and socket | Cheap liveness does not inspect Hermes; readiness does; a same-origin socket connects; no browser fixture path exists |
 | Published evidence | Screenshots have reviewable dimensions and the demo media has valid file signatures |
 
 Run the suite with:
@@ -28,20 +28,21 @@ not committed.
 
 ## Captured UI evidence
 
-The web images were captured in a headed Chromium session against the running
-loopback server and synthetic fixture. The Case, Evidence, and Trace views were
-checked. The browser console had no errors or warnings.
+The public browser evidence comes from a headed run against NYC GeoSearch and
+the four NYC Open Data sources. The dated validation report includes the typed
+address, selected NYC BIN, HPD Building ID, source row counts, trace result, and
+browser console result. Fixture based browser screenshots were removed.
 
 The TUI image came from an actual pseudo-terminal session. A terminal emulator
 rendered the captured ready frame into HTML, and Chromium captured that page.
 The repository path and Hermes session ID were redacted. This gives a stable,
 reviewable artifact without pretending that a model response was tested.
 
-The Liquid narration was rejected after its first long-form take became
-unintelligible. The accepted take was generated one paragraph at a time on the
-CPU, joined with short pauses, and transcribed locally. The transcript covered
-the complete script. The rendered MP4 was checked for its video and audio
-streams, duration, dimensions, and representative frames.
+The documentation follows an outcome-first structure and limits claims to
+reviewable evidence. Those choices follow the public
+[mine-writing-rules](https://github.com/shreyashankar/mine-writing-rules)
+collection. The repository publishes no prerecorded demo video as evidence;
+the screenshots and GIF above come from the running app and live City sources.
 
 ## What remains separate
 

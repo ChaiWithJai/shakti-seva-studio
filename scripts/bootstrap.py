@@ -28,8 +28,8 @@ def main() -> int:
         for path in glob.glob(str(site_packages / "*.pth")):
             subprocess.run(["chflags", "nohidden", path], check=False)
 
-    run(str(PYTHON), "-c", "import shaki_seva; print(shaki_seva.__file__)")
-    run(str(ROOT / ".venv" / "bin" / "shaki"), "doctor")
+    run(str(PYTHON), "-c", "import shakti_seva; print(shakti_seva.__file__)")
+    run(str(ROOT / ".venv" / "bin" / "shakti"), "doctor")
     return 0
 
 

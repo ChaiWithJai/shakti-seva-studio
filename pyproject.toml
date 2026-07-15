@@ -3,7 +3,7 @@ requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [project]
-name = "shaki-seva-studio"
+name = "shakti-seva-studio"
 version = "0.1.0"
 description = "A governed Hermes experience for understanding NYC housing repair records"
 readme = "README.md"
@@ -23,10 +23,10 @@ dev = [
 ]
 
 [project.scripts]
-shaki = "shaki_seva.cli:main"
+shakti = "shakti_seva.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/shaki_seva"]
+packages = ["src/shakti_seva"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
