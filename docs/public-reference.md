@@ -11,7 +11,7 @@ data sources, record treatment, repository structure, browser and Hermes roles,
 measurements, and deployment options. It includes captures from the live app
 and the governed Hermes interface.
 
-The public repository is [ChaiWithJai/shaki-seva-studio](https://github.com/ChaiWithJai/shaki-seva-studio). The repository address retains the earlier spelling of the project name. The product and Python package use the correct name, Shakti.
+The public repository is [ChaiWithJai/shakti-seva-studio](https://github.com/ChaiWithJai/shakti-seva-studio). The repository, product, and Python package all use the correct name, Shakti.
 
 ## What you can cite
 

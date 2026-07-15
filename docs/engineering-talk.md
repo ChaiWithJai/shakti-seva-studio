@@ -5,7 +5,7 @@ project. The earlier prerecorded talk contains fixture based scenes and is not
 part of the public demo or evidence contract. The live browser flow and dated
 reports are authoritative.
 
-The visual treatment uses three public references. The [Shakti GitHub repository](https://github.com/ChaiWithJai/shaki-seva-studio) is the application artifact. [PrismML Developer](https://yourwildcard.ai/) supplies the measured trace documentation pattern. [Inference the Hard Way](https://chaiwithjai.github.io/inference-the-hard-way/#01-tokenizer) supplies the tokenizer and KV cache whiteboard artifacts.
+The visual treatment uses three public references. The [Shakti GitHub repository](https://github.com/ChaiWithJai/shakti-seva-studio) is the application artifact. [PrismML Developer](https://yourwildcard.ai/) supplies the measured trace documentation pattern. [Inference the Hard Way](https://chaiwithjai.github.io/inference-the-hard-way/#01-tokenizer) supplies the tokenizer and KV cache whiteboard artifacts.
 
 These notes cover:
 

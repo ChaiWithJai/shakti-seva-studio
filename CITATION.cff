@@ -7,6 +7,6 @@ authors:
 version: 0.1.0
 date-released: 2026-07-15
 license: Apache-2.0
-repository-code: "https://github.com/ChaiWithJai/shaki-seva-studio"
-url: "https://github.com/ChaiWithJai/shaki-seva-studio"
+repository-code: "https://github.com/ChaiWithJai/shakti-seva-studio"
+url: "https://github.com/ChaiWithJai/shakti-seva-studio"
 abstract: "A local civic technology prototype for inspecting New York City housing repair records with an optional local model."

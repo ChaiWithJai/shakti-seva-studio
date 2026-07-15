@@ -19,7 +19,7 @@ decide whether a landlord, tenant, inspector, or agency is right.
 - Do not identify or score a landlord as good or bad.
 - Do not expose apartment numbers, resident names, contact details, or free-text
   resident messages.
-- Do not publish, submit a complaint, contact an agency, install
+- Do not submit a complaint, contact an agency, install
   software or write outside this repository.
 - Do not run web searches or fetch additional records during an explanation.
 
