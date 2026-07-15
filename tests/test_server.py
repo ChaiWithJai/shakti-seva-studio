@@ -176,3 +176,9 @@ def test_static_app_uses_brand_and_socket() -> None:
     assert "registration-and-listing-data.page" in html
     assert "https://www.nyc.gov/content/tenantprotection/pages/" in html
     assert 'type: "confirm"' in javascript
+    assert "This public-record lookup does not use AI." in html
+    assert 'state.runtime === "serverless"' in javascript
+    assert 'fetch("/api/case"' in javascript
+    assert 'method: "POST"' in javascript
+    assert "Live City data · no AI" in javascript
+    assert "Run the local AI edition" in html

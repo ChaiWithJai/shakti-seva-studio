@@ -6,7 +6,7 @@
   <meta name="description" content="Read public NYC housing repair records for one building.">
   <title>Shakti Seva Studio</title>
   <link rel="icon" href="/assets/shakti-seva-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/styles.css?v=5">
+  <link rel="stylesheet" href="/assets/styles.css?v=6">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to the address search</a>
@@ -16,7 +16,7 @@
       <span><strong>Shakti Seva Studio</strong><small>Public records, treated with care.</small></span>
     </a>
     <div class="connection" id="connection" role="status" aria-live="polite">
-      <span class="connection-dot"></span><span id="connection-label">Connecting on this computer</span>
+      <span class="connection-dot"></span><span id="connection-label">Checking how this site runs</span>
     </div>
   </header>
 
@@ -37,6 +37,15 @@
         <div id="address-treatment" class="address-treatment" hidden role="status" aria-live="polite"></div>
         <p id="form-error" class="field-error" role="alert"></p>
       </form>
+
+      <aside class="runtime-proof" aria-labelledby="runtime-proof-title">
+        <span class="proof-mark" aria-hidden="true">✓</span>
+        <div>
+          <strong id="runtime-proof-title">This public-record lookup does not use AI.</strong>
+          <p>Deterministic code matches the City building, joins bounded public datasets, treats private unit locations, and selects the next step. Optional local AI can explain the completed packet, but it cannot change these results.</p>
+          <a href="https://github.com/ChaiWithJai/shakti-seva-studio/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Inspect the system boundary</a>
+        </div>
+      </aside>
 
       <p class="privacy-note">We do not need your name, phone number, or private message. No complaint is filed from this page.</p>
     </section>
@@ -124,8 +133,9 @@
       </section>
 
       <section class="hermes-card">
-        <div><p class="eyebrow">Optional explanation</p><h3>Read this in plain language</h3><p>Hermes receives the treated building packet. It cannot change the next step.</p></div>
+        <div><p class="eyebrow">Optional local extension</p><h3 id="ai-card-title">Read this in plain language</h3><p id="ai-card-copy">Hermes receives the treated building packet. It cannot change the next step.</p></div>
         <button id="hermes-button" class="primary-button" type="button" disabled>Hermes is off</button>
+        <a id="local-ai-link" class="primary-button local-ai-link" href="https://github.com/ChaiWithJai/shakti-seva-studio#run-the-local-research-edition" target="_blank" rel="noreferrer" hidden>Run the local AI edition</a>
       </section>
       <article id="hermes-response" class="hermes-response" hidden><p class="eyebrow">Hermes explanation</p><div id="hermes-text"></div></article>
 
@@ -144,7 +154,7 @@
     </section>
   </main>
 
-  <footer>Research prototype. Not legal advice. No complaint is filed from this interface.</footer>
-  <script src="/assets/app.js?v=6" defer></script>
+  <footer>Public-interest technology prototype. The record lookup is deterministic and does not use AI. Not legal advice.</footer>
+  <script src="/assets/app.js?v=7" defer></script>
 </body>
 </html>

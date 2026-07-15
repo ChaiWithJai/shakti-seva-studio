@@ -32,7 +32,15 @@ trace path. The fixture is invented and stable. It exercises field selection,
 unit treatment, record limits, deterministic routing, and the hash chained
 trace.
 
-## 3. Use the web UI
+## 3. Try the AI-free public web UI
+
+Open [shakti-seva-studio.netlify.app](https://shakti-seva-studio.netlify.app).
+The runtime badge and system-boundary card should both state that the public
+lookup uses no AI. Type an address, inspect the City match, and open the source
+receipts. The hosted edition uses static files and Netlify Functions; it has no
+Python, WebSocket, Hermes, or Bonsai runtime.
+
+## 4. Use the local web UI
 
 ```bash
 .venv/bin/shakti serve
@@ -56,7 +64,7 @@ four NYC Open Data sources listed in the README. Public records can change, so
 record the address, identifiers, fetch time, row counts, and trace result when
 you report a live browser run.
 
-## 4. Use Hermes
+## 5. Use Hermes
 
 ```bash
 .venv/bin/shakti hermes --print-command --tui
@@ -70,7 +78,7 @@ memory safety under inference load.
 
 ![Hermes TUI ready state](assets/screenshots/hermes-tui.png)
 
-## 5. Run the acceptance suite
+## 6. Run the acceptance suite
 
 ```bash
 .venv/bin/python evals/run.py

@@ -63,6 +63,22 @@ the documented product boundary. Include a screenshot when the visible result
 changes. The screenshot must show its live source receipts and validation date;
 do not present a fixture as product proof.
 
+If the change affects address matching, data treatment, routing, or the case
+schema, test both public data services. The Python service runs locally. The
+JavaScript service runs in Netlify Functions. A change is not complete when the
+two services return different governed fields or choose different next steps.
+
+Run the JavaScript checks and build:
+
+```bash
+node --test netlify/tests/*.test.mjs
+node --check evals/netlify_acceptance.mjs
+netlify build --offline
+```
+
+Use a draft Netlify deployment for the headed browser test. Do not send a live
+address through a pull request preview that you do not control.
+
 For a Hermes launch change, test `--print-command` first. A model run is a
 separate acceptance gate. Record the model, context size, memory limit, prompt,
 trace, and stop condition.
