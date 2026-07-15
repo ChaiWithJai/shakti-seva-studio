@@ -6,7 +6,9 @@ serverless functions, and returns source receipts and a hash chained processing
 record. It does not run Hermes, Bonsai, or any other model.
 
 The production URL is
-[shakti-seva-studio.netlify.app](https://shakti-seva-studio.netlify.app).
+[shakti.dharmicdata.org](https://shakti.dharmicdata.org). The original
+[Netlify URL](https://shakti-seva-studio.netlify.app) remains available as a
+fallback.
 
 ## What proves that it is not AI
 
@@ -28,6 +30,9 @@ This is an architectural property, not a marketing label.
 
 The headed acceptance run typed `700 E 9th St` into the deployed site. Live NYC
 GeoSearch returned BIN `1004529`, and the function joined HPD Building `6533`.
+The checked [production baseline](../evals/baseline/netlify-production.json)
+records the live result, runtime boundary, privacy checks, custom HTTPS result,
+and repository deployment IDs.
 
 ![The deployed address, BIN, and HPD explanation](assets/screenshots/netlify-live-result.png)
 
@@ -139,13 +144,17 @@ The release gate follows three layers.
 - The public service has no user account, saved case, or shareable resident
   history. Adding those would require a new privacy and threat review.
 
-## Connect `dharmicdata.org`
+## `dharmicdata.org` connection
 
-Use `shakti.dharmicdata.org` for this project and keep the apex available for a
-future civic technology portfolio or documentation hub. The Netlify project
-must claim the hostname, the `dharmicdata.org` DNS zone must point the `shakti`
-CNAME to `shakti-seva-studio.netlify.app`, and HTTPS must finish provisioning
-before the link is announced.
+`shakti.dharmicdata.org` is connected to the Netlify site. Its CNAME points to
+`shakti-seva-studio.netlify.app`. Netlify issued a certificate that covers the
+Dharmic Data domain, and the custom URL returned HTTP 200 over HTTPS during the
+July 15, 2026 acceptance run.
+
+Netlify is also connected to this GitHub repository. A merge to `main` produced
+repository deploy `6a57c4ebeaa1dc9a9fb2cd61` from commit
+`acb3339a5f9333c0cf410548b712a64a19db5ceb`. The checked baseline keeps that
+deployment fact beside the application result.
 
 Do not redirect the apex until there is a deliberate information architecture
 for the rest of Dharmic Data.

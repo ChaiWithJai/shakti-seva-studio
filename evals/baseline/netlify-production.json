@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "kind": "netlify_ai_free_production_acceptance",
+  "observed_at": "2026-07-15T17:41:27.236Z",
+  "passed": true,
+  "production_url": "https://shakti.dharmicdata.org",
+  "fallback_url": "https://shakti-seva-studio.netlify.app",
+  "deployment": {
+    "site_name": "shakti-seva-studio",
+    "site_id": "25a33e76-f3ca-4e2f-9ccd-927af8c673ea",
+    "repository_deploy_id": "6a57c4ebeaa1dc9a9fb2cd61",
+    "repository_commit": "acb3339a5f9333c0cf410548b712a64a19db5ceb",
+    "repository_branch": "main",
+    "accepted_production_deploy_id": "6a57c5062022ac95159f4f1f",
+    "custom_https_verified": true,
+    "certificate_domains": [
+      "*.dharmicdata.org",
+      "dharmicdata.org"
+    ]
+  },
+  "runtime": {
+    "static_files": 4,
+    "functions": [
+      "health",
+      "address-suggestions",
+      "case"
+    ],
+    "python": false,
+    "websocket": false
+  },
+  "no_ai": {
+    "health_declared_disabled": true,
+    "hermes_absent": true,
+    "model_events": 0
+  },
+  "privacy": {
+    "suggestions_post_body": true,
+    "query_string_get_refused": true,
+    "suggestions_no_store": true,
+    "case_no_store": true,
+    "unit_scan_passed": true
+  },
+  "lived_address": {
+    "entered": "700 E 9th St",
+    "first_bin": "1004529",
+    "hpd_building_id": "6533",
+    "canonical_address": "140 AVENUE C, MANHATTAN",
+    "complaints_shown": 25,
+    "open_violations_shown": 6,
+    "aep_records": 0,
+    "route": "urgent_hpd_follow_up"
+  },
+  "sources": [
+    {
+      "dataset_id": "kj4p-ruqc",
+      "rows": 1
+    },
+    {
+      "dataset_id": "ygpa-z7cr",
+      "rows": 26
+    },
+    {
+      "dataset_id": "wvxf-dwi5",
+      "rows": 6
+    },
+    {
+      "dataset_id": "hcir-3275",
+      "rows": 0
+    }
+  ],
+  "trace_events": 13,
+  "browser": {
+    "requests": [
+      "GET /api/health 200",
+      "POST /api/address-suggestions 200",
+      "POST /api/case 200"
+    ],
+    "console_errors": 0,
+    "console_warnings": 0
+  },
+  "limits": [
+    "This is one dated lived-address journey against changing City services.",
+    "This is not a concurrent load test or an advocate usability study.",
+    "Netlify and City services process standard infrastructure metadata."
+  ]
+}

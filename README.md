@@ -16,7 +16,7 @@ complaint, give legal advice, score a landlord, or predict an agency action.
 
 | Edition | What runs | AI | Best for |
 | --- | --- | --- | --- |
-| [Public web demo](https://shakti-seva-studio.netlify.app) | Static browser files and three Netlify Functions that call live City services | None | Trying the address and source workflow without installing anything |
+| [Public web demo](https://shakti.dharmicdata.org) | Static browser files and three Netlify Functions that call live City services | None | Trying the address and source workflow without installing anything |
 | Local research edition | Python, FastAPI, WebSocket, local traces, and optional Hermes | Off by default; explicitly enabled locally | Extending the case packet, studying agent behavior, and instrumenting local tool use |
 
 The public demo is deterministic civic software. Address matching, City joins,
@@ -73,7 +73,7 @@ full trace remain local.
 
 ## Try the public web demo
 
-Open [shakti-seva-studio.netlify.app](https://shakti-seva-studio.netlify.app)
+Open [shakti.dharmicdata.org](https://shakti.dharmicdata.org)
 and type a New York City address. The hosted version uses HTTPS functions for
 NYC GeoSearch and Open Data. It does not include Python, WebSockets, Hermes, or
 Bonsai. Address suggestions and case requests use POST bodies that are not cached.
@@ -82,7 +82,7 @@ trace. Netlify still processes normal infrastructure metadata as the hosting
 provider.
 
 Read the [Netlify deployment guide](docs/netlify-deployment.md) for the exact
-runtime boundary, endpoints, build, tests, risks, and custom domain path.
+runtime boundary, endpoints, build, tests, risks, and production proof.
 
 ## Run the local research edition
 
