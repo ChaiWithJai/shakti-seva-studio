@@ -189,3 +189,6 @@ def test_static_app_uses_brand_and_socket() -> None:
     assert "aria-selected" in javascript
     assert "setActiveSuggestion" in javascript
     assert "City records filed under" in javascript
+    assert 'id="result-title" tabindex="-1"' in html
+    assert '$("#result-title").focus' in javascript
+    assert 'prefers-reduced-motion: reduce' in javascript

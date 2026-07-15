@@ -2,6 +2,10 @@ const state = { runtime: "unknown", socket: null, reconnectTimer: null, case: nu
 let runtimeReady;
 const $ = (selector) => document.querySelector(selector);
 
+function scrollBehavior() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+}
+
 function setConnection(status, label) {
   const node = $("#connection");
   node.className = `connection ${status}`;
@@ -388,7 +392,7 @@ function renderCandidates(candidates, message) {
     error.textContent = "We could not match that address to one HPD building. Add the borough or ZIP, then choose a City suggestion.";
     $("#address").setAttribute("aria-invalid", "true");
     $("#address").focus({ preventScroll: true });
-    $("#case-form").scrollIntoView({ behavior: "smooth", block: "center" });
+    $("#case-form").scrollIntoView({ behavior: scrollBehavior(), block: "center" });
     return;
   }
   panel.querySelector("p:not(.eyebrow)").textContent = message || "Choose one building before records are joined.";
@@ -405,7 +409,7 @@ function renderCandidates(candidates, message) {
   }
   panel.hidden = false;
   $("#result").hidden = true;
-  panel.scrollIntoView({ behavior: "smooth", block: "start" });
+  panel.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
 }
 
 function renderCase() {
@@ -455,7 +459,8 @@ function renderCase() {
   updateHermesButton();
   $("#candidate-panel").hidden = true;
   $("#result").hidden = false;
-  $("#result").scrollIntoView({ behavior: "smooth", block: "start" });
+  $("#result").scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+  $("#result-title").focus({ preventScroll: true });
 }
 
 function formatDate(value) {
@@ -548,7 +553,7 @@ function resetSearch() {
   $("#result").hidden = true;
   $("#candidate-panel").hidden = true;
   $("#address").focus();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, behavior: scrollBehavior() });
 }
 
 $("#address").addEventListener("input", () => { previewAddress(); queueSuggestions(); });
