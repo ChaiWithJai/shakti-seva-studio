@@ -124,3 +124,10 @@ The automated hosted check also confirmed that both responses used `no-store`,
 the function refused query string autocomplete, and the treated packet passed
 the unit location scan. This was one address journey. It was not a load test or
 an advocate pilot.
+
+The same acceptance check passed at
+[shakti.dharmicdata.org](https://shakti.dharmicdata.org) after its HTTPS
+certificate was issued. The [production baseline](../evals/baseline/netlify-production.json)
+records the custom domain, repository deploy, AI boundary, privacy checks, City
+source rows, and lived-address result. GitHub Actions also passed for the merged
+commit that Netlify deployed from `main`.

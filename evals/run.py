@@ -262,9 +262,33 @@ def check_published_evidence() -> str:
     liveness = profile.get("liveness_route", {})
     if liveness.get("samples") != 20 or liveness.get("duration_ms", {}).get("mean") != 0.631:
         raise RuntimeError("deployment profile is missing the reviewed cheap liveness timing")
+    netlify = json.loads(
+        (ROOT / "evals" / "baseline" / "netlify-production.json").read_text(encoding="utf-8")
+    )
+    if netlify.get("passed") is not True or netlify.get("production_url") != "https://shakti.dharmicdata.org":
+        raise RuntimeError("Netlify production baseline is not a passing custom-domain run")
+    deploy = netlify.get("deployment", {})
+    if not deploy.get("repository_commit") or deploy.get("repository_branch") != "main":
+        raise RuntimeError("Netlify production baseline is missing repository deployment proof")
+    if deploy.get("custom_https_verified") is not True:
+        raise RuntimeError("Netlify production baseline is missing custom HTTPS proof")
+    no_ai = netlify.get("no_ai", {})
+    if no_ai != {"health_declared_disabled": True, "hermes_absent": True, "model_events": 0}:
+        raise RuntimeError("Netlify production baseline does not prove the AI-free boundary")
+    if netlify.get("runtime", {}).get("python") is not False or netlify.get("runtime", {}).get("websocket") is not False:
+        raise RuntimeError("Netlify production baseline includes an unsupported server runtime")
+    netlify_address = netlify.get("lived_address", {})
+    if netlify_address.get("first_bin") != "1004529" or netlify_address.get("hpd_building_id") != "6533":
+        raise RuntimeError("Netlify production baseline is missing the reviewed City join")
+    if {item.get("dataset_id") for item in netlify.get("sources", [])} != {
+        "kj4p-ruqc", "ygpa-z7cr", "wvxf-dwi5", "hcir-3275"
+    }:
+        raise RuntimeError("Netlify production baseline does not name all four City sources")
+    if netlify.get("trace_events") != 13:
+        raise RuntimeError("Netlify production baseline is missing the reviewed trace")
     return (
         "; ".join(dimensions)
-        + "; web-live-flow.gif=520x969; live address baseline valid; four address forms valid; deployment profile valid; five borough baseline valid; "
+        + "; web-live-flow.gif=520x969; live address baseline valid; four address forms valid; deployment profile valid; five borough baseline valid; Netlify production baseline valid; "
         + "prerecorded videos excluded from evidence"
     )
 
