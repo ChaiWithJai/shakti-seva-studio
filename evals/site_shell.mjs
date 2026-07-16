@@ -33,7 +33,7 @@ for (const [path, heading, name] of pages) {
       const menu = page.locator(".mobile-menu");
       if (!await menu.isVisible()) failures.push(`${path}: mobile menu hidden`);
       await menu.locator("summary").click();
-      if (!await menu.locator('a[href="/learn.html"]').isVisible()) failures.push(`${path}: mobile menu did not open`);
+      if (!await menu.locator('a[href="/learn.html"], a[href="/learn"]').isVisible()) failures.push(`${path}: mobile menu did not open`);
       await menu.locator("summary").click();
     }
     const undersized = await page.locator(".site-header a:visible, .site-header summary:visible, .site-footer a:visible").evaluateAll((nodes) => nodes.filter((node) => { const box = node.getBoundingClientRect(); return box.width < 44 || box.height < 44; }).map((node) => node.textContent?.trim()));
