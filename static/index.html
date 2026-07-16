@@ -6,10 +6,10 @@
   <meta name="description" content="Read public NYC housing repair records for one building.">
   <title>Shakti Seva Studio</title>
   <link rel="icon" href="/assets/shakti-seva-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/styles.css?v=8">
+  <link rel="stylesheet" href="/assets/styles.css?v=9">
   <link rel="stylesheet" href="/assets/shell.css?v=1">
 </head>
-<body>
+<body class="experience-page" data-experience-stage="ask" data-result-view="read">
   <a class="skip-link" href="#main">Skip to the address search</a>
   <header class="site-header">
     <a class="brand" href="/" aria-label="Shakti Seva Studio home">
@@ -52,11 +52,13 @@
           </div>
           <div class="address-control">
             <span class="location-mark" aria-hidden="true"></span>
-            <input id="address" name="address" autocomplete="street-address" inputmode="text" maxlength="140" placeholder="For example, 700 E 9th St" role="combobox" aria-autocomplete="list" aria-controls="address-suggestions" aria-expanded="false" aria-describedby="address-help address-treatment form-error" required>
+            <input id="address" name="address" autocomplete="street-address" inputmode="text" maxlength="140" placeholder="Start typing a NYC address" role="combobox" aria-autocomplete="list" aria-controls="address-suggestions" aria-expanded="false" aria-describedby="address-help address-treatment form-error" required>
+            <button id="clear-address" class="clear-address" type="button" aria-label="Clear the address" hidden>×</button>
             <button class="primary-button" type="submit"><span>Search City records</span><span aria-hidden="true">→</span></button>
           </div>
           <div id="address-suggestions" class="address-suggestions" role="listbox" aria-label="NYC address suggestions" hidden></div>
-          <p id="address-help" class="field-help">Include a borough or ZIP when you can. If you paste an apartment number, we remove it before the search.</p>
+          <p id="address-help" class="field-help">Choose a City suggestion when one appears. A borough or ZIP helps. Apartment information is removed before search.</p>
+          <button class="address-example" type="button" data-address-example="700 E 9th St">Try a verified example: 700 E 9th St</button>
           <div id="address-treatment" class="address-treatment" hidden role="status" aria-live="polite"></div>
           <p id="form-error" class="field-error" role="alert"></p>
         </form>
@@ -119,7 +121,7 @@
         <button id="new-search" class="secondary-button" type="button">Check another building</button>
       </header>
 
-      <section id="address-primer" class="address-primer" hidden aria-labelledby="address-primer-title">
+      <section id="address-primer" class="address-primer" data-result-panel="match" hidden aria-labelledby="address-primer-title">
         <header>
           <div>
             <p class="eyebrow">Why the address changed</p>
@@ -127,7 +129,7 @@
           </div>
           <span class="identity-stamp"><span aria-hidden="true">✓</span> Matched by City ID</span>
         </header>
-        <p class="primer-intro">A corner building can face more than one street. A map may name the entrance you use while HPD files the property under the other side. The Building Identification Number, or BIN, is the stable link between them.</p>
+        <p id="primer-intro" class="primer-intro">A corner building can face more than one street. A map may name the entrance you use while HPD files the property under the other side. The Building Identification Number, or BIN, is the stable link between them.</p>
         <ol class="identity-chain" aria-label="How Shakti matched the address to the HPD record">
           <li>
             <span class="primer-icon map-pin" aria-hidden="true"></span>
@@ -157,32 +159,32 @@
         </div>
       </section>
 
-      <article class="short-version">
+      <article class="short-version" data-result-panel="act">
         <p class="eyebrow">The short version</p>
         <h3 id="next-step-label"></h3>
         <p id="next-step-reason"></p>
       </article>
 
-      <div class="stat-grid" aria-label="Record totals">
+      <div class="stat-grid" data-result-panel="read" aria-label="Record totals">
         <article><strong id="complaint-count">0</strong><span>Complaints shown</span></article>
         <article><strong id="open-count">0</strong><span>Open violations</span></article>
         <article><strong id="aep-count">0</strong><span>Enforcement records</span></article>
       </div>
-      <p id="record-limit-note" class="record-limit-note" hidden></p>
+      <p id="record-limit-note" class="record-limit-note" data-result-panel="read" hidden></p>
 
-      <section class="timeline-section">
+      <section class="timeline-section" data-result-panel="read">
         <div class="section-heading"><h3>What happened, newest first</h3><span class="muted">Complaints and violations stay separate</span></div>
         <ol id="timeline" class="timeline"></ol>
       </section>
 
-      <section class="hermes-card">
+      <section class="hermes-card" data-result-panel="learn">
         <div><p class="eyebrow">Optional local extension</p><h3 id="ai-card-title">Read this in plain language</h3><p id="ai-card-copy">Hermes receives the treated building packet. It cannot change the next step.</p></div>
         <button id="hermes-button" class="primary-button" type="button" disabled>Hermes is off</button>
         <a id="local-ai-link" class="primary-button local-ai-link" href="https://github.com/ChaiWithJai/shakti-seva-studio#run-the-local-research-edition" target="_blank" rel="noreferrer" hidden>Run the local AI edition</a>
       </section>
-      <article id="hermes-response" class="hermes-response" hidden><p class="eyebrow">Hermes explanation</p><div id="hermes-text"></div></article>
+      <article id="hermes-response" class="hermes-response" data-result-panel="learn" hidden><p class="eyebrow">Hermes explanation</p><div id="hermes-text"></div></article>
 
-      <details class="receipts">
+      <details class="receipts" data-result-panel="check" open>
         <summary>Sources and processing record</summary>
         <p>Use these details to check where the records came from and what the app did.</p>
         <div id="source-list" class="source-list"></div>
@@ -190,14 +192,23 @@
         <ol id="trace-list" class="trace-list"></ol>
       </details>
 
-      <aside class="city-support" aria-labelledby="support-title">
+      <aside class="city-support" data-result-panel="act" aria-labelledby="support-title">
         <div><p class="eyebrow">Get help from the City</p><h3 id="support-title">Official tenant support</h3><p>Read City guidance, find tenant resources, or contact 311. Shakti does not replace these services or provide legal advice.</p></div>
         <a class="city-link" href="https://www.nyc.gov/content/tenantprotection/pages/" target="_blank" rel="noreferrer">Open NYC Tenant Protection resources</a>
       </aside>
     </section>
+
+    <nav class="experience-rail" aria-label="Lookup stages">
+      <button type="button" data-stage-target="ask" aria-current="step"><span class="rail-dots"><i></i></span><strong>Ask</strong></button>
+      <button type="button" data-stage-target="match" disabled><span class="rail-dots"><i></i></span><strong>Match</strong></button>
+      <button type="button" data-stage-target="read" disabled><span class="rail-dots"><i></i><i></i></span><strong>Read</strong></button>
+      <button type="button" data-stage-target="act" disabled><span class="rail-dots"><i></i></span><strong>Act</strong></button>
+      <button type="button" data-stage-target="check" disabled><span class="rail-dots"><i></i><i></i><i></i></span><strong>Check</strong></button>
+      <button type="button" data-stage-target="learn"><span class="rail-dots"><i></i></span><strong>Learn</strong></button>
+    </nav>
   </main>
 
   <footer class="site-footer"><p>Public-interest technology prototype. The record lookup is deterministic and does not use AI. Not legal advice.</p><nav aria-label="Footer navigation"><a href="/learn.html">Where AI helps</a><a href="https://github.com/ChaiWithJai/shakti-seva-studio">GitHub</a><a href="https://dharmicdata.org">Dharmic Data</a><a href="https://takeabreathnyc.substack.com/subscribe">Newsletter</a></nav></footer>
-  <script src="/assets/app.js?v=8" defer></script>
+  <script src="/assets/app.js?v=9" defer></script>
 </body>
 </html>

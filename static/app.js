@@ -2,6 +2,30 @@ const state = { runtime: "unknown", socket: null, reconnectTimer: null, case: nu
 let runtimeReady;
 const $ = (selector) => document.querySelector(selector);
 
+function setExperienceStage(stage, resultView = null) {
+  document.body.dataset.experienceStage = stage;
+  if (resultView) document.body.dataset.resultView = resultView;
+  const active = stage === "result" ? document.body.dataset.resultView : stage;
+  for (const button of document.querySelectorAll("[data-stage-target]")) {
+    if (button.dataset.stageTarget === active) button.setAttribute("aria-current", "step");
+    else button.removeAttribute("aria-current");
+  }
+}
+
+function unlockResultRail() {
+  for (const target of ["match", "read", "act", "check", "learn"]) {
+    document.querySelector(`[data-stage-target="${target}"]`).disabled = false;
+  }
+}
+
+function resetRail() {
+  document.querySelector('[data-stage-target="match"]').disabled = true;
+  for (const target of ["read", "act", "check"]) {
+    document.querySelector(`[data-stage-target="${target}"]`).disabled = true;
+  }
+  document.querySelector('[data-stage-target="learn"]').disabled = false;
+}
+
 function scrollBehavior() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 }
@@ -219,6 +243,7 @@ function selectSuggestion(suggestion) {
     unit: null,
   };
   input.value = suggestion.label;
+  $("#clear-address").hidden = false;
   state.selectedAddress = parsed;
   state.suggestions = [];
   state.suggestionInput = "";
@@ -286,6 +311,7 @@ async function requestSuggestions(value) {
   const controller = new AbortController();
   state.suggestionController = controller;
   state.suggestionStatus = "searching";
+  $("#case-form").classList.add("is-suggesting");
   previewAddress();
   try {
     const response = state.runtime === "serverless"
@@ -316,6 +342,8 @@ async function requestSuggestions(value) {
       previewAddress();
     }
     return [];
+  } finally {
+    if (state.suggestionController === controller) $("#case-form").classList.remove("is-suggesting");
   }
 }
 
@@ -393,6 +421,7 @@ function renderCandidates(candidates, message) {
     $("#address").setAttribute("aria-invalid", "true");
     $("#address").focus({ preventScroll: true });
     $("#case-form").scrollIntoView({ behavior: scrollBehavior(), block: "center" });
+    setExperienceStage("ask");
     return;
   }
   panel.querySelector("p:not(.eyebrow)").textContent = message || "Choose one building before records are joined.";
@@ -409,7 +438,9 @@ function renderCandidates(candidates, message) {
   }
   panel.hidden = false;
   $("#result").hidden = true;
-  panel.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+  document.querySelector('[data-stage-target="match"]').disabled = false;
+  setExperienceStage("match");
+  panel.focus?.({ preventScroll: true });
 }
 
 function renderCase() {
@@ -431,11 +462,19 @@ function renderCase() {
     $("#primer-searched-address").textContent = searched.label;
     $("#primer-bin").textContent = bin;
     $("#primer-hpd-address").textContent = buildingAddress;
+    $("#address-primer-title").textContent = "Three name tags. One building.";
+    $("#primer-intro").textContent = "A corner building can face more than one street. A map may name the entrance you use while HPD files the property under the other side. The Building Identification Number, or BIN, is the stable link between them.";
     primer.hidden = false;
   } else {
     matchNote.hidden = true;
     matchNote.textContent = "";
-    primer.hidden = true;
+    const bin = building.bin || searched?.bin || "not available";
+    $("#primer-searched-address").textContent = searched?.label || buildingAddress;
+    $("#primer-bin").textContent = bin;
+    $("#primer-hpd-address").textContent = buildingAddress;
+    $("#address-primer-title").textContent = "How the City matched this building.";
+    $("#primer-intro").textContent = "The address you searched and the HPD filing address agree. Shakti also keeps the Building Identification Number, or BIN, so every complaint and violation stays tied to this exact building.";
+    primer.hidden = false;
   }
   $("#complaint-count").textContent = item.complaints.length;
   $("#open-count").textContent = item.violations.filter((row) => String(row.violationstatus).toUpperCase() === "OPEN").length;
@@ -459,7 +498,8 @@ function renderCase() {
   updateHermesButton();
   $("#candidate-panel").hidden = true;
   $("#result").hidden = false;
-  $("#result").scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+  unlockResultRail();
+  setExperienceStage("result", "read");
   $("#result-title").focus({ preventScroll: true });
 }
 
@@ -550,13 +590,24 @@ function updateHermesButton() {
 }
 
 function resetSearch() {
+  state.case = null;
+  state.trace = [];
+  state.traceId = null;
+  state.pendingTraceId = null;
   $("#result").hidden = true;
   $("#candidate-panel").hidden = true;
+  hideProgress();
+  hideError();
+  resetRail();
+  setExperienceStage("ask");
   $("#address").focus();
-  window.scrollTo({ top: 0, behavior: scrollBehavior() });
 }
 
-$("#address").addEventListener("input", () => { previewAddress(); queueSuggestions(); });
+$("#address").addEventListener("input", () => {
+  $("#clear-address").hidden = !$("#address").value;
+  previewAddress();
+  queueSuggestions();
+});
 $("#address").addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeSuggestions();
   if (event.key === "Enter") {
@@ -615,6 +666,46 @@ $("#case-form").addEventListener("submit", async (event) => {
 });
 $("#edit-address").addEventListener("click", resetSearch);
 $("#new-search").addEventListener("click", resetSearch);
+$("#clear-address").addEventListener("click", () => {
+  clearTimeout(state.suggestionTimer);
+  state.suggestionController?.abort();
+  state.selectedAddress = null;
+  state.suggestions = [];
+  state.suggestionInput = "";
+  state.suggestionStatus = "idle";
+  $("#address").value = "";
+  $("#clear-address").hidden = true;
+  $("#case-form").classList.remove("is-suggesting");
+  closeSuggestions();
+  previewAddress();
+  $("#address").focus();
+});
+document.querySelector("[data-address-example]").addEventListener("click", (event) => {
+  $("#address").value = event.currentTarget.dataset.addressExample;
+  $("#clear-address").hidden = false;
+  previewAddress();
+  queueSuggestions();
+  $("#address").focus();
+});
+for (const button of document.querySelectorAll("[data-stage-target]")) {
+  button.addEventListener("click", () => {
+    const target = button.dataset.stageTarget;
+    if (target === "ask") {
+      resetSearch();
+      return;
+    }
+    if (target === "match") {
+      if (!$("#candidate-panel").hidden) setExperienceStage("match");
+      else if (state.case) setExperienceStage("result", "match");
+      return;
+    }
+    if (target === "learn" && !state.case) {
+      window.location.href = "/learn.html";
+      return;
+    }
+    if (state.case) setExperienceStage("result", target);
+  });
+}
 $("#hermes-button").addEventListener("click", () => send({ type: "hermes", trace_id: state.traceId }));
 $("#copy-trace").addEventListener("click", async () => {
   if (!state.traceId) return;

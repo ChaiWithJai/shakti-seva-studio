@@ -3,6 +3,7 @@ import { chromium } from "playwright";
 
 const baseIndex = process.argv.indexOf("--base-url");
 const baseUrl = (baseIndex >= 0 ? process.argv[baseIndex + 1] : "https://shakti.dharmicdata.org").replace(/\/$/, "");
+const liveCase = process.argv.includes("--live-case");
 const output = "output/site-shell";
 await mkdir(output, { recursive: true });
 
@@ -36,6 +37,27 @@ for (const [path, heading, name] of pages) {
       if (!await menu.locator('a[href="/learn.html"], a[href="/learn"]').isVisible()) failures.push(`${path}: mobile menu did not open`);
       await menu.locator("summary").click();
     }
+    if (path === "/") {
+      if (!await page.locator(".experience-rail").isVisible()) failures.push(`${path} ${width}: stage rail hidden`);
+      const documentScrolls = await page.evaluate(() => document.documentElement.scrollHeight > document.documentElement.clientHeight + 1);
+      if (documentScrolls) failures.push(`${path} ${width}: staged tool scrolls the document`);
+      await page.screenshot({ path: `${output}/${name}-${size}.png`, fullPage: true });
+      if (liveCase) {
+        await page.locator("[data-address-example]").click();
+        await page.locator(".address-suggestion").first().waitFor({ state: "visible", timeout: 15000 });
+        await page.locator(".address-suggestion").first().click();
+        await page.locator('#case-form button[type="submit"]').click();
+        await page.locator("#result").waitFor({ state: "visible", timeout: 30000 });
+        if (await page.locator('[data-stage-target="read"]').isDisabled()) failures.push(`${path} ${width}: result rail stayed locked`);
+        for (const target of ["match", "act", "check", "learn", "read"]) {
+          await page.locator(`[data-stage-target="${target}"]`).click();
+          const current = await page.locator(`[data-stage-target="${target}"]`).getAttribute("aria-current");
+          if (current !== "step") failures.push(`${path} ${width}: ${target} stage did not activate`);
+          if (!await page.locator(`[data-result-panel="${target}"]`).first().isVisible()) failures.push(`${path} ${width}: ${target} panel hidden`);
+        }
+        await page.screenshot({ path: `${output}/${name}-${size}-result.png`, fullPage: true });
+      }
+    }
     const undersized = await page.locator(".site-header a:visible, .site-header summary:visible, .site-footer a:visible").evaluateAll((nodes) => nodes.filter((node) => { const box = node.getBoundingClientRect(); return box.width < 44 || box.height < 44; }).map((node) => node.textContent?.trim()));
     if (undersized.length) failures.push(`${path} ${width}: undersized shell targets ${undersized.join(", ")}`);
     if (path === "/learn.html") {
@@ -43,7 +65,7 @@ for (const [path, heading, name] of pages) {
       await page.waitForFunction(() => document.querySelector(".tools img")?.naturalWidth > 0);
       await page.evaluate(() => window.scrollTo(0, 0));
     }
-    await page.screenshot({ path: `${output}/${name}-${size}.png`, fullPage: true });
+    if (path !== "/") await page.screenshot({ path: `${output}/${name}-${size}.png`, fullPage: true });
     await context.close();
   }
 }
