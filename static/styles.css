@@ -375,15 +375,14 @@ body.experience-page {
 .experience-page .progress,
 .experience-page .notice { z-index: 6; inset: 50% auto auto 50%; width: min(calc(100% - 40px), 640px); transform: translate(-50%, -50%); box-shadow: var(--shadow); }
 .experience-page .candidate-panel { overflow: auto; padding: clamp(22px, 4vw, 38px); }
-.experience-page .result { display: flex; min-height: 0; flex-direction: column; padding: 0; overflow: hidden; border-top: 0; }
-.experience-page .result-header { flex: none; padding: 0 2px 16px; border-bottom: 1px solid var(--line); }
+.experience-page .result { display: flex; min-height: 0; flex-direction: column; padding: 0 4px 24px 0; overflow-x: hidden; overflow-y: auto; border-top: 0; overscroll-behavior: contain; }
+.experience-page .result-header { position: sticky; z-index: 4; top: 0; flex: none; padding: 0 2px 16px; border-bottom: 1px solid var(--line); background: var(--canvas); }
 .experience-page .result-header h2 { font-size: clamp(1.55rem, 3.4vw, 2.55rem); }
-.experience-page .result [data-result-panel] { display: none; min-height: 0; overflow: auto; }
+.experience-page .result [data-result-panel] { display: none; min-height: 0; flex: none; overflow: visible; }
 .experience-page[data-result-view="read"] .result [data-result-panel="read"],
 .experience-page[data-result-view="match"] .result [data-result-panel="match"],
 .experience-page[data-result-view="act"] .result [data-result-panel="act"],
-.experience-page[data-result-view="check"] .result [data-result-panel="check"],
-.experience-page[data-result-view="learn"] .result [data-result-panel="learn"] { display: block; }
+.experience-page[data-result-view="check"] .result [data-result-panel="check"] { display: block; }
 .experience-page[data-result-view="read"] .result .stat-grid { display: grid; flex: none; overflow: visible; }
 .experience-page[data-result-view="read"] .result .record-limit-note { flex: none; overflow: visible; }
 .experience-page[data-result-view="read"] .result .timeline-section { margin-top: 12px; padding: 2px 5px 24px 2px; }
@@ -391,8 +390,8 @@ body.experience-page {
 .experience-page[data-result-view="act"] .result .city-support { display: flex; margin-top: 14px; overflow: visible; }
 .experience-page[data-result-view="match"] .result .address-primer { margin-top: 18px; padding: clamp(18px, 3vw, 30px); }
 .experience-page[data-result-view="check"] .result .receipts { margin-top: 18px; padding: 16px 19px; }
-.experience-page[data-result-view="learn"] .result .hermes-card { display: flex; margin-top: 18px; overflow: visible; }
-.experience-page[data-result-view="learn"] .result .hermes-response { margin-top: 12px; }
+.experience-page[data-result-view="act"] .result .hermes-card { display: flex; margin-top: 14px; overflow: visible; }
+.experience-page[data-result-view="act"] .result .hermes-response { margin-top: 12px; }
 
 .experience-rail {
   position: absolute;
@@ -409,7 +408,7 @@ body.experience-page {
   background: rgb(255 253 250 / 94%);
   box-shadow: 0 10px 34px rgb(71 43 32 / 10%);
   backdrop-filter: blur(16px);
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 .experience-rail button {
   position: relative;
@@ -433,12 +432,11 @@ body.experience-page {
 .experience-page[data-experience-stage="result"][data-result-view="match"] .experience-rail [data-stage-target="match"],
 .experience-page[data-experience-stage="result"][data-result-view="read"] .experience-rail [data-stage-target="read"],
 .experience-page[data-experience-stage="result"][data-result-view="act"] .experience-rail [data-stage-target="act"],
-.experience-page[data-experience-stage="result"][data-result-view="check"] .experience-rail [data-stage-target="check"],
-.experience-page[data-experience-stage="result"][data-result-view="learn"] .experience-rail [data-stage-target="learn"] { background: var(--ink); color: white; }
+.experience-page[data-experience-stage="result"][data-result-view="check"] .experience-rail [data-stage-target="check"] { background: var(--ink); color: white; }
 .experience-rail button:disabled { cursor: not-allowed; opacity: .38; }
 .experience-rail strong { font-size: .66rem; letter-spacing: .045em; text-transform: uppercase; }
-.rail-dots { display: flex; min-height: 7px; align-items: center; gap: 3px; }
-.rail-dots i { display: block; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.rail-number { display: grid; width: 16px; height: 16px; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: .52rem; font-weight: 900; line-height: 1; }
+.experience-rail button[data-complete="true"]:not([aria-current="step"]) .rail-number { border-color: var(--green); background: var(--green); color: white; }
 
 .experience-page .site-footer { min-height: 48px; padding-block: 2px; }
 .experience-page .site-footer a { min-height: 44px; }
@@ -462,6 +460,7 @@ body.experience-page {
   .experience-page .trust-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; }
   .experience-page .trust-list span { width: 22px; height: 22px; }
   .experience-page .address-picker { padding: 14px; }
+  .experience-page .address-suggestions { max-height: min(42dvh, 310px); overflow-y: auto; overscroll-behavior: contain; }
   .experience-page .field-help { margin-top: 6px; }
   .experience-page .privacy-note { margin-top: 5px; }
   .experience-page .progress,
@@ -481,7 +480,7 @@ body.experience-page {
 
 @media (max-height: 720px) and (min-width: 721px) {
   .experience-page .site-footer { display: none; }
-  .experience-page .start { padding-block: 18px; }
+  .experience-page .start { align-content: start; padding-block: 18px; overflow-y: auto; overscroll-behavior: contain; }
   .experience-page h1 { font-size: clamp(2.45rem, 5vw, 4rem); }
   .experience-page .lead { margin-bottom: 14px; }
   .experience-page .trust-list { display: flex; flex-wrap: wrap; gap: 8px 16px; }

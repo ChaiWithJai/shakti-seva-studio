@@ -49,7 +49,8 @@ for (const [path, heading, name] of pages) {
         await page.locator('#case-form button[type="submit"]').click();
         await page.locator("#result").waitFor({ state: "visible", timeout: 30000 });
         if (await page.locator('[data-stage-target="read"]').isDisabled()) failures.push(`${path} ${width}: result rail stayed locked`);
-        for (const target of ["match", "act", "check", "learn", "read"]) {
+        if (await page.locator(".experience-rail button").count() !== 5) failures.push(`${path} ${width}: service rail does not contain five stages`);
+        for (const target of ["match", "act", "check", "read"]) {
           await page.locator(`[data-stage-target="${target}"]`).click();
           const current = await page.locator(`[data-stage-target="${target}"]`).getAttribute("aria-current");
           if (current !== "step") failures.push(`${path} ${width}: ${target} stage did not activate`);

@@ -57,6 +57,23 @@ six NYC GeoSearch candidates, and returns five treated suggestions. Selecting a
 suggestion supplies its NYC BIN to the case service, avoiding a second fuzzy
 address interpretation. Autocomplete queries are not persisted or traced.
 
+### Browser service map
+
+The lookup interface has five service stages:
+
+1. **Ask** accepts one street address and removes apartment information.
+2. **Match** binds that address to one City building. A selected GeoSearch
+   suggestion already carries a BIN, so an exact match completes this stage
+   without showing a confirmation screen. Ambiguous results stop here until the
+   person chooses one building.
+3. **Read** shows the bounded complaint and violation record.
+4. **Act** shows the deterministic next step and, in the local edition, the
+   optional plain-language model explanation.
+5. **Check** exposes source receipts and the processing trace.
+
+`Where AI helps` is an educational page outside this service map. It must not
+appear as a sixth lookup stage.
+
 ### Public serverless runtime
 
 Netlify serves an allowlisted static build and three modern JavaScript

@@ -13,17 +13,17 @@ function setExperienceStage(stage, resultView = null) {
 }
 
 function unlockResultRail() {
-  for (const target of ["match", "read", "act", "check", "learn"]) {
+  for (const target of ["match", "read", "act", "check"]) {
     document.querySelector(`[data-stage-target="${target}"]`).disabled = false;
   }
 }
 
 function resetRail() {
+  for (const button of document.querySelectorAll("[data-stage-target]")) delete button.dataset.complete;
   document.querySelector('[data-stage-target="match"]').disabled = true;
   for (const target of ["read", "act", "check"]) {
     document.querySelector(`[data-stage-target="${target}"]`).disabled = true;
   }
-  document.querySelector('[data-stage-target="learn"]').disabled = false;
 }
 
 function scrollBehavior() {
@@ -438,6 +438,7 @@ function renderCandidates(candidates, message) {
   }
   panel.hidden = false;
   $("#result").hidden = true;
+  document.querySelector('[data-stage-target="ask"]').dataset.complete = "true";
   document.querySelector('[data-stage-target="match"]').disabled = false;
   setExperienceStage("match");
   panel.focus?.({ preventScroll: true });
@@ -498,6 +499,8 @@ function renderCase() {
   updateHermesButton();
   $("#candidate-panel").hidden = true;
   $("#result").hidden = false;
+  document.querySelector('[data-stage-target="ask"]').dataset.complete = "true";
+  document.querySelector('[data-stage-target="match"]').dataset.complete = "true";
   unlockResultRail();
   setExperienceStage("result", "read");
   $("#result-title").focus({ preventScroll: true });
@@ -697,10 +700,6 @@ for (const button of document.querySelectorAll("[data-stage-target]")) {
     if (target === "match") {
       if (!$("#candidate-panel").hidden) setExperienceStage("match");
       else if (state.case) setExperienceStage("result", "match");
-      return;
-    }
-    if (target === "learn" && !state.case) {
-      window.location.href = "/learn.html";
       return;
     }
     if (state.case) setExperienceStage("result", target);
