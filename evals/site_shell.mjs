@@ -56,7 +56,10 @@ for (const [path, heading, name] of pages) {
           if (current !== "step") failures.push(`${path} ${width}: ${target} stage did not activate`);
           if (!await page.locator(`[data-result-panel="${target}"]`).first().isVisible()) failures.push(`${path} ${width}: ${target} panel hidden`);
           const activeColor = await page.locator(`[data-stage-target="${target}"]`).evaluate((node) => getComputedStyle(node).backgroundColor);
-          if (activeColor !== "rgb(35, 27, 26)") failures.push(`${path} ${width}: ${target} stage lacks a visible current-state treatment (${activeColor})`);
+          if (activeColor !== "rgb(35, 27, 26)") {
+            const className = await page.locator(`[data-stage-target="${target}"]`).getAttribute("class");
+            failures.push(`${path} ${width}: ${target} stage lacks a visible current-state treatment (${activeColor}; class=${className})`);
+          }
         }
         await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
         await page.screenshot({ path: `${output}/${name}-${size}-result.png`, fullPage: true });

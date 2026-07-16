@@ -268,7 +268,7 @@ footer { padding: 20px 28px; border-top: 1px solid var(--line); background: var(
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
 }
 
 /* The public lookup is a staged tool, not a scrolling landing page. */
