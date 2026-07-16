@@ -7,7 +7,9 @@ function setExperienceStage(stage, resultView = null) {
   if (resultView) document.body.dataset.resultView = resultView;
   const active = stage === "result" ? document.body.dataset.resultView : stage;
   for (const button of document.querySelectorAll("[data-stage-target]")) {
-    if (button.dataset.stageTarget === active) button.setAttribute("aria-current", "step");
+    const current = button.dataset.stageTarget === active;
+    button.classList.toggle("is-current", current);
+    if (current) button.setAttribute("aria-current", "step");
     else button.removeAttribute("aria-current");
   }
 }

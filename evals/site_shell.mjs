@@ -17,7 +17,7 @@ const pages = [
 ];
 
 for (const [path, heading, name] of pages) {
-  for (const [width, height, size] of [[1440, 1000, "desktop"], [390, 844, "mobile"]]) {
+  for (const [width, height, size] of [[1440, 1000, "desktop"], [414, 896, "iphone-11"]]) {
     const context = await browser.newContext({ viewport: { width, height }, reducedMotion: "reduce" });
     const page = await context.newPage();
     page.on("pageerror", (error) => failures.push(`${path} ${width}: ${error.message}`));
@@ -30,7 +30,7 @@ for (const [path, heading, name] of pages) {
     for (const href of ["https://dharmicdata.org", "https://takeabreathnyc.substack.com/subscribe"]) {
       if (await page.locator(`a[href="${href}"]`).count() < 2) failures.push(`${path} ${width}: shell link missing ${href}`);
     }
-    if (width === 390) {
+    if (width <= 620) {
       const menu = page.locator(".mobile-menu");
       if (!await menu.isVisible()) failures.push(`${path}: mobile menu hidden`);
       await menu.locator("summary").click();
@@ -55,7 +55,10 @@ for (const [path, heading, name] of pages) {
           const current = await page.locator(`[data-stage-target="${target}"]`).getAttribute("aria-current");
           if (current !== "step") failures.push(`${path} ${width}: ${target} stage did not activate`);
           if (!await page.locator(`[data-result-panel="${target}"]`).first().isVisible()) failures.push(`${path} ${width}: ${target} panel hidden`);
+          const activeColor = await page.locator(`[data-stage-target="${target}"]`).evaluate((node) => getComputedStyle(node).backgroundColor);
+          if (activeColor !== "rgb(35, 27, 26)") failures.push(`${path} ${width}: ${target} stage lacks a visible current-state treatment (${activeColor})`);
         }
+        await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
         await page.screenshot({ path: `${output}/${name}-${size}-result.png`, fullPage: true });
       }
     }
@@ -76,4 +79,4 @@ if (failures.length) {
   console.error(failures.join("\n"));
   process.exit(1);
 }
-console.log(`Shared Shakti shell passed on ${pages.length} pages at 390px and 1440px.`);
+console.log(`Shared Shakti shell passed on ${pages.length} pages at iPhone 11 (414×896) and 1440px desktop.`);

@@ -427,6 +427,7 @@ body.experience-page {
 .experience-rail button:last-child { border-right: 0; }
 .experience-rail button:not(:disabled):hover { background: var(--rose-soft); color: var(--ink); }
 .experience-rail button[aria-current="step"] { background: var(--ink); color: white; }
+.experience-rail button.is-current { background-color: #231b1a !important; color: white !important; }
 .experience-page[data-experience-stage="ask"] .experience-rail [data-stage-target="ask"],
 .experience-page[data-experience-stage="match"] .experience-rail [data-stage-target="match"],
 .experience-page[data-experience-stage="result"][data-result-view="match"] .experience-rail [data-stage-target="match"],
@@ -436,7 +437,7 @@ body.experience-page {
 .experience-rail button:disabled { cursor: not-allowed; opacity: .38; }
 .experience-rail strong { font-size: .66rem; letter-spacing: .045em; text-transform: uppercase; }
 .rail-number { display: grid; width: 16px; height: 16px; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: .52rem; font-weight: 900; line-height: 1; }
-.experience-rail button[data-complete="true"]:not([aria-current="step"]) .rail-number { border-color: var(--green); background: var(--green); color: white; }
+.experience-rail button[data-complete="true"]:not(.is-current) .rail-number { border-color: var(--green); background: var(--green); color: white; }
 
 .experience-page .site-footer { min-height: 48px; padding-block: 2px; }
 .experience-page .site-footer a { min-height: 44px; }
