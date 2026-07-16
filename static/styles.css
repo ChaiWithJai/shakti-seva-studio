@@ -428,6 +428,13 @@ body.experience-page {
 .experience-rail button:last-child { border-right: 0; }
 .experience-rail button:not(:disabled):hover { background: var(--rose-soft); color: var(--ink); }
 .experience-rail button[aria-current="step"] { background: var(--ink); color: white; }
+.experience-page[data-experience-stage="ask"] .experience-rail [data-stage-target="ask"],
+.experience-page[data-experience-stage="match"] .experience-rail [data-stage-target="match"],
+.experience-page[data-experience-stage="result"][data-result-view="match"] .experience-rail [data-stage-target="match"],
+.experience-page[data-experience-stage="result"][data-result-view="read"] .experience-rail [data-stage-target="read"],
+.experience-page[data-experience-stage="result"][data-result-view="act"] .experience-rail [data-stage-target="act"],
+.experience-page[data-experience-stage="result"][data-result-view="check"] .experience-rail [data-stage-target="check"],
+.experience-page[data-experience-stage="result"][data-result-view="learn"] .experience-rail [data-stage-target="learn"] { background: var(--ink); color: white; }
 .experience-rail button:disabled { cursor: not-allowed; opacity: .38; }
 .experience-rail strong { font-size: .66rem; letter-spacing: .045em; text-transform: uppercase; }
 .rail-dots { display: flex; min-height: 7px; align-items: center; gap: 3px; }
