@@ -12,6 +12,14 @@ technology for public work and want to show what their software actually does.
 Shakti is a research prototype. It is not a City service. It does not file a
 complaint, give legal advice, score a landlord, or predict an agency action.
 
+## Meet the author and get guidance
+
+The public site includes a separate [AI Guidance Counselor page](https://shakti.dharmicdata.org/guidance.html). It explains who Jai Bhagat is, how the Shakti case study reflects his approach, what happens in a session, and what a person takes away.
+
+The page keeps the paid offer outside the lookup flow. The housing record search stays the main job on the homepage. A session is 60 minutes and costs $125. The person leaves with a defined first use case, a tool choice, data boundaries, and a 30 day test plan. It is guidance and project definition, not a promise of a finished software build.
+
+Paid sessions support Jai's public demos and teaching while he documents the path toward a nonprofit collective by June 2027. Shakti Seva Studio is not a registered nonprofit today.
+
 ## Choose the public or local edition
 
 | Edition | What runs | AI | Best for |
