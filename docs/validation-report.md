@@ -1,15 +1,18 @@
 # Validation report
 
-Validated locally on July 15, 2026. This report records what was exercised; it
+Validated locally on July 15 and July 16, 2026. This report records what was exercised; it
 is not a claim that changing public data or an untested model will behave the
 same way later.
 
 ## Automated controls
 
-- 18 tests passed for field treatment, address normalization, routing, packet
+- 19 tests passed for field treatment, address normalization, routing, packet
   limits, trace integrity, CLI behavior, static assets, socket behavior, and the
   Hermes adapter. The data client test covers bounded retry after a temporary
   server error.
+- Six Node tests passed for the serverless data plane. A browser shell check
+  passed the public lookup, applied RAG guide, and author page at 390 and 1440
+  pixels with no horizontal overflow and 44 pixel navigation targets.
 - A cross-origin WebSocket handshake was rejected with policy code `1008`.
 - A controlled fake Hermes process completed the full adapter boundary and
   produced `hermes.inspected`, `hermes.started`, and `hermes.completed` events.
@@ -107,6 +110,17 @@ contained fixture based scenes. The README, live application, source receipts,
 tests, and dated reports are the authoritative public artifacts.
 
 ## Netlify serverless acceptance
+
+On July 16, the hosted GeoSearch proxy returned a temporary 503 even though the
+same City endpoint answered a direct request. The Netlify fetch path was sending
+a custom user agent and accepting compressed transfer encoding. Removing the
+custom user agent and requesting identity encoding restored the proxy. A
+regression assertion now checks those outbound request headers.
+
+The full local Netlify acceptance then passed again for `700 E 9th St`. It
+returned BIN `1004529`, HPD Building `6533`, 25 displayed complaints, 6 open
+violations, four source receipts, a 13 event trace, no unit identifier exposure,
+and no model event. This is a dated recovery check, not an availability promise.
 
 A reviewed Netlify draft served the public browser without Python, WebSockets,
 Hermes, or Bonsai. Its health response returned `ai.enabled: false` and

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learn how Shakti uses bounded retrieval, data treatment, tool receipts, and optional local AI to amplify meaningful work.">
+  <title>Where local AI helps | Shakti Seva Studio</title>
+  <link rel="icon" href="/assets/shakti-seva-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css?v=8">
+  <link rel="stylesheet" href="/assets/learn.css?v=1">
+  <link rel="stylesheet" href="/assets/shell.css?v=1">
+</head>
+<body class="learn-page">
+  <a class="skip-link" href="#main">Skip to the applied RAG guide</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Shakti Seva Studio home"><img src="/assets/shakti-seva-mark.svg" alt="" class="brand-mark"><span><strong>Shakti Seva Studio</strong><small>Public records, treated with care.</small></span></a>
+    <div class="header-actions">
+      <nav class="shell-links" aria-label="Primary navigation"><a class="header-link" href="/">Check a building</a><a class="header-link featured" aria-current="page" href="/learn.html">Where AI helps</a><a class="header-link" href="/guidance.html">Meet Jai</a><a class="header-link" href="https://dharmicdata.org">Dharmic Data ↗</a><a class="header-link" href="https://takeabreathnyc.substack.com/subscribe">Newsletter ↗</a></nav>
+      <div class="connection public" role="status"><span class="connection-dot"></span><span>Learning guide · no AI</span></div>
+      <details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="/">Check a building</a><a href="/learn.html">Where AI helps</a><a href="/guidance.html">Meet Jai</a><a href="https://dharmicdata.org">Dharmic Data ↗</a><a href="https://takeabreathnyc.substack.com/subscribe">Newsletter ↗</a></nav></details>
+    </div>
+  </header>
+
+  <main id="main" class="learn-main">
+    <section class="learn-hero">
+      <div><p class="eyebrow">Applied enterprise RAG</p><h1>Use AI to amplify meaningful work, not replace judgment.</h1><p class="lead">Shakti is a small reference architecture for a serious idea. Retrieve only the evidence needed for one case. Treat it before a model sees it. Let AI explain, compare, or draft. Keep the sources, tools, and final decision visible to a person.</p><div class="hero-actions"><a class="primary-button" href="/">Try the public lookup</a><a class="secondary-button" href="https://github.com/ChaiWithJai/shakti-seva-studio">Inspect the repository ↗</a></div></div>
+      <div class="case-card" aria-label="Shakti reference architecture"><p class="eyebrow">The Shakti case</p><strong>1 building</strong><span>becomes one bounded evidence packet</span><strong>4 City sources</strong><span>arrive with dates and processing receipts</span><strong>0 AI decisions</strong><span>in address matching, counts, privacy, or the next step</span><strong>1 optional AI job</strong><span>explain the treated packet for human review</span></div>
+    </section>
+
+    <section class="learn-section architecture" aria-labelledby="architecture-title">
+      <header><p class="eyebrow">The reusable pattern</p><h2 id="architecture-title">A case packet, not a data dump.</h2><p>Enterprise RAG becomes useful when retrieval follows the work and its permissions. Shakti does not send a model every housing record. It builds one small packet around the building a person chose.</p></header>
+      <ol class="architecture-flow">
+        <li><span>01</span><strong>Ask</strong><p>Name the person, task, and result that matters.</p></li>
+        <li><span>02</span><strong>Retrieve</strong><p>Use an approved key to fetch only relevant evidence.</p></li>
+        <li><span>03</span><strong>Treat</strong><p>Normalize, redact, cap, and attach source receipts.</p></li>
+        <li><span>04</span><strong>Amplify</strong><p>Let a model explain, compare, or draft within the packet.</p></li>
+        <li><span>05</span><strong>Review</strong><p>Return the work and evidence to a person who decides.</p></li>
+      </ol>
+    </section>
+
+    <section class="learn-section boundary" aria-labelledby="boundary-title">
+      <header><p class="eyebrow">The boundary is the product</p><h2 id="boundary-title">AI may help with the reading. It does not own the record.</h2></header>
+      <div class="boundary-grid"><article class="may"><h3>AI may</h3><ul><li>explain a treated case in plain language</li><li>compare evidence and point to disagreements</li><li>draft questions, briefs, or follow-up notes</li><li>adapt a verified explanation for another audience</li><li>suggest missing evidence for a person to retrieve</li></ul></article><article class="may-not"><h3>AI may not</h3><ul><li>change source records or hide uncertainty</li><li>expand retrieval beyond the approved case</li><li>make eligibility, enforcement, or legal decisions</li><li>send, publish, file, or delete without review</li><li>turn a missing record into a confident answer</li></ul></article></div>
+    </section>
+
+    <section class="learn-section use-cases" aria-labelledby="use-cases-title">
+      <header><p class="eyebrow">Meaningful applied use cases</p><h2 id="use-cases-title">The pattern travels. The boundaries change.</h2><p>These are reference patterns, not finished Shakti features. Each one begins with a real task and ends with a person reviewing the work.</p></header>
+      <div class="use-case-grid">
+        <article><span>Public housing</span><h3>Prepare one repair case</h3><p><strong>Retrieve:</strong> records tied to one building ID.</p><p><strong>Amplify:</strong> explain the timeline and draft questions with citations.</p><p><strong>Keep human:</strong> advocacy strategy, filing, and legal judgment.</p></article>
+        <article><span>Community services</span><h3>Navigate verified resources</h3><p><strong>Retrieve:</strong> current program rules and official service pages.</p><p><strong>Amplify:</strong> compare options and explain what documents may be needed.</p><p><strong>Keep human:</strong> eligibility decisions and applications.</p></article>
+        <article><span>Public meetings</span><h3>Trace a policy decision</h3><p><strong>Retrieve:</strong> agendas, minutes, votes, and named budget records.</p><p><strong>Amplify:</strong> build a dated brief and surface unanswered questions.</p><p><strong>Keep human:</strong> interpretation, public comment, and publication.</p></article>
+        <article><span>Field operations</span><h3>Prepare an inspection visit</h3><p><strong>Retrieve:</strong> the assigned case, approved history, and current checklist.</p><p><strong>Amplify:</strong> assemble the visit brief and flag conflicting evidence.</p><p><strong>Keep human:</strong> findings, safety decisions, and enforcement.</p></article>
+        <article><span>Grant programs</span><h3>Review evidence without losing the source</h3><p><strong>Retrieve:</strong> one application and the approved rubric.</p><p><strong>Amplify:</strong> map submitted evidence to rubric questions.</p><p><strong>Keep human:</strong> scoring, funding, and conflict review.</p></article>
+        <article><span>Internal knowledge</span><h3>Answer policy questions with receipts</h3><p><strong>Retrieve:</strong> current, approved policies for the person's role.</p><p><strong>Amplify:</strong> answer with exact sections and state when policies conflict.</p><p><strong>Keep human:</strong> exceptions, discipline, and policy changes.</p></article>
+      </div>
+    </section>
+
+    <section class="learn-section tools" aria-labelledby="tools-title">
+      <div><p class="eyebrow">Local AI and traced tools</p><h2 id="tools-title">A model becomes useful when its tools are narrow and inspectable.</h2><p>In the local research edition, Hermes receives the treated case packet. Its session is tagged, bounded to four turns, and separated from the public record lookup. The next engineering step is to relate each Hermes tool call to the Shakti trace without copying private content into the civic ledger.</p><div class="tool-list"><span>Case packet reader</span><span>Source receipt viewer</span><span>Trace verifier</span><span>Bounded draft writer</span></div><a class="primary-button" href="https://github.com/ChaiWithJai/shakti-seva-studio#run-the-local-research-edition">Run the local research edition ↗</a></div>
+      <figure><img src="/assets/hermes-tui.png" loading="lazy" alt="Hermes terminal interface running the Shakti local research edition"><figcaption>Real project capture. The public web edition does not include Hermes.</figcaption></figure>
+    </section>
+
+    <section class="learn-section checklist" aria-labelledby="checklist-title">
+      <header><p class="eyebrow">Before calling it enterprise RAG</p><h2 id="checklist-title">Prove the whole loop.</h2></header>
+      <ol><li><strong>Retrieval:</strong> Can a reviewer see why every source entered the case?</li><li><strong>Permissions:</strong> Does the system enforce what this person and model may read?</li><li><strong>Treatment:</strong> Are private fields removed before model use?</li><li><strong>Receipts:</strong> Are source dates, tool calls, and stop reasons inspectable?</li><li><strong>Evaluation:</strong> Did known cases test missing, conflicting, and stale evidence?</li><li><strong>Review:</strong> Is the human decision explicit before anything changes outside the workspace?</li></ol>
+    </section>
+
+    <section class="newsletter-band"><div><p class="eyebrow">Keep learning in public</p><h2>Follow the next useful experiment.</h2><p>The newsletter shares working demos, design choices, failures, and practical ways to apply AI to work that matters.</p></div><a class="primary-button" href="https://takeabreathnyc.substack.com/subscribe">Join the newsletter ↗</a></section>
+  </main>
+
+  <footer class="site-footer"><p>Public-interest technology prototype. The public lookup is deterministic and does not use AI. Not legal advice.</p><nav aria-label="Footer navigation"><a href="/">Check a building</a><a href="https://github.com/ChaiWithJai/shakti-seva-studio">GitHub</a><a href="https://dharmicdata.org">Dharmic Data</a><a href="https://takeabreathnyc.substack.com/subscribe">Newsletter</a></nav></footer>
+</body>
+</html>

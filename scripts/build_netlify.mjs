@@ -10,7 +10,8 @@ await rm(destination, { recursive: true, force: true });
 await mkdir(assets, { recursive: true });
 await cp(resolve(source, "index.html"), resolve(destination, "index.html"));
 await cp(resolve(source, "guidance.html"), resolve(destination, "guidance.html"));
-for (const name of ["app.js", "styles.css", "guidance.css", "shakti-seva-mark.svg", "jai-portrait-motion.jpg", "jai-dogged-pursuits.jpg", "jai-studio.jpg"]) {
+await cp(resolve(source, "learn.html"), resolve(destination, "learn.html"));
+for (const name of ["app.js", "styles.css", "guidance.css", "learn.css", "shell.css", "shakti-seva-mark.svg", "jai-portrait-motion.jpg", "jai-dogged-pursuits.jpg", "jai-studio.jpg", "hermes-tui.png"]) {
   await cp(resolve(source, name), resolve(assets, name));
 }
 console.log("Built the allowlisted Netlify site in dist/");

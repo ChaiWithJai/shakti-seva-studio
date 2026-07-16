@@ -11,6 +11,7 @@ build/
 .playwright-cli/
 output/
 demo/node_modules/
+node_modules/
 demo/.venv-audio/
 demo/out/
 traces/*.jsonl

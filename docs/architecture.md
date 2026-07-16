@@ -103,3 +103,8 @@ context.
 - Forgiving Format for complete pasted addresses.
 - Autocomplete and Input Feedback for ranked, canonical NYC addresses.
 - Blank Slate behavior for an unresolved live address.
+
+The public lookup, applied RAG guide, and author page share one header, footer,
+palette, typography system, and navigation model. The learning guide is a
+secondary path. It must not interrupt the address task or imply that the hosted
+lookup uses AI. See the [applied RAG information architecture](applied-rag-information-architecture.md).

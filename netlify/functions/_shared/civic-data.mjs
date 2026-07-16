@@ -126,7 +126,7 @@ async function fetchWithRetry(url, { fetchImpl = fetch, attempts = 3, timeoutMs 
   for (let attempt = 0; attempt < attempts; attempt += 1) {
     try {
       const response = await fetchImpl(url, {
-        headers: { "user-agent": "ShaktiSevaStudio-Netlify/0.1", accept: "application/json" },
+        headers: { accept: "application/json", "accept-encoding": "identity" },
         signal: AbortSignal.timeout(timeoutMs),
       });
       if (!response.ok) {

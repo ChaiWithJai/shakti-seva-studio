@@ -1,0 +1,13 @@
+{
+  "name": "shakti-seva-studio-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build_netlify.mjs",
+    "test:data": "node --test netlify/tests/*.test.mjs",
+    "test:ui": "node evals/site_shell.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
+}

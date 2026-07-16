@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
-:root { --paper:#fffdf9; --cream:#f5eee8; --ink:#241c1b; --rose:#cc3f62; --rose-dark:#a92f4d; --green:#2f775c; --gold:#e6b54c; --line:#decfc7; --muted:#756864; --serif:'Fraunces',Georgia,serif; --sans:'DM Sans',Arial,sans-serif; }
+:root { --paper:#fffdfa; --cream:#f7f2ec; --ink:#231b1a; --rose:#bd3154; --rose-dark:#95223f; --green:#246748; --gold:#e2ad43; --line:#e5d9d3; --muted:#706460; --serif:"Avenir Next",Avenir,"Segoe UI",ui-rounded,system-ui,sans-serif; --sans:"Avenir Next",Avenir,"Segoe UI",ui-rounded,system-ui,sans-serif; }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body { margin:0; background:var(--cream); color:var(--ink); font-family:var(--sans); line-height:1.6; }

@@ -32,7 +32,10 @@ test("unit: code selects the next step without AI", () => {
 
 test("unit: GeoSearch fallback never swaps the house number", async () => {
   let calls = 0;
-  const fetchImpl = async () => {
+  const fetchImpl = async (_url, options) => {
+    assert.equal(options.headers.accept, "application/json");
+    assert.equal(options.headers["accept-encoding"], "identity");
+    assert.equal(options.headers["user-agent"], undefined);
     calls += 1;
     const features = calls === 1 ? [] : [
       {

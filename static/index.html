@@ -7,6 +7,7 @@
   <title>Shakti Seva Studio</title>
   <link rel="icon" href="/assets/shakti-seva-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css?v=8">
+  <link rel="stylesheet" href="/assets/shell.css?v=1">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to the address search</a>
@@ -16,11 +17,17 @@
       <span><strong>Shakti Seva Studio</strong><small>Public records, treated with care.</small></span>
     </a>
     <div class="header-actions">
-      <a class="header-link" href="#how-it-works">How it works</a>
-      <a class="header-link" href="/guidance.html">Meet Jai</a>
+      <nav class="shell-links" aria-label="Primary navigation">
+        <a class="header-link" href="/">Check a building</a>
+        <a class="header-link featured" href="/learn.html">Where AI helps</a>
+        <a class="header-link" href="/guidance.html">Meet Jai</a>
+        <a class="header-link" href="https://dharmicdata.org">Dharmic Data ↗</a>
+        <a class="header-link" href="https://takeabreathnyc.substack.com/subscribe">Newsletter ↗</a>
+      </nav>
       <div class="connection" id="connection" role="status" aria-live="polite">
         <span class="connection-dot"></span><span id="connection-label">Checking how this site runs</span>
       </div>
+      <details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="/">Check a building</a><a href="/learn.html">Where AI helps</a><a href="/guidance.html">Meet Jai</a><a href="https://dharmicdata.org">Dharmic Data ↗</a><a href="https://takeabreathnyc.substack.com/subscribe">Newsletter ↗</a></nav></details>
     </div>
   </header>
 
@@ -68,6 +75,21 @@
         <li><span>1</span><strong>Your address</strong><small>Sent only when you search</small></li>
         <li><span>2</span><strong>City building ID</strong><small>Matched through NYC GeoSearch</small></li>
         <li><span>3</span><strong>Public records</strong><small>Returned with source receipts</small></li>
+      </ol>
+    </section>
+
+    <section class="rag-bridge" aria-labelledby="rag-bridge-title">
+      <div>
+        <p class="eyebrow">One case shows the pattern</p>
+        <h2 id="rag-bridge-title">Useful RAG starts with a boundary, not a chatbot.</h2>
+        <p>Shakti retrieves only the public records tied to one building. Code treats the evidence and keeps source receipts. A local model may explain the finished packet, but it cannot change the record or choose the next step.</p>
+        <a class="rag-link" href="/learn.html">See where this architecture helps next <span aria-hidden="true">→</span></a>
+      </div>
+      <ol class="rag-mini-flow" aria-label="Applied RAG flow">
+        <li><span>01</span><strong>Retrieve</strong><small>Only evidence allowed for this case</small></li>
+        <li><span>02</span><strong>Treat</strong><small>Normalize, redact, limit, and receipt</small></li>
+        <li><span>03</span><strong>Amplify</strong><small>Explain, compare, or draft for review</small></li>
+        <li><span>04</span><strong>Decide</strong><small>A person or deterministic rule acts</small></li>
       </ol>
     </section>
 
@@ -175,7 +197,7 @@
     </section>
   </main>
 
-  <footer>Public-interest technology prototype. The record lookup is deterministic and does not use AI. <a href="/guidance.html">Meet the author and get AI guidance.</a> Not legal advice.</footer>
+  <footer class="site-footer"><p>Public-interest technology prototype. The record lookup is deterministic and does not use AI. Not legal advice.</p><nav aria-label="Footer navigation"><a href="/learn.html">Where AI helps</a><a href="https://github.com/ChaiWithJai/shakti-seva-studio">GitHub</a><a href="https://dharmicdata.org">Dharmic Data</a><a href="https://takeabreathnyc.substack.com/subscribe">Newsletter</a></nav></footer>
   <script src="/assets/app.js?v=8" defer></script>
 </body>
 </html>

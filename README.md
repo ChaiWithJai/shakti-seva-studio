@@ -12,6 +12,24 @@ technology for public work and want to show what their software actually does.
 Shakti is a research prototype. It is not a City service. It does not file a
 complaint, give legal advice, score a landlord, or predict an agency action.
 
+## Learn the applied RAG pattern
+
+The public site includes a [Where AI helps](https://shakti.dharmicdata.org/learn.html)
+guide. It uses Shakti to explain a reusable enterprise RAG pattern: retrieve
+only evidence allowed for one case, treat it before model use, keep source and
+tool receipts, give AI a bounded amplification job, and return the result to a
+person for review.
+
+The guide includes reference patterns for housing advocacy, community service
+navigation, public meeting research, field operations, grant review, and
+internal policy questions. These are design patterns, not claimed Shakti
+features. The hosted housing lookup remains deterministic and AI free.
+
+Every Shakti page links back to [Dharmic Data](https://dharmicdata.org) and to
+Jai's [newsletter](https://takeabreathnyc.substack.com/subscribe). Shakti keeps
+its own visual system and housing task rather than inheriting the Dharmic Data
+homepage.
+
 ## Meet the author and get guidance
 
 The public site includes a separate [AI Guidance Counselor page](https://shakti.dharmicdata.org/guidance.html). It explains who Jai Bhagat is, how the Shakti case study reflects his approach, what happens in a session, and what a person takes away.
@@ -249,6 +267,7 @@ evidence. The earlier fixture based videos were removed.
 - [How we built this](docs/how-we-built-this.md)
 - [Netlify deployment](docs/netlify-deployment.md)
 - [Local AI and tool use](docs/local-ai-extension.md)
+- [Applied RAG information architecture](docs/applied-rag-information-architecture.md)
 - [Engineering notes](docs/engineering-talk.md)
 - [Public reference guide](docs/public-reference.md)
 - [Citation file](CITATION.cff)

@@ -108,6 +108,14 @@ def create_app(
     async def index() -> FileResponse:
         return FileResponse(static / "index.html")
 
+    @app.get("/learn.html")
+    async def learn() -> FileResponse:
+        return FileResponse(static / "learn.html")
+
+    @app.get("/guidance.html")
+    async def guidance() -> FileResponse:
+        return FileResponse(static / "guidance.html")
+
     @app.get("/api/live")
     async def live() -> dict[str, Any]:
         """Answer frequent process liveness probes without starting Hermes."""

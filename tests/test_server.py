@@ -192,3 +192,16 @@ def test_static_app_uses_brand_and_socket() -> None:
     assert 'id="result-title" tabindex="-1"' in html
     assert '$("#result-title").focus' in javascript
     assert 'prefers-reduced-motion: reduce' in javascript
+
+
+def test_local_server_exposes_the_shared_learning_pages(tmp_path: Path) -> None:
+    app = create_app(root=ROOT, traces=tmp_path, hermes=FakeHermes())
+    with TestClient(app) as client:
+        learn = client.get("/learn.html")
+        guidance = client.get("/guidance.html")
+    assert learn.status_code == 200
+    assert "Applied enterprise RAG" in learn.text
+    assert "https://dharmicdata.org" in learn.text
+    assert guidance.status_code == 200
+    assert 'class="site-header"' in guidance.text
+    assert "takeabreathnyc.substack.com/subscribe" in guidance.text

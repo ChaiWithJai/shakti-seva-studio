@@ -1,0 +1,73 @@
+:root {
+  --shell-ink: #231b1a;
+  --shell-muted: #706460;
+  --shell-line: #e5d9d3;
+  --shell-surface: #fffdfa;
+  --shell-rose: #95223f;
+  --shell-green: #246748;
+}
+
+.site-header {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: flex;
+  min-height: 76px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px clamp(18px, 4vw, 52px);
+  border-bottom: 1px solid var(--shell-line);
+  background: rgb(255 253 250 / 92%);
+  backdrop-filter: blur(18px);
+  font-family: "Avenir Next", Avenir, "Segoe UI", ui-rounded, system-ui, sans-serif;
+}
+
+.site-header .brand {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 11px;
+  color: var(--shell-ink);
+  text-decoration: none;
+}
+
+.site-header .brand-mark { width: 44px; height: 37px; object-fit: contain; }
+.site-header .brand strong, .site-header .brand small { display: block; }
+.site-header .brand strong { line-height: 1.1; }
+.site-header .brand small { margin-top: 3px; color: var(--shell-muted); font-size: .68rem; }
+.header-actions, .shell-links { display: flex; align-items: center; gap: 16px; }
+.site-header .header-link { display: inline-flex; min-height: 44px; align-items: center; color: var(--shell-muted); font-size: .74rem; font-weight: 750; text-decoration: none; }
+.site-header .header-link:hover, .site-header .header-link[aria-current="page"] { color: var(--shell-ink); }
+.site-header .header-link.featured { color: var(--shell-rose); }
+.site-header .connection { display: inline-flex; align-items: center; gap: 8px; padding: 7px 11px; border: 1px solid var(--shell-line); border-radius: 999px; background: white; color: var(--shell-muted); font-size: .74rem; font-weight: 700; }
+.site-header .connection-dot { width: 8px; height: 8px; border-radius: 50%; background: #8a651f; box-shadow: 0 0 0 4px #f8f0dc; }
+.site-header .connection.ready, .site-header .connection.public { color: var(--shell-green); }
+.site-header .connection.ready .connection-dot, .site-header .connection.public .connection-dot { background: var(--shell-green); box-shadow: 0 0 0 4px #e4f2ea; }
+.site-header .connection.error { color: #a73636; }
+.site-header .connection.error .connection-dot { background: #a73636; box-shadow: 0 0 0 4px #fae8e6; }
+
+.mobile-menu { display: none; position: relative; }
+.mobile-menu summary { min-height: 44px; padding: 11px 13px; border: 1px solid var(--shell-line); border-radius: 999px; background: white; color: var(--shell-ink); font-size: .75rem; font-weight: 800; list-style: none; }
+.mobile-menu summary::-webkit-details-marker { display: none; }
+.mobile-menu nav { position: absolute; top: calc(100% + 8px); right: 0; display: grid; width: min(78vw, 18rem); padding: 8px; border: 1px solid var(--shell-line); border-radius: 14px; background: white; box-shadow: 0 18px 50px rgb(71 43 32 / 16%); }
+.mobile-menu nav a { min-height: 44px; padding: 11px 12px; border-radius: 9px; color: var(--shell-ink); font-size: .82rem; font-weight: 750; text-decoration: none; }
+.mobile-menu nav a:hover { background: #f9e8ed; }
+
+.site-footer { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 22px; padding: 24px clamp(18px, 4vw, 52px); border-top: 1px solid var(--shell-line); background: var(--shell-surface); color: var(--shell-muted); font: .73rem/1.5 "Avenir Next", Avenir, "Segoe UI", ui-rounded, system-ui, sans-serif; text-align: left; }
+.site-footer p { margin: 0; }
+.site-footer nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 18px; }
+.site-footer a { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; color: var(--shell-rose); font-weight: 800; text-underline-offset: 3px; }
+
+@media (max-width: 980px) {
+  .shell-links { display: none; }
+  .mobile-menu { display: block; }
+}
+
+@media (max-width: 620px) {
+  .site-header { padding: 9px 14px; }
+  .site-header .brand small, .site-header .connection { display: none; }
+  .site-header .brand-mark { width: 38px; height: 34px; }
+  .site-footer { grid-template-columns: 1fr; }
+  .site-footer nav { justify-content: flex-start; }
+}
